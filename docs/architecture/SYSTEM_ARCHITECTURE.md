@@ -50,6 +50,8 @@ The API deliberately receives already standardized candidate features in the bas
 
 Adapters fetch or import building footprints, elevation/surface models, irradiance/weather, grid assets and economic proxies. They preserve raw files outside Git and emit a source manifest plus normalized geospatial layers.
 
+The baseline building adapter uses Google Open Buildings v3 polygons and samples Open Buildings Temporal v1 heights. GOBS is a capability-gated enrichment adapter because its state files are requested rather than directly downloaded. A missing optional adapter produces a visible warning, not a failed run. See [ADR 0004](decisions/0004-gobs-is-optional-enrichment.md).
+
 ### 2. Temporal and provenance gate
 
 Every input declares provider, citation, license, retrieval time, version, spatial resolution and temporal validity. Snapshot/range sources outside the run reference date generate warnings. Production should reject severe mismatches; the MVP makes them visible.

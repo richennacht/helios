@@ -1,34 +1,56 @@
-# Five-person delivery workflow
+# Six-person delivery workflow
+
+This page is the short operating agreement. The complete person-by-person procedure is in [SIX_PERSON_EXECUTION_PLAN.md](SIX_PERSON_EXECUTION_PLAN.md).
+
+## Single-responsibility split
+
+| Person | One owned subsystem | Consumes | Produces |
+|---|---|---|---|
+| 1 — data/GIS engineer | Kharghar source acquisition and canonical GIS layers | AOI and source list | versioned buildings, terrain, roads, power, solar/weather and economic input layers plus manifests |
+| 2 — spatial-feature engineer | roof, height, terrain, access and grid-proximity features | Person 1 canonical layers | one spatial-feature row per `candidate_id` |
+| 3 — solar/economics engineer | solar-yield and early techno-economic features | Person 1 inputs + Person 2 spatial features | one solar/economic-feature row per `candidate_id` |
+| 4 — ranking/ML engineer | filters, normalization, MCDA, confidence and rank stability | fused feature rows | ranked candidates, component scores and reason codes |
+| 5 — platform engineer | contracts, PostGIS, API, orchestration and CI | outputs from Persons 1–4 | versioned analysis run and GeoJSON API |
+| 6 — validation/demo owner (non-technical) | reviewed labels, evidence ledger and presentation | API/GeoLibre output | validation sheet, baseline timings, demo script and claim evidence |
+
+No person may silently take over another person's transformation. If an upstream output is unavailable, use the checked-in fixture with the same schema.
+
+## Source-availability rule
+
+The GOBS dashboard is not a direct raw-data download. GOBS state files are request-only and therefore optional enrichment. Person 1 builds the baseline from Google Open Buildings v3 polygons and Open Buildings Temporal v1 heights; Persons 2–5 must keep the pipeline executable without GOBS; Person 6 identifies each result as fallback-only or enriched. See [the verified finding, actions and six-person differences](data/GOBS_ACCESS_AND_FALLBACK.md).
 
 ## Shared integration rule
 
-All work enters through the contracts in `helios/contracts/models.py`. Each owner works on a short-lived branch, opens a pull request to `integration`, and attaches a fixture or reproducible output. `main` is the demo-stable branch. One real candidate must pass end to end before any team member scales a module.
+1. Person 5 freezes the v1 contracts and sample fixtures before parallel work begins.
+2. Each person works only on the owned paths listed in the execution plan.
+3. Each branch must produce a contract-valid artifact that the next stage can load without manual editing.
+4. Pull requests target `integration`; `main` stays demo-stable.
+5. Codex combines work in dependency order: P5 contracts → P1 → P2 → P3 → P4 → P5 runtime wiring → P6 evidence.
+6. One real Kharghar candidate must pass all six stages before anyone scales the AOI.
 
-| Person | Primary responsibility | Must deliver | Definition of done |
-|---|---|---|---|
-| 1 — ML/ranking lead (includes project lead) | normalization, MCDA, uncertainty, rank stability, optional challenger | scoring package, scenario weights, evaluation notebook/script, recorded metrics | excluded sites cannot rank; reranking is reproducible; Precision@K/nDCG evaluation runs on reviewed labels |
-| 2 — GIS/GeoLibre lead | AOI, public-data acquisition, CRS, provenance, GeoLibre project | source manifests, cleaned layers, repeatable import notes, styled shortlist map | all layers share documented CRS; citations/licenses exist; no machine-specific paths; map consumes API GeoJSON |
-| 3 — geometry/solar lead | rooftop geometry, height/shading proxy, solar-yield physics | candidate feature table with units/confidence, assumptions, validation fixture | outputs match contract; proxy limitations are visible; sample sites pass sanity checks |
-| 4 — platform/integration lead | FastAPI, PostGIS, pipeline orchestration, CI | API endpoints, persistence adapter, migrations, integration tests, deploy instructions | one request returns ranked GeoJSON; CI passes; errors preserve run/source context |
-| 5 — product/validation lead | baseline scouting comparison, field/expert labels, demo UX, narrative | validation rubric/form, reviewed top-K set, demo script, screenshots/evidence | manual baseline and Helios use same AOI/time budget; claims trace to measured results |
+## Branches
 
-## Contract handoffs
+- Person 1: `feature/p1-kharghar-data`
+- Person 2: `feature/p2-spatial-features`
+- Person 3: `feature/p3-solar-economics`
+- Person 4: `feature/p4-ranking-stability`
+- Person 5: `feature/p5-platform-integration`
+- Person 6: `docs/p6-validation-demo`
 
-1. GIS lead publishes `SourceManifest` records and candidate geometry IDs.
-2. Geometry/solar lead joins features by `candidate_id` and records `provenance_ids`.
-3. Platform lead validates contracts and persists a versioned run.
-4. Ranking lead produces eligibility, component scores, ranks and stability evidence.
-5. Platform emits GeoJSON; GIS lead styles it; product lead records validation outcomes.
+## Handoff chain
 
-## Branch and pull-request convention
+```text
+P1 canonical data
+      ↓
+P2 spatial features
+      ↓
+P3 solar/economic features
+      ↓
+P4 ranking result
+      ↓
+P5 API + PostGIS + GeoJSON
+      ↓
+P6 reviewed evidence + demo
+```
 
-- `main`: demo-stable releases only.
-- `integration`: daily integration target.
-- `feature/p1-ranking-stability`, `feature/p2-geolibre-aoi`, etc.
-- Keep pull requests under one workstream when possible.
-- Rebase or merge `integration` before the scheduled integration window, not during the demo freeze.
-- Any contract change requires API documentation and at least one compatibility test.
-
-## Ownership placeholders
-
-Replace Person 1–5 with GitHub usernames in `docs/OWNERSHIP.md`, then add CODEOWNERS. Until usernames are known, review ownership follows the table above.
+Person 5 may integrate artifacts but does not alter their scientific calculations. Codex resolves cross-branch wiring and rejects schema-breaking handoffs rather than guessing intent.

@@ -1,0 +1,174 @@
+{
+  "contract_version": "person4.v1",
+  "request_id": "kharghar-person4-demo-v1",
+  "assumption_version": "solar-economics-2026-08-v1",
+  "scenario": {
+    "name": "balanced",
+    "minimum_usable_area_m2": 40,
+    "maximum_grid_distance_m": 2000,
+    "budget_inr": 1500000,
+    "top_k": 2
+  },
+  "weights": {
+    "generation": 0.35,
+    "physical": 0.3,
+    "grid": 0.2,
+    "economics": 0.15
+  },
+  "ranking_mode": "robust_acceptability",
+  "robustness": {
+    "method_version": "ccra-v1",
+    "iterations": 1000,
+    "random_seed": 41,
+    "feature_perturbation_at_zero_confidence": 0.2,
+    "weight_relative_tolerance": 0.1,
+    "stable_top_k_probability": 0.8,
+    "review_top_k_probability": 0.4,
+    "maximum_stable_rank_span": 2
+  },
+  "p2_table": [
+    {
+      "candidate_id": "roof-a",
+      "geometry": {"type": "Point", "coordinates": [73.0671, 19.0467]},
+      "usable_area_m2": 180,
+      "shading_factor": 0.9,
+      "grid_distance_m": 260,
+      "physical_score": 0.9,
+      "grid_score": 0.86,
+      "feature_version": "p2-kharghar-v1"
+    },
+    {
+      "candidate_id": "roof-b",
+      "geometry": {"type": "Point", "coordinates": [73.0712, 19.0419]},
+      "usable_area_m2": 145,
+      "shading_factor": 0.84,
+      "grid_distance_m": 410,
+      "physical_score": 0.82,
+      "grid_score": 0.78,
+      "feature_version": "p2-kharghar-v1"
+    },
+    {
+      "candidate_id": "roof-c",
+      "geometry": {"type": "Point", "coordinates": [73.0615, 19.0521]},
+      "usable_area_m2": 155,
+      "shading_factor": 0.78,
+      "grid_distance_m": 530,
+      "physical_score": 0.8,
+      "grid_score": 0.72,
+      "feature_version": "p2-kharghar-v1"
+    },
+    {
+      "candidate_id": "roof-d",
+      "geometry": {"type": "Point", "coordinates": [73.0754, 19.0498]},
+      "usable_area_m2": 36,
+      "shading_factor": 0.92,
+      "grid_distance_m": 220,
+      "physical_score": 0.88,
+      "grid_score": 0.9,
+      "feature_version": "p2-kharghar-v1"
+    },
+    {
+      "candidate_id": "roof-e",
+      "geometry": {"type": "Point", "coordinates": [73.0582, 19.0398]},
+      "usable_area_m2": 210,
+      "shading_factor": 0.72,
+      "grid_distance_m": 880,
+      "physical_score": 0.66,
+      "grid_score": 0.58,
+      "feature_version": "p2-kharghar-v1"
+    }
+  ],
+  "p3_table": [
+    {
+      "candidate_id": "roof-a",
+      "annual_yield_kwh": 27000,
+      "estimated_cost_inr": 920000,
+      "estimated_rent_inr_month": 11000,
+      "generation_score": 0.92,
+      "economics_score": 0.8,
+      "assumption_version": "solar-economics-2026-08-v1"
+    },
+    {
+      "candidate_id": "roof-b",
+      "annual_yield_kwh": 24500,
+      "estimated_cost_inr": 840000,
+      "estimated_rent_inr_month": 9000,
+      "generation_score": 0.84,
+      "economics_score": 0.86,
+      "assumption_version": "solar-economics-2026-08-v1"
+    },
+    {
+      "candidate_id": "roof-c",
+      "annual_yield_kwh": 25100,
+      "estimated_cost_inr": 890000,
+      "estimated_rent_inr_month": 10000,
+      "generation_score": 0.87,
+      "economics_score": 0.81,
+      "assumption_version": "solar-economics-2026-08-v1"
+    },
+    {
+      "candidate_id": "roof-d",
+      "annual_yield_kwh": 15500,
+      "estimated_cost_inr": 610000,
+      "estimated_rent_inr_month": 6500,
+      "generation_score": 0.71,
+      "economics_score": 0.88,
+      "assumption_version": "solar-economics-2026-08-v1"
+    },
+    {
+      "candidate_id": "roof-e",
+      "annual_yield_kwh": 27800,
+      "estimated_cost_inr": 1180000,
+      "estimated_rent_inr_month": null,
+      "generation_score": 0.95,
+      "economics_score": 0.54,
+      "assumption_version": "solar-economics-2026-08-v1"
+    }
+  ],
+  "confidence_table": [
+    {
+      "candidate_id": "roof-a",
+      "overall_confidence": 0.92,
+      "criteria": {"generation": 0.94, "physical": 0.9, "grid": 0.9, "economics": 0.88},
+      "confidence_version": "confidence-v1"
+    },
+    {
+      "candidate_id": "roof-b",
+      "overall_confidence": 0.82,
+      "criteria": {"generation": 0.86, "physical": 0.82, "grid": 0.85, "economics": 0.78},
+      "confidence_version": "confidence-v1"
+    },
+    {
+      "candidate_id": "roof-c",
+      "overall_confidence": 0.46,
+      "criteria": {"generation": 0.52, "physical": 0.42, "grid": 0.58, "economics": 0.4},
+      "confidence_version": "confidence-v1"
+    },
+    {
+      "candidate_id": "roof-d",
+      "overall_confidence": 0.9,
+      "criteria": {"generation": 0.9, "physical": 0.92, "grid": 0.9, "economics": 0.86},
+      "confidence_version": "confidence-v1"
+    },
+    {
+      "candidate_id": "roof-e",
+      "overall_confidence": 0.55,
+      "criteria": {"generation": 0.62, "physical": 0.5, "grid": 0.6, "economics": 0.35},
+      "confidence_version": "confidence-v1"
+    }
+  ],
+  "validation": {
+    "label_set_version": "blind-review-v1",
+    "evaluation_k": 2,
+    "manual_candidate_order": ["roof-b", "roof-e", "roof-a", "roof-c"],
+    "manual_shortlist_minutes": 28,
+    "helios_shortlist_minutes": 4,
+    "labels": [
+      {"candidate_id": "roof-a", "decision": "inspect", "reviewer_id": "validator-1", "reason_codes": ["strong-roof", "good-access"], "blinded": true},
+      {"candidate_id": "roof-b", "decision": "uncertain", "reviewer_id": "validator-1", "reason_codes": ["economics-good"], "blinded": true},
+      {"candidate_id": "roof-c", "decision": "inspect", "reviewer_id": "validator-1", "reason_codes": ["yield-good", "verify-height"], "blinded": true},
+      {"candidate_id": "roof-d", "decision": "reject", "reviewer_id": "validator-1", "reason_codes": ["area-too-small"], "blinded": true},
+      {"candidate_id": "roof-e", "decision": "reject", "reviewer_id": "validator-1", "reason_codes": ["shading", "rent-missing"], "blinded": true}
+    ]
+  }
+}
