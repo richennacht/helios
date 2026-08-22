@@ -14,6 +14,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 class RankingMode(StrEnum):
     NOMINAL = "nominal_mcda"
     ROBUST_ACCEPTABILITY = "robust_acceptability"
+    FUZZY_ML_CHALLENGER = "fuzzy_ml_challenger"
 
 
 class WeightPreset(StrEnum):

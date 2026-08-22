@@ -57,6 +57,9 @@ class _Candidate:
 
 def rank_candidates(request: P5RankingRequest) -> RankingBundle:
     """Run screening, MCDA, robustness, explanations and optional evaluation."""
+    if request.ranking_mode is RankingMode.FUZZY_ML_CHALLENGER:
+        from helios.ranking.ml_fuzzy_scheduler import rank_candidates_fuzzy_ml
+        return rank_candidates_fuzzy_ml(request)
 
     joined = _join_inputs(request)
     exclusions = {
