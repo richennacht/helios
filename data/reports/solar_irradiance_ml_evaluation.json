@@ -1,0 +1,104 @@
+{
+  "status": "completed",
+  "sample_size": 3000,
+  "train_size": 2100,
+  "test_size": 450,
+  "models": [
+    {
+      "model_name": "Physical STC Baseline",
+      "r2_score": 0.9996,
+      "rmse_w": 1.852,
+      "mae_w": 1.459,
+      "mape_pct": 1.75,
+      "rmse_ci_95": [
+        1.731,
+        1.984
+      ],
+      "mae_ci_95": [
+        1.359,
+        1.567
+      ],
+      "sliced_mae": {
+        "mae_low_irradiance (<300 W/m2)": 1.8332133341367554,
+        "mae_mid_irradiance (300-700 W/m2)": 1.3122813185931077,
+        "mae_high_irradiance (>700 W/m2)": 1.3935591676875758,
+        "mae_cool_temp (<25 C)": 1.9363292612611225,
+        "mae_mod_temp (25-45 C)": 1.3757873463734027,
+        "mae_hot_temp (>45 C)": 1.4271363110748654
+      }
+    },
+    {
+      "model_name": "Polynomial Ridge Regressor",
+      "r2_score": 0.9989,
+      "rmse_w": 3.013,
+      "mae_w": 2.35,
+      "mape_pct": 2.9,
+      "rmse_ci_95": [
+        2.797,
+        3.249
+      ],
+      "mae_ci_95": [
+        2.178,
+        2.52
+      ],
+      "sliced_mae": {
+        "mae_low_irradiance (<300 W/m2)": 3.064284252847184,
+        "mae_mid_irradiance (300-700 W/m2)": 1.6586238337814674,
+        "mae_high_irradiance (>700 W/m2)": 2.5184276669400143,
+        "mae_cool_temp (<25 C)": 2.8164980119771785,
+        "mae_mod_temp (25-45 C)": 2.103055879072068,
+        "mae_hot_temp (>45 C)": 2.4265737752532064
+      }
+    },
+    {
+      "model_name": "Gradient Boosting Regressor",
+      "r2_score": 0.9981,
+      "rmse_w": 3.936,
+      "mae_w": 2.964,
+      "mape_pct": 2.58,
+      "rmse_ci_95": [
+        3.602,
+        4.295
+      ],
+      "mae_ci_95": [
+        2.76,
+        3.202
+      ],
+      "sliced_mae": {
+        "mae_low_irradiance (<300 W/m2)": 2.1049310135179806,
+        "mae_mid_irradiance (300-700 W/m2)": 2.9065816040049093,
+        "mae_high_irradiance (>700 W/m2)": 3.3932991177622487,
+        "mae_cool_temp (<25 C)": 2.3537851958033564,
+        "mae_mod_temp (25-45 C)": 2.479663105286045,
+        "mae_hot_temp (>45 C)": 3.388338063808331
+      }
+    },
+    {
+      "model_name": "Physics-Informed Hybrid Regressor",
+      "r2_score": 0.9996,
+      "rmse_w": 1.851,
+      "mae_w": 1.458,
+      "mape_pct": 1.75,
+      "rmse_ci_95": [
+        1.727,
+        1.981
+      ],
+      "mae_ci_95": [
+        1.359,
+        1.564
+      ],
+      "sliced_mae": {
+        "mae_low_irradiance (<300 W/m2)": 1.8344143168090001,
+        "mae_mid_irradiance (300-700 W/m2)": 1.309381465396751,
+        "mae_high_irradiance (>700 W/m2)": 1.393442158949901,
+        "mae_cool_temp (<25 C)": 1.938948151558605,
+        "mae_mod_temp (25-45 C)": 1.3752246069355696,
+        "mae_hot_temp (>45 C)": 1.4256492517970525
+      }
+    }
+  ],
+  "virtual_pyranometer": {
+    "mae_w_m2": 27.67,
+    "rmse_w_m2": 35.4
+  }
+}
