@@ -1,0 +1,28 @@
+{
+  "location": {
+    "name": "Kharghar, Navi Mumbai",
+    "latitude": 19.0425,
+    "longitude": 73.0675,
+    "elevation_m_avg": 18.0
+  },
+  "solar_parameters": {
+    "ghi_kwh_m2_year": 1980.0,
+    "specific_yield_kwh_kwp_year": 1450.0,
+    "panel_efficiency_default": 0.21,
+    "system_derate_factor": 0.82,
+    "usable_roof_factor_flat": 0.7
+  },
+  "economic_parameters_inr": {
+    "capex_per_kwp_commercial_inr": 48000,
+    "capex_per_kwp_residential_inr": 55000,
+    "om_per_kwp_year_inr": 800,
+    "avg_commercial_tariff_kwh_inr": 9.5,
+    "avg_residential_tariff_kwh_inr": 7.2,
+    "estimated_roof_rent_inr_m2_month": 35.0
+  },
+  "provenance": {
+    "tariff_source": "MSEDCL Tariff Order (MMR Region)",
+    "solar_source": "MNRE India / NREL PVWatts Baseline",
+    "date_registered": "2026"
+  }
+}
