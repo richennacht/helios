@@ -16,6 +16,12 @@ class RankingMode(StrEnum):
     ROBUST_ACCEPTABILITY = "robust_acceptability"
 
 
+class WeightPreset(StrEnum):
+    BALANCED = "balanced"
+    ENERGY_FIRST = "energy_first"
+    COST_FIRST = "cost_first"
+
+
 class ValidationDecision(StrEnum):
     INSPECT = "inspect"
     UNCERTAIN = "uncertain"
@@ -27,6 +33,15 @@ class DecisionStatus(StrEnum):
     REVIEW_REQUIRED = "review_required"
     UNSTABLE = "unstable"
     EXCLUDED = "excluded"
+
+
+class ExclusionReason(StrEnum):
+    USABLE_AREA_BELOW_MINIMUM = "usable_area_below_minimum"
+    INVALID_EXCHANGE_GEOMETRY = "invalid_exchange_geometry"
+    SHADING_FACTOR_BELOW_MINIMUM = "shading_factor_below_minimum"
+    GRID_DISTANCE_ABOVE_SCREENING_LIMIT = "grid_distance_above_screening_limit"
+    ESTIMATED_COST_ABOVE_BUDGET = "estimated_cost_above_budget"
+    ESTIMATED_COST_MISSING_FOR_BUDGET_FILTER = "estimated_cost_missing_for_budget_filter"
 
 
 class P2CandidateRow(BaseModel):
@@ -101,7 +116,9 @@ class RankingScenario(BaseModel):
     name: str = "balanced"
     minimum_usable_area_m2: float = Field(default=40, ge=0)
     maximum_grid_distance_m: float | None = Field(default=2000, gt=0)
+    minimum_shading_factor: float | None = Field(default=None, ge=0, le=1)
     budget_inr: float | None = Field(default=None, gt=0)
+    require_cost_when_budgeted: bool = True
     top_k: int = Field(default=3, ge=1)
 
 
@@ -133,7 +150,7 @@ class ValidationLabel(BaseModel):
     decision: ValidationDecision
     reviewer_id: str = Field(min_length=1)
     reason_codes: list[str] = Field(default_factory=list)
-    blinded: bool = True
+    blinded: bool
 
 
 class ValidationSet(BaseModel):
@@ -162,6 +179,7 @@ class P5RankingRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     contract_version: Literal["person4.v1"] = "person4.v1"
+    feature_dictionary_version: Literal["person4.features-v1"]
     request_id: str = Field(min_length=1)
     assumption_version: str = Field(min_length=1)
     scenario: RankingScenario = Field(default_factory=RankingScenario)
@@ -190,6 +208,12 @@ class P5RankingRequest(BaseModel):
         }
         if wrong_versions:
             raise ValueError("P3 assumption_version does not match request assumption_version")
+        p2_versions = {row.feature_version for row in self.p2_table}
+        if len(p2_versions) != 1:
+            raise ValueError("P2 table must contain one feature_version per request")
+        confidence_versions = {row.confidence_version for row in self.confidence_table}
+        if len(confidence_versions) != 1:
+            raise ValueError("confidence table must contain one confidence_version per request")
         if self.scenario.top_k > len(p2_ids):
             raise ValueError("top_k cannot exceed the candidate count")
         if self.validation:
@@ -220,13 +244,14 @@ class RankedCandidate(BaseModel):
     candidate_id: str
     geometry: dict[str, Any]
     eligible: bool
-    exclusion_reasons: list[str]
+    exclusion_reasons: list[ExclusionReason]
     rank: int | None
     nominal_rank: int | None
     robust_rank: int | None
     nominal_score: float | None
     component_contributions: dict[str, float]
     overall_confidence: float
+    pareto_optimal: bool | None
     decision_status: DecisionStatus
 
 
@@ -272,8 +297,57 @@ class RankingBundle(BaseModel):
     contract_version: Literal["person4.v1"] = "person4.v1"
     request_id: str
     assumption_version: str
+    input_versions: dict[str, str]
     ranking_mode: RankingMode
     ranked_candidates: list[RankedCandidate]
     explanations: list[CandidateExplanation]
     stability_report: StabilityReport
     evaluation_report: EvaluationReport
+
+    @model_validator(mode="after")
+    def output_is_internally_consistent(self) -> "RankingBundle":
+        candidate_ids = [row.candidate_id for row in self.ranked_candidates]
+        explanation_ids = [row.candidate_id for row in self.explanations]
+        if len(candidate_ids) != len(set(candidate_ids)):
+            raise ValueError("ranked output contains duplicate candidate IDs")
+        if len(explanation_ids) != len(set(explanation_ids)):
+            raise ValueError("explanation output contains duplicate candidate IDs")
+        if set(candidate_ids) != set(explanation_ids):
+            raise ValueError("ranked candidates and explanations must contain identical IDs")
+
+        eligible = [row for row in self.ranked_candidates if row.eligible]
+        ranks = sorted(row.rank for row in eligible if row.rank is not None)
+        if ranks != list(range(1, len(eligible) + 1)):
+            raise ValueError("eligible candidate ranks must be unique and contiguous")
+        for row in eligible:
+            if (
+                row.nominal_score is None
+                or row.nominal_rank is None
+                or row.robust_rank is None
+                or row.pareto_optimal is None
+                or row.decision_status is DecisionStatus.EXCLUDED
+            ):
+                raise ValueError("eligible candidate output is incomplete")
+            if abs(sum(row.component_contributions.values()) - row.nominal_score) > 1e-5:
+                raise ValueError("component contributions must sum to nominal score")
+        for row in self.ranked_candidates:
+            if row.eligible:
+                continue
+            if any(
+                value is not None
+                for value in (
+                    row.rank,
+                    row.nominal_rank,
+                    row.robust_rank,
+                    row.nominal_score,
+                    row.pareto_optimal,
+                )
+            ) or row.component_contributions:
+                raise ValueError("excluded candidate must not contain ranking values")
+            if row.decision_status is not DecisionStatus.EXCLUDED:
+                raise ValueError("excluded candidate must use excluded decision status")
+
+        stability_ids = {row.candidate_id for row in self.stability_report.candidates}
+        if stability_ids != {row.candidate_id for row in eligible}:
+            raise ValueError("stability report must contain every eligible candidate exactly once")
+        return self

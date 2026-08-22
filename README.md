@@ -118,6 +118,8 @@ evaluation report.
 Read the [Person 4 handoff contract](docs/person4/HANDOFF_CONTRACT.md),
 [research gap and method](docs/person4/RESEARCH_GAP_AND_METHOD.md) and
 [AI working brief](docs/person4/AI_WORKING_BRIEF.md) before changing ranking behavior.
+The [frozen feature dictionary](docs/person4/FEATURE_DICTIONARY.md) defines field
+direction, units, missing policies and named weight presets.
 
 ## Core engineering rules
 

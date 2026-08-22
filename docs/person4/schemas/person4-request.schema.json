@@ -234,6 +234,20 @@
           "default": 2000,
           "title": "Maximum Grid Distance M"
         },
+        "minimum_shading_factor": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum Shading Factor"
+        },
         "budget_inr": {
           "anyOf": [
             {
@@ -246,6 +260,11 @@
           ],
           "default": null,
           "title": "Budget Inr"
+        },
+        "require_cost_when_budgeted": {
+          "default": true,
+          "title": "Require Cost When Budgeted",
+          "type": "boolean"
         },
         "top_k": {
           "default": 3,
@@ -350,7 +369,6 @@
           "type": "array"
         },
         "blinded": {
-          "default": true,
           "title": "Blinded",
           "type": "boolean"
         }
@@ -358,7 +376,8 @@
       "required": [
         "candidate_id",
         "decision",
-        "reviewer_id"
+        "reviewer_id",
+        "blinded"
       ],
       "title": "ValidationLabel",
       "type": "object"
@@ -467,6 +486,11 @@
       "title": "Contract Version",
       "type": "string"
     },
+    "feature_dictionary_version": {
+      "const": "person4.features-v1",
+      "title": "Feature Dictionary Version",
+      "type": "string"
+    },
     "request_id": {
       "minLength": 1,
       "title": "Request Id",
@@ -527,6 +551,7 @@
     }
   },
   "required": [
+    "feature_dictionary_version",
     "request_id",
     "assumption_version",
     "p2_table",

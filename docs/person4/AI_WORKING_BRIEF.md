@@ -10,7 +10,8 @@ Read helios/ranking/AGENTS.md, docs/person4/HANDOFF_CONTRACT.md and
 docs/person4/RESEARCH_GAP_AND_METHOD.md before proposing changes.
 
 Owned paths: helios/ranking/, tests/test_person4_ranking.py,
-data/fixtures/person4/, docs/person4/ and scripts/run_person4.py.
+data/fixtures/person4/, docs/person4/, scripts/run_person4.py,
+scripts/export_person4_schemas.py and scripts/benchmark_person4.py.
 Do not change P2/P3 calculations, API/PostGIS/GeoLibre code or validation labels.
 
 The required inbound boundary is P2 table + P3 table + confidence table +
@@ -19,6 +20,8 @@ The required output is ranked candidates + deterministic explanations + stabilit
 report + evaluation report.
 
 MCDA is the production baseline. CCRA-v1 is the experimental robust extension.
+The frozen feature dictionary is person4.features-v1. P2/P3 own component-score
+construction; do not silently renormalize their scores in Person 4.
 Confidence controls uncertainty width; it must not be added to the utility score.
 Do not introduce ML unless a held-out labelled comparison justifies it.
 

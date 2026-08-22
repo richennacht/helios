@@ -213,6 +213,18 @@
       "title": "EvaluationReport",
       "type": "object"
     },
+    "ExclusionReason": {
+      "enum": [
+        "usable_area_below_minimum",
+        "invalid_exchange_geometry",
+        "shading_factor_below_minimum",
+        "grid_distance_above_screening_limit",
+        "estimated_cost_above_budget",
+        "estimated_cost_missing_for_budget_filter"
+      ],
+      "title": "ExclusionReason",
+      "type": "string"
+    },
     "MetricSet": {
       "properties": {
         "method": {
@@ -308,7 +320,7 @@
         },
         "exclusion_reasons": {
           "items": {
-            "type": "string"
+            "$ref": "#/$defs/ExclusionReason"
           },
           "title": "Exclusion Reasons",
           "type": "array"
@@ -368,6 +380,17 @@
           "title": "Overall Confidence",
           "type": "number"
         },
+        "pareto_optimal": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Pareto Optimal"
+        },
         "decision_status": {
           "$ref": "#/$defs/DecisionStatus"
         }
@@ -383,6 +406,7 @@
         "nominal_score",
         "component_contributions",
         "overall_confidence",
+        "pareto_optimal",
         "decision_status"
       ],
       "title": "RankedCandidate",
@@ -463,6 +487,13 @@
       "title": "Assumption Version",
       "type": "string"
     },
+    "input_versions": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Input Versions",
+      "type": "object"
+    },
     "ranking_mode": {
       "$ref": "#/$defs/RankingMode"
     },
@@ -490,6 +521,7 @@
   "required": [
     "request_id",
     "assumption_version",
+    "input_versions",
     "ranking_mode",
     "ranked_candidates",
     "explanations",

@@ -12,6 +12,7 @@ from helios.ranking.contracts import (
     CandidateStability,
     DecisionStatus,
     EvaluationReport,
+    ExclusionReason,
     MetricSet,
     P2CandidateRow,
     P3CandidateRow,
@@ -23,8 +24,8 @@ from helios.ranking.contracts import (
     ValidationDecision,
     ValidationSet,
 )
+from helios.ranking.features import CRITERIA, FEATURE_DICTIONARY_VERSION
 
-CRITERIA = ("generation", "physical", "grid", "economics")
 POSITIVE_LABELS = {
     "generation": "strong modeled annual-generation potential",
     "physical": "strong usable-roof and coarse-shading profile",
@@ -74,6 +75,7 @@ def rank_candidates(request: P5RankingRequest) -> RankingBundle:
         candidate.candidate_id: index
         for index, candidate in enumerate(nominal_order, 1)
     }
+    pareto_ids = _pareto_optimal_ids(eligible)
 
     stability, robust_ranks = _stability_report(eligible, nominal_ranks, request)
     stability_by_id = {row.candidate_id: row for row in stability.candidates}
@@ -110,6 +112,7 @@ def rank_candidates(request: P5RankingRequest) -> RankingBundle:
                 nominal_score=nominal_scores.get(candidate_id),
                 component_contributions=contributions,
                 overall_confidence=candidate.overall_confidence,
+                pareto_optimal=candidate_id in pareto_ids if is_eligible else None,
                 decision_status=status,
             )
         )
@@ -119,6 +122,7 @@ def rank_candidates(request: P5RankingRequest) -> RankingBundle:
                 contributions,
                 exclusions[candidate_id],
                 stability_by_id.get(candidate_id),
+                candidate_id in pareto_ids if is_eligible else None,
             )
         )
 
@@ -156,6 +160,12 @@ def rank_candidates(request: P5RankingRequest) -> RankingBundle:
     return RankingBundle(
         request_id=request.request_id,
         assumption_version=request.assumption_version,
+        input_versions={
+            "feature_dictionary": FEATURE_DICTIONARY_VERSION,
+            "p2_features": request.p2_table[0].feature_version,
+            "p3_assumptions": request.assumption_version,
+            "confidence": request.confidence_table[0].confidence_version,
+        },
         ranking_mode=request.ranking_mode,
         ranked_candidates=ranked_candidates,
         explanations=explanations,
@@ -186,23 +196,99 @@ def _join_inputs(request: P5RankingRequest) -> list[_Candidate]:
     return joined
 
 
-def _exclusion_reasons(candidate: _Candidate, request: P5RankingRequest) -> list[str]:
-    reasons: list[str] = []
+def _exclusion_reasons(
+    candidate: _Candidate, request: P5RankingRequest
+) -> list[ExclusionReason]:
+    reasons: list[ExclusionReason] = []
     scenario = request.scenario
     if candidate.p2.usable_area_m2 < scenario.minimum_usable_area_m2:
-        reasons.append("usable_area_below_minimum")
+        reasons.append(ExclusionReason.USABLE_AREA_BELOW_MINIMUM)
+    if not _geometry_is_valid(candidate.p2.geometry):
+        reasons.append(ExclusionReason.INVALID_EXCHANGE_GEOMETRY)
+    if (
+        scenario.minimum_shading_factor is not None
+        and candidate.p2.shading_factor < scenario.minimum_shading_factor
+    ):
+        reasons.append(ExclusionReason.SHADING_FACTOR_BELOW_MINIMUM)
     if (
         scenario.maximum_grid_distance_m is not None
         and candidate.p2.grid_distance_m > scenario.maximum_grid_distance_m
     ):
-        reasons.append("grid_distance_above_screening_limit")
+        reasons.append(ExclusionReason.GRID_DISTANCE_ABOVE_SCREENING_LIMIT)
     if (
         scenario.budget_inr is not None
         and candidate.p3.estimated_cost_inr is not None
         and candidate.p3.estimated_cost_inr > scenario.budget_inr
     ):
-        reasons.append("estimated_cost_above_budget")
+        reasons.append(ExclusionReason.ESTIMATED_COST_ABOVE_BUDGET)
+    if (
+        scenario.budget_inr is not None
+        and scenario.require_cost_when_budgeted
+        and candidate.p3.estimated_cost_inr is None
+    ):
+        reasons.append(ExclusionReason.ESTIMATED_COST_MISSING_FOR_BUDGET_FILTER)
     return reasons
+
+
+def _geometry_is_valid(geometry: dict) -> bool:
+    """Perform a dependency-free sanity check on exchange GeoJSON geometry."""
+
+    geometry_type = geometry.get("type")
+    coordinates = geometry.get("coordinates")
+    if geometry_type == "Point":
+        return _valid_position(coordinates)
+    if geometry_type == "Polygon":
+        return _valid_polygon(coordinates)
+    if geometry_type == "MultiPolygon":
+        return (
+            isinstance(coordinates, list)
+            and bool(coordinates)
+            and all(_valid_polygon(polygon) for polygon in coordinates)
+        )
+    return False
+
+
+def _valid_position(position: object) -> bool:
+    if not isinstance(position, list) or len(position) < 2:
+        return False
+    longitude, latitude = position[:2]
+    return (
+        isinstance(longitude, int | float)
+        and not isinstance(longitude, bool)
+        and isinstance(latitude, int | float)
+        and not isinstance(latitude, bool)
+        and -180 <= longitude <= 180
+        and -90 <= latitude <= 90
+    )
+
+
+def _valid_polygon(coordinates: object) -> bool:
+    if not isinstance(coordinates, list) or not coordinates:
+        return False
+    for ring in coordinates:
+        if not isinstance(ring, list) or len(ring) < 4:
+            return False
+        if not all(_valid_position(position) for position in ring):
+            return False
+        if ring[0][:2] != ring[-1][:2]:
+            return False
+    return True
+
+
+def _pareto_optimal_ids(candidates: list[_Candidate]) -> set[str]:
+    """Return non-dominated candidates over the four normalized benefit criteria."""
+
+    optimal: set[str] = set()
+    for candidate in candidates:
+        dominated = any(
+            other.candidate_id != candidate.candidate_id
+            and all(other.values[name] >= candidate.values[name] for name in CRITERIA)
+            and any(other.values[name] > candidate.values[name] for name in CRITERIA)
+            for other in candidates
+        )
+        if not dominated:
+            optimal.add(candidate.candidate_id)
+    return optimal
 
 
 def _component_contributions(
@@ -376,14 +462,15 @@ def _stability_assumptions(request: P5RankingRequest) -> list[str]:
 def _explain(
     candidate: _Candidate,
     contributions: dict[str, float],
-    exclusions: list[str],
+    exclusions: list[ExclusionReason],
     stability: CandidateStability | None,
+    pareto_optimal: bool | None,
 ) -> CandidateExplanation:
     if exclusions:
         return CandidateExplanation(
             candidate_id=candidate.candidate_id,
             positive_reasons=[],
-            caution_reasons=[f"excluded: {reason}" for reason in exclusions],
+            caution_reasons=[f"excluded: {reason.value}" for reason in exclusions],
             trace={"status": DecisionStatus.EXCLUDED.value},
         )
     strongest = sorted(contributions, key=lambda key: (-contributions[key], key))[:2]
@@ -412,6 +499,8 @@ def _explain(
                 "decision_status": stability.decision_status.value,
             }
         )
+    if pareto_optimal is not None:
+        trace["pareto_optimal"] = str(pareto_optimal).lower()
     return CandidateExplanation(
         candidate_id=candidate.candidate_id,
         positive_reasons=positives,

@@ -1,5 +1,6 @@
 {
   "contract_version": "person4.v1",
+  "feature_dictionary_version": "person4.features-v1",
   "request_id": "kharghar-person4-demo-v1",
   "assumption_version": "solar-economics-2026-08-v1",
   "scenario": {
