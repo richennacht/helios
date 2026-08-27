@@ -85,15 +85,16 @@
       maintenanceAisleWidth: 0.8,        // 0.8m maintenance aisles
       maintenanceAisleFreqRows: 2,       // Walkway every 2 rows
       reservedSpaceRatio: 0.15,          // 15% reserved space
-      minSolarAccess: 0.80,              // 80% min solar access
+      minSolarAccess: 0.80,              // Enforced only with an explicit evaluator
+      solarAccessEvaluator: null,         // Optional (panel, building) => 0..1
       moduleLength: 2.2,                 // 2.2m length
       moduleWidth: 1.1,                  // 1.1m width
       moduleWattageWp: 550.0,            // 550 Wp
       tiltDeg: 15.0,                     // 15 deg tilt
       azimuthDeg: 180.0,                 // 180 deg (South facing)
-      annualPoaKwhM2: 1800.0,            // NASA POWER Kharghar
-      capexPerKwpInr: 50000.0,           // Rs 50,000 / kWp
-      tariffPerKwhInr: 8.0,              // Rs 8.0 / kWh
+      annualGhiKwhM2: 1701.2009,          // Registered NASA POWER regional GHI
+      capexPerKwpInr: null,               // Supply from registered government profile
+      tariffPerKwhInr: null,              // Supply from registered government profile
       performanceRatio: 0.80,            // 80% PR
     }, options);
 
@@ -166,11 +167,11 @@
               const d4 = minDistanceToPolygonBoundary(p4[0], p4[1], metricRing);
 
               if (Math.min(d1, d2, d3, d4) >= config.parapetSetback - 1e-4) {
-                // Synthetic realistic roof solar access (accounting for North parapet shadow)
-                const normY = (currY - minY) / (maxY - minY || 1);
-                const solarAccess = normY > 0.88 ? 0.75 : 0.95;
+                const solarAccess = typeof config.solarAccessEvaluator === 'function'
+                  ? Number(config.solarAccessEvaluator({ metricBox: [p1, p2, p3, p4], center }, feature))
+                  : null;
 
-                if (solarAccess >= config.minSolarAccess) {
+                if (solarAccess === null || solarAccess >= config.minSolarAccess) {
                   candidatePanels.push({
                     metricBox: [p1, p2, p3, p4],
                     solarAccess: solarAccess,
@@ -194,7 +195,7 @@
     // Apply 15% Reserved Space policy
     if (config.reservedSpaceRatio > 0 && bestPanels.length > 0) {
       const keepCount = Math.floor(bestPanels.length * (1.0 - config.reservedSpaceRatio));
-      bestPanels.sort((a, b) => b.solarAccess - a.solarAccess || b.center[1] - a.center[1]);
+      bestPanels.sort((a, b) => (b.solarAccess ?? 0) - (a.solarAccess ?? 0) || b.center[1] - a.center[1]);
       bestPanels = bestPanels.slice(0, keepCount);
       bestPanels.sort((a, b) => b.center[1] - a.center[1] || a.center[0] - b.center[0]);
     }
@@ -204,10 +205,13 @@
     const roofHeightM = Number(feature.properties.height_m) || Number(feature.properties.render_height) || 10.0;
 
     // Calculate annual generation and financials
-    const annualYieldKwh = installedDcCapacityKwp * config.annualPoaKwhM2 * 0.95 * config.performanceRatio;
-    const estimatedCostInr = installedDcCapacityKwp * config.capexPerKwpInr;
-    const annualValueInr = annualYieldKwh * config.tariffPerKwhInr;
-    const simplePaybackYears = annualValueInr > 0 ? estimatedCostInr / annualValueInr : 0;
+    const annualYieldKwh = installedDcCapacityKwp * config.annualGhiKwhM2 * config.performanceRatio;
+    const estimatedCostInr = Number.isFinite(config.capexPerKwpInr)
+      ? installedDcCapacityKwp * config.capexPerKwpInr : null;
+    const annualValueInr = Number.isFinite(config.tariffPerKwhInr)
+      ? annualYieldKwh * config.tariffPerKwhInr : null;
+    const simplePaybackYears = estimatedCostInr !== null && annualValueInr > 0
+      ? estimatedCostInr / annualValueInr : null;
 
     // Convert placed panels to WGS84 GeoJSON features with 3D elevations
     const panelFeatures = bestPanels.map((p, idx) => {
@@ -241,6 +245,7 @@
       estimatedCostInr: estimatedCostInr,
       annualValueInr: annualValueInr,
       simplePaybackYears: simplePaybackYears,
+      solarAccessVerified: typeof config.solarAccessEvaluator === 'function',
       roofHeightM: roofHeightM,
       panelFeatures: panelFeatures,
       config: config
