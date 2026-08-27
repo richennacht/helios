@@ -94,7 +94,6 @@
     <div class="tools" role="tablist" aria-label="Candidate analysis sections">
       <button id="rankingTab" role="tab" aria-selected="true">Ranking</button>
       <button id="economicsTab" role="tab" aria-selected="false">Economic feasibility</button>
-      <button id="geometryTab" role="tab" aria-selected="false">Roof geometry</button>
     </div>
     <section id="rankingTabPanel" role="tabpanel">
       <label for="factorSelect">Rank buildings by</label>
@@ -125,17 +124,6 @@
       <button id="runEconomics" disabled>Run economic ranking analysis</button>
       <div id="economicsStatus" class="status">Select a region, then run the scenario.</div>
       <div id="economicsList" class="legend"></div>
-    </section>
-    <section id="geometryTabPanel" role="tabpanel" hidden>
-      <p class="legend"><strong>Simulation only.</strong> These values are not model predictions. Until validated roof imagery/elevation inputs and trained weights are registered, Helios requires explicit pitch, azimuth, roof type, and provenance and reports no confidence.</p>
-      <label>Simulated pitch (degrees) <input id="geometryPitch" type="number" min="0" max="45" step="0.5" value="18"></label>
-      <label>Simulated azimuth (degrees) <input id="geometryAzimuth" type="number" min="0" max="360" step="1" value="180"></label>
-      <label for="geometryRoofType">Roof type</label>
-      <select id="geometryRoofType"><option value="gable">Gable</option><option value="hip">Hip</option><option value="single-slant">Single-slant</option><option value="flat">Flat</option></select>
-      <label>Provenance <input id="geometryProvenance" type="text" value="operator-entered demonstration assumption"></label>
-      <button id="runGeometrySimulation">Simulate selected-region roof geometry</button>
-      <div id="geometryStatus" class="status">Select a region to run an explicit geometry simulation.</div>
-      <div id="geometryList" class="legend"></div>
     </section>
     <details>
       <summary>Irradiance calculation &amp; evidence</summary>
@@ -641,49 +629,10 @@
     }
     function setAnalysisTab(tab) {
       const economics = tab === 'economics';
-      const geometry = tab === 'geometry';
-      document.getElementById('rankingTabPanel').hidden = economics || geometry;
+      document.getElementById('rankingTabPanel').hidden = economics;
       document.getElementById('economicsTabPanel').hidden = !economics;
-      document.getElementById('geometryTabPanel').hidden = !geometry;
-      document.getElementById('rankingTab').setAttribute('aria-selected', String(!economics && !geometry));
+      document.getElementById('rankingTab').setAttribute('aria-selected', String(!economics));
       document.getElementById('economicsTab').setAttribute('aria-selected', String(economics));
-      document.getElementById('geometryTab').setAttribute('aria-selected', String(geometry));
-    }
-    function runGeometrySimulation() {
-      const status = document.getElementById('geometryStatus');
-      const list = document.getElementById('geometryList');
-      if (!selectedAnalysis || !selectedAnalysis.features.length) {
-        status.textContent = 'Select a region containing candidate buildings first.';
-        list.textContent = '';
-        return;
-      }
-      const pitch = Number(document.getElementById('geometryPitch').value);
-      const azimuth = Number(document.getElementById('geometryAzimuth').value);
-      const roofType = document.getElementById('geometryRoofType').value;
-      const provenance = document.getElementById('geometryProvenance').value.trim();
-      if (!Number.isFinite(pitch) || pitch < 0 || pitch > 45 || !Number.isFinite(azimuth) || azimuth < 0 || azimuth > 360 || !provenance) {
-        status.textContent = 'Provide pitch 0–45°, azimuth 0–360°, and non-empty provenance.';
-        list.textContent = '';
-        return;
-      }
-      const multiplier = 1 / Math.cos(pitch * Math.PI / 180);
-      const orientationDelta = Math.abs(((azimuth - 180 + 180) % 360) - 180);
-      const orientationFactor = 1 - 0.30 * (orientationDelta / 180);
-      const rows = selectedAnalysis.features.map(feature => {
-        const horizontalArea = footprintAreaM2(feature.geometry.coordinates[0]);
-        const surfaceArea = horizontalArea * multiplier;
-        const usableArea = surfaceArea * USABLE_ROOF_FRACTION;
-        const annualYield = usableArea * 0.20 * SOLAR_RESOURCE.annualGhiKwhM2 * 0.80 * orientationFactor;
-        return { feature, horizontalArea, surfaceArea, annualYield };
-      }).sort((a, b) => b.surfaceArea - a.surfaceArea);
-      rows.forEach((row, index) => { row.score = rows.length === 1 ? 1 : 1 - index / (rows.length - 1); });
-      const scored = { type: 'FeatureCollection', features: rows.map(row => ({ ...row.feature, properties: { ...row.feature.properties, analysis_score: row.score } })) };
-      map.getSource('local-buildings-3d').setData(scored);
-      const scoreGradient = ['interpolate', ['linear'], ['get', 'analysis_score'], 0, '#fecaca', 0.5, '#f97316', 1, '#7f1d1d'];
-      map.setPaintProperty('local-buildings-3d', 'fill-extrusion-color', scoreGradient);
-      status.textContent = `Simulation only • ${roofType} • pitch ${pitch.toFixed(1)}° • azimuth ${azimuth.toFixed(0)}° • no model confidence • provenance: ${provenance}`;
-      list.innerHTML = rows.slice(0, 10).map((row, index) => `<button type="button" class="ranking-row" data-geometry-index="${index}"><strong>#${index + 1} ${row.feature.properties.osm_way_id || 'building'}</strong> · ${Math.round(row.surfaceArea).toLocaleString('en-IN')} m² simulated surface<br><small>${Math.round(row.horizontalArea).toLocaleString('en-IN')} m² horizontal · +${((multiplier - 1) * 100).toFixed(1)}% area · ${Math.round(row.annualYield).toLocaleString('en-IN')} kWh/year screening yield</small></button>`).join('');
-      list.querySelectorAll('[data-geometry-index]').forEach(button => button.addEventListener('click', () => focusRankingBuilding(rows[Number(button.dataset.geometryIndex)]?.feature, button)));
     }
     function runEconomics() {
       const status = document.getElementById('economicsStatus');
@@ -914,9 +863,7 @@
     document.getElementById('factorSelect').addEventListener('change', runAnalysis);
     document.getElementById('rankingTab').addEventListener('click', () => setAnalysisTab('ranking'));
     document.getElementById('economicsTab').addEventListener('click', () => setAnalysisTab('economics'));
-    document.getElementById('geometryTab').addEventListener('click', () => setAnalysisTab('geometry'));
     document.getElementById('runEconomics').addEventListener('click', runEconomics);
-    document.getElementById('runGeometrySimulation').addEventListener('click', runGeometrySimulation);
     document.getElementById('rankingList').addEventListener('click', event => { const button = event.target.closest('.ranking-row'); if (button) button.focus(); });
     const analysisPanel = document.getElementById('analysisPanel');
     const hideAnalysis = document.getElementById('hideAnalysis');
