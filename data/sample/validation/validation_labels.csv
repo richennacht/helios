@@ -1,0 +1,21 @@
+candidate_id,reviewer,decision,reason_codes,started_at,reviewed_at,notes
+roof-a,validator-1,inspect,strong-roof;good-access,2026-08-22T09:00:00Z,2026-08-22T09:04:30Z,Large flat rooftop with excellent municipal road access and unshaded solar exposure.
+roof-b,validator-1,uncertain,economics-good,2026-08-22T09:05:00Z,2026-08-22T09:08:15Z,Good economic return profile but requires height verification and shading check.
+roof-c,validator-1,inspect,yield-good;verify-height,2026-08-22T09:09:00Z,2026-08-22T09:13:45Z,Promising annual yield potential; field measurement recommended for exact parapet height.
+roof-d,validator-1,reject,area-too-small,2026-08-22T09:14:00Z,2026-08-22T09:16:20Z,Usable roof area 36m2 is below minimum 40m2 screening threshold.
+roof-e,validator-1,reject,shading;rent-missing,2026-08-22T09:17:00Z,2026-08-22T09:21:10Z,Severe localized obstruction losses and unverified commercial leasing feasibility.
+KHAR_00269C734CC94E62,validator-1,reject,area-too-small,2026-08-22T09:22:00Z,2026-08-22T09:24:10Z,Footprint area 25.0m2 is below minimum threshold.
+KHAR_10CA2BCB32582C4E,validator-1,inspect,strong-roof;good-access;low-shading,2026-08-22T09:25:00Z,2026-08-22T09:29:30Z,134.7m2 footprint with 14m height and excellent road frontage in Sector 20.
+KHAR_3B3592B33F70FF27,validator-1,uncertain,economics-good;verify-height,2026-08-22T09:30:00Z,2026-08-22T09:33:45Z,51.8m2 footprint with marginal roof area in good location.
+KHAR_3F2C635DA0D0CC67,validator-1,inspect,strong-roof;good-access;low-shading;good-grid,2026-08-22T09:34:00Z,2026-08-22T09:39:20Z,970.4m2 large commercial/institutional building with 24.5m height; prime candidate.
+KHAR_641A6078A54F509C,validator-1,inspect,strong-roof;good-access;low-shading,2026-08-22T09:40:00Z,2026-08-22T09:44:15Z,231.9m2 footprint with 14m height and flat unobstructed roof.
+KHAR_6C40C557A407C3F1,validator-1,uncertain,verify-height;low-shading,2026-08-22T09:45:00Z,2026-08-22T09:48:30Z,100.5m2 footprint with low 4.0m height observation; check structure.
+KHAR_724BDAC03A482DFA,validator-1,uncertain,verify-height;boundary-ambiguity,2026-08-22T09:49:00Z,2026-08-22T09:53:10Z,235.7m2 footprint with height missing in Temporal v1; field visit required.
+KHAR_7CA1BBB7CDCBD398,validator-1,reject,area-too-small;verify-height,2026-08-22T09:54:00Z,2026-08-22T09:56:15Z,18.1m2 footprint is below minimum 40m2 threshold.
+KHAR_7D1BCF15547D7D52,validator-1,inspect,strong-roof;good-access,2026-08-22T09:57:00Z,2026-08-22T10:01:40Z,201.7m2 footprint with clear flat roof and good road access.
+KHAR_9414D9853BB9AA6B,validator-1,reject,area-too-small,2026-08-22T10:02:00Z,2026-08-22T10:04:10Z,20.6m2 footprint below screening minimum.
+KHAR_A0028F0D87A95439,validator-1,inspect,strong-roof;good-access;low-shading;good-grid,2026-08-22T10:05:00Z,2026-08-22T10:10:25Z,379.3m2 footprint with 15.5m height; high-priority inspection candidate.
+KHAR_D8374EE1153BD8EC,validator-1,uncertain,complex-geometry;verify-height,2026-08-22T10:11:00Z,2026-08-22T10:14:50Z,91.9m2 footprint with irregular geometry and 11m height.
+KHAR_DDE1120977FD1E46,validator-1,uncertain,verify-height;low-shading,2026-08-22T10:15:00Z,2026-08-22T10:18:20Z,62.7m2 footprint with low height observation (3.0m).
+KHAR_F4BAD6AB630280D9,validator-1,inspect,strong-roof;good-access;low-shading,2026-08-22T10:19:00Z,2026-08-22T10:23:15Z,84.9m2 footprint with 9.5m height and unobstructed rooftop.
+KHAR_F79A9D3BE98D53AB,validator-1,inspect,strong-roof;good-access,2026-08-22T10:24:00Z,2026-08-22T10:28:40Z,159.2m2 footprint with clear flat roof and road access.

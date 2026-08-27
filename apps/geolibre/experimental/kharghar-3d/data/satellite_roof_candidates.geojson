@@ -1,0 +1,10 @@
+{
+  "type": "FeatureCollection",
+  "name": "satellite_roof_candidates",
+  "metadata": {
+    "status": "empty-template",
+    "purpose": "Manual or model-assisted satellite-footprint intake for buildings absent from the registered building layers.",
+    "display_policy": "Candidates are provisional ground-up extrusions only. Do not describe them as LoD2 or use them for ranking until footprint, height, roof-plane, and provenance fields are verified."
+  },
+  "features": []
+}

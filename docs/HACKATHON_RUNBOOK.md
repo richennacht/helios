@@ -2,29 +2,36 @@
 
 ## Day 1 — make one candidate real
 
-### Hours 0–3
+### Hours 0–2
 
 - clone, install, run CI locally;
-- choose one compact AOI and freeze CRS/reference date;
+- freeze Kharghar AOI, CRS and reference date;
 - register source manifests and agree on units;
-- load the sample request and view API GeoJSON in GeoLibre.
+- submit the GOBS Maharashtra state-file request, record it as optional, and begin the Google Open Buildings v3 plus Temporal v1 fallback immediately;
+- Person 5 freezes contracts and sample fixtures;
+- Persons 2–4 begin from fixtures while Person 1 acquires real data;
+- Person 6 prepares the blind validation rubric and manual-baseline sheet.
 
-### Hours 3–12
+### Hours 2–12
 
-- Person 2 prepares footprints and source metadata;
-- Person 3 produces physical/solar features for one real candidate;
-- Person 4 persists and returns that candidate through the API;
-- Person 1 verifies scoring/filtering/reranking;
-- Person 5 validates the result and records demo evidence.
+- Person 1 publishes Kharghar Open Buildings candidates, sampled Temporal heights, context layers and manifests; GOBS enriches them only if received and audited;
+- Person 2 produces spatial, height and proximity features;
+- Person 3 produces solar-yield and economic features;
+- Person 4 produces eligibility, score, rank and stability output;
+- Person 5 joins, persists and serves the candidate through the API;
+- Person 6 records the candidate review and baseline procedure.
 
 **Gate:** one real candidate completes the entire path before bulk processing begins.
 
 ## Day 2 — scale and prove
 
 - scale to 1,000–5,000 candidates in the frozen AOI;
-- add batch normalization, Pareto view and stability simulation;
-- review/label a defensible sample and run baselines;
-- style GeoLibre shortlist, confidence and exclusion layers;
+- Person 1 freezes the real data package;
+- Persons 2 and 3 run their independent batch feature stages;
+- Person 4 adds batch normalization, baselines and stability simulation;
+- Person 5 runs the integrated pipeline and fixes contract/runtime failures;
+- Person 6 reviews a defensible sample and records manual-baseline timing;
+- Person 1 styles the GeoLibre shortlist, confidence and exclusion layers using Person 5 output;
 - fix performance and data-quality failures before adding features.
 
 **Gate:** stored metrics for at least one baseline comparison and a repeatable top-K map.
@@ -51,5 +58,6 @@
 
 - Keep one small sample request and GeoJSON in the repository.
 - Cache only redistributable inputs.
+- If GOBS is unavailable, run the documented Open Buildings v3/Temporal v1 baseline and show the optional-source warning; do not scrape dashboard aggregates.
 - If a live data endpoint fails, demonstrate the recorded source version and manifest.
 - If ML challenger fails, use the deterministic baseline; never hide the result.

@@ -1,0 +1,888 @@
+{
+  "type": "FeatureCollection",
+  "name": "candidate_buildings",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "candidate_id": "KHAR_00269C734CC94E62",
+        "aoi_id": "kharghar-v1",
+        "source_dataset": "Google Open Buildings",
+        "source_version": "v3",
+        "source_tile_token": "3bf",
+        "source_record_key": "gobv3:3bf:sha256:00269c734cc94e621b0aeb382e2e238a0ad74a1cbab08fe5cbde54ed065a14aa",
+        "source_record_key_method": "sha256(tile|plus_code|normalized_source_wkt)",
+        "source_plus_code": "7JFM23V8+3452",
+        "source_confidence": 0.6648,
+        "source_centroid_lat": 19.04262594,
+        "source_centroid_lon": 73.06534766,
+        "source_footprint_area_m2": 25.0419,
+        "geometry_valid": true,
+        "temporal_height_m": 7.5,
+        "temporal_presence_score": 0.7,
+        "temporal_year": 2023,
+        "temporal_sampling_method": "centroid_nearest_pixel",
+        "temporal_source_uri": "https://storage.googleapis.com/open-buildings-temporal-data/v1/geotiffs/3be7c_2023_06_30/tile_dWbk5h9MBWQ.tif",
+        "temporal_effective_resolution_m": 4.0,
+        "gobs_enrichment_status": "not_requested_file_available"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0653613009166,
+              19.0425930896158
+            ],
+            [
+              73.0653679859669,
+              19.0426554943784
+            ],
+            [
+              73.065334005023,
+              19.0426587863361
+            ],
+            [
+              73.0653273199855,
+              19.0425963815734
+            ],
+            [
+              73.0653613009166,
+              19.0425930896158
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "candidate_id": "KHAR_10CA2BCB32582C4E",
+        "aoi_id": "kharghar-v1",
+        "source_dataset": "Google Open Buildings",
+        "source_version": "v3",
+        "source_tile_token": "3bf",
+        "source_record_key": "gobv3:3bf:sha256:10ca2bcb32582c4e7db961455164458deeaff0fe5792ad980a84ae6e857b030a",
+        "source_record_key_method": "sha256(tile|plus_code|normalized_source_wkt)",
+        "source_plus_code": "7JFM3328+646C",
+        "source_confidence": 0.856,
+        "source_centroid_lat": 19.05053888,
+        "source_centroid_lon": 73.06525541,
+        "source_footprint_area_m2": 134.6857,
+        "geometry_valid": true,
+        "temporal_height_m": 14.0,
+        "temporal_presence_score": 0.88,
+        "temporal_year": 2023,
+        "temporal_sampling_method": "centroid_nearest_pixel",
+        "temporal_source_uri": "https://storage.googleapis.com/open-buildings-temporal-data/v1/geotiffs/3be7c_2023_06_30/tile_dWbk5h9MBWQ.tif",
+        "temporal_effective_resolution_m": 4.0,
+        "gobs_enrichment_status": "not_requested_file_available"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0653237906269,
+              19.0505507439163
+            ],
+            [
+              73.0652860427875,
+              19.0505542241855
+            ],
+            [
+              73.0652900230635,
+              19.0505932618013
+            ],
+            [
+              73.0652055845572,
+              19.0506010468189
+            ],
+            [
+              73.0651948279624,
+              19.0504955481134
+            ],
+            [
+              73.0653170142389,
+              19.0504842828268
+            ],
+            [
+              73.0653237906269,
+              19.0505507439163
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "candidate_id": "KHAR_3B3592B33F70FF27",
+        "aoi_id": "kharghar-v1",
+        "source_dataset": "Google Open Buildings",
+        "source_version": "v3",
+        "source_tile_token": "3bf",
+        "source_record_key": "gobv3:3bf:sha256:3b3592b33f70ff2787835c84768307e74745dabe2317691b6079458adb4ea9f5",
+        "source_record_key_method": "sha256(tile|plus_code|normalized_source_wkt)",
+        "source_plus_code": "7JFM23R9+QVPM",
+        "source_confidence": 0.8128,
+        "source_centroid_lat": 19.04196556,
+        "source_centroid_lon": 73.06969554,
+        "source_footprint_area_m2": 51.7775,
+        "geometry_valid": true,
+        "temporal_height_m": 8.5,
+        "temporal_presence_score": 0.7,
+        "temporal_year": 2023,
+        "temporal_sampling_method": "centroid_nearest_pixel",
+        "temporal_source_uri": "https://storage.googleapis.com/open-buildings-temporal-data/v1/geotiffs/3be7c_2023_06_30/tile_dWbk5h9MBWQ.tif",
+        "temporal_effective_resolution_m": 4.0,
+        "gobs_enrichment_status": "not_requested_file_available"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0696814544895,
+              19.0420197132546
+            ],
+            [
+              73.0696466251148,
+              19.0419963406895
+            ],
+            [
+              73.0697096325032,
+              19.0419114291568
+            ],
+            [
+              73.0697444618727,
+              19.0419348017098
+            ],
+            [
+              73.0696814544895,
+              19.0420197132546
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "candidate_id": "KHAR_3F2C635DA0D0CC67",
+        "aoi_id": "kharghar-v1",
+        "source_dataset": "Google Open Buildings",
+        "source_version": "v3",
+        "source_tile_token": "3bf",
+        "source_record_key": "gobv3:3bf:sha256:3f2c635da0d0cc67577063d231c900f5d48530da2101c70c171814204339c477",
+        "source_record_key_method": "sha256(tile|plus_code|normalized_source_wkt)",
+        "source_plus_code": "7JFM338P+V79C",
+        "source_confidence": 0.7884,
+        "source_centroid_lat": 19.06716258,
+        "source_centroid_lon": 73.0857261,
+        "source_footprint_area_m2": 970.4134,
+        "geometry_valid": true,
+        "temporal_height_m": 24.5,
+        "temporal_presence_score": 0.94,
+        "temporal_year": 2023,
+        "temporal_sampling_method": "centroid_nearest_pixel",
+        "temporal_source_uri": "https://storage.googleapis.com/open-buildings-temporal-data/v1/geotiffs/3be7c_2023_06_30/tile_dWbk5h9MBWQ.tif",
+        "temporal_effective_resolution_m": 4.0,
+        "gobs_enrichment_status": "not_requested_file_available"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.085819732411,
+              19.0673091560242
+            ],
+            [
+              73.0857389164253,
+              19.067317508124
+            ],
+            [
+              73.0857676055998,
+              19.0675684780873
+            ],
+            [
+              73.0856810526407,
+              19.0675774230361
+            ],
+            [
+              73.0856422801195,
+              19.067238243349
+            ],
+            [
+              73.0857007656631,
+              19.0672321990658
+            ],
+            [
+              73.0856904278325,
+              19.06714176448
+            ],
+            [
+              73.0857184950576,
+              19.0671388638189
+            ],
+            [
+              73.0857006411613,
+              19.0669826793409
+            ],
+            [
+              73.0856725739633,
+              19.0669855800013
+            ],
+            [
+              73.085648304814,
+              19.0667732747973
+            ],
+            [
+              73.0857571876932,
+              19.0667620220415
+            ],
+            [
+              73.085819732411,
+              19.0673091560242
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "candidate_id": "KHAR_641A6078A54F509C",
+        "aoi_id": "kharghar-v1",
+        "source_dataset": "Google Open Buildings",
+        "source_version": "v3",
+        "source_tile_token": "3bf",
+        "source_record_key": "gobv3:3bf:sha256:641a6078a54f509c54c2cea424dfc6d4e3563cb2a090eedd8beee1b99ef7babf",
+        "source_record_key_method": "sha256(tile|plus_code|normalized_source_wkt)",
+        "source_plus_code": "7JFM332H+4855",
+        "source_confidence": 0.8878,
+        "source_centroid_lat": 19.05025278,
+        "source_centroid_lon": 73.07837392,
+        "source_footprint_area_m2": 231.9478,
+        "geometry_valid": true,
+        "temporal_height_m": 14.0,
+        "temporal_presence_score": 0.96,
+        "temporal_year": 2023,
+        "temporal_sampling_method": "centroid_nearest_pixel",
+        "temporal_source_uri": "https://storage.googleapis.com/open-buildings-temporal-data/v1/geotiffs/3be7c_2023_06_30/tile_dWbk5h9MBWQ.tif",
+        "temporal_effective_resolution_m": 4.0,
+        "gobs_enrichment_status": "not_requested_file_available"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0783475196026,
+              19.050354098639
+            ],
+            [
+              73.0782703778163,
+              19.050282892478
+            ],
+            [
+              73.0783297188543,
+              19.0502247599728
+            ],
+            [
+              73.0783182201102,
+              19.0502141459882
+            ],
+            [
+              73.0783405275828,
+              19.0501922928117
+            ],
+            [
+              73.0783520263274,
+              19.0502029067948
+            ],
+            [
+              73.0784022669104,
+              19.0501536893358
+            ],
+            [
+              73.078479408704,
+              19.0502248954421
+            ],
+            [
+              73.0783475196026,
+              19.050354098639
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "candidate_id": "KHAR_6C40C557A407C3F1",
+        "aoi_id": "kharghar-v1",
+        "source_dataset": "Google Open Buildings",
+        "source_version": "v3",
+        "source_tile_token": "3bf",
+        "source_record_key": "gobv3:3bf:sha256:6c40c557a407c3f13df27f9b80697f4830da1b79e5b9b918f280b23bf740b6fe",
+        "source_record_key_method": "sha256(tile|plus_code|normalized_source_wkt)",
+        "source_plus_code": "7JFM33CQ+4WCQ",
+        "source_confidence": 0.826,
+        "source_centroid_lat": 19.070317,
+        "source_centroid_lon": 73.08977768,
+        "source_footprint_area_m2": 100.5148,
+        "geometry_valid": true,
+        "temporal_height_m": 4.0,
+        "temporal_presence_score": 0.54,
+        "temporal_year": 2023,
+        "temporal_sampling_method": "centroid_nearest_pixel",
+        "temporal_source_uri": "https://storage.googleapis.com/open-buildings-temporal-data/v1/geotiffs/3be7c_2023_06_30/tile_dWbk5h9MBWQ.tif",
+        "temporal_effective_resolution_m": 4.0,
+        "gobs_enrichment_status": "not_requested_file_available"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0898543541248,
+              19.0702931569346
+            ],
+            [
+              73.089850154128,
+              19.0703505569348
+            ],
+            [
+              73.0897010541302,
+              19.070340856942
+            ],
+            [
+              73.0897051541271,
+              19.0702834569418
+            ],
+            [
+              73.0898543541248,
+              19.0702931569346
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "candidate_id": "KHAR_724BDAC03A482DFA",
+        "aoi_id": "kharghar-v1",
+        "source_dataset": "Google Open Buildings",
+        "source_version": "v3",
+        "source_tile_token": "3bf",
+        "source_record_key": "gobv3:3bf:sha256:724bdac03a482dfa7720d4e77bfb04ee8718b6390255526bcad7227ef4f6f513",
+        "source_record_key_method": "sha256(tile|plus_code|normalized_source_wkt)",
+        "source_plus_code": "7JFM239M+JX85",
+        "source_confidence": 0.7599,
+        "source_centroid_lat": 19.01902781,
+        "source_centroid_lon": 73.08496193,
+        "source_footprint_area_m2": 235.6654,
+        "geometry_valid": true,
+        "temporal_height_m": null,
+        "temporal_presence_score": 0.07999999821186066,
+        "temporal_year": 2023,
+        "temporal_sampling_method": "centroid_nearest_pixel",
+        "temporal_source_uri": "https://storage.googleapis.com/open-buildings-temporal-data/v1/geotiffs/3be7c_2023_06_30/tile_dWbk5h9MBWQ.tif",
+        "temporal_effective_resolution_m": 4.0,
+        "gobs_enrichment_status": "not_requested_file_available"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.085064930718,
+              19.0190346621755
+            ],
+            [
+              73.084967579321,
+              19.0191265590888
+            ],
+            [
+              73.0848670308582,
+              19.0190302041121
+            ],
+            [
+              73.084895006811,
+              19.0190037956474
+            ],
+            [
+              73.0848792906949,
+              19.0189887349781
+            ],
+            [
+              73.0849308106966,
+              19.0189401016024
+            ],
+            [
+              73.0849465268136,
+              19.0189551622673
+            ],
+            [
+              73.0849643822439,
+              19.018938307251
+            ],
+            [
+              73.085064930718,
+              19.0190346621755
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "candidate_id": "KHAR_7CA1BBB7CDCBD398",
+        "aoi_id": "kharghar-v1",
+        "source_dataset": "Google Open Buildings",
+        "source_version": "v3",
+        "source_tile_token": "3bf",
+        "source_record_key": "gobv3:3bf:sha256:7ca1bbb7cdcbd398b105cef4175937c411af98ba72ae6c566da96dacdb232d35",
+        "source_record_key_method": "sha256(tile|plus_code|normalized_source_wkt)",
+        "source_plus_code": "7JFM23V8+PP62",
+        "source_confidence": 0.7949,
+        "source_centroid_lat": 19.0442773,
+        "source_centroid_lon": 73.06675158,
+        "source_footprint_area_m2": 18.1178,
+        "geometry_valid": true,
+        "temporal_height_m": null,
+        "temporal_presence_score": 0.019999999552965164,
+        "temporal_year": 2023,
+        "temporal_sampling_method": "centroid_nearest_pixel",
+        "temporal_source_uri": "https://storage.googleapis.com/open-buildings-temporal-data/v1/geotiffs/3be7c_2023_06_30/tile_dWbk5h9MBWQ.tif",
+        "temporal_effective_resolution_m": 4.0,
+        "gobs_enrichment_status": "not_requested_file_available"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0667719857252,
+              19.044296783807
+            ],
+            [
+              73.0667361606359,
+              19.0443005695035
+            ],
+            [
+              73.0667311660897,
+              19.0442578268394
+            ],
+            [
+              73.0667669911692,
+              19.0442540411435
+            ],
+            [
+              73.0667719857252,
+              19.044296783807
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "candidate_id": "KHAR_7D1BCF15547D7D52",
+        "aoi_id": "kharghar-v1",
+        "source_dataset": "Google Open Buildings",
+        "source_version": "v3",
+        "source_tile_token": "3bf",
+        "source_record_key": "gobv3:3bf:sha256:7d1bcf15547d7d520fc0ddabe913d051535a7c40f850576588f938fd8615f1a0",
+        "source_record_key_method": "sha256(tile|plus_code|normalized_source_wkt)",
+        "source_plus_code": "7JFM3338+55GW",
+        "source_confidence": 0.9135,
+        "source_centroid_lat": 19.05294806,
+        "source_centroid_lon": 73.06545805,
+        "source_footprint_area_m2": 201.683,
+        "geometry_valid": true,
+        "temporal_height_m": 3.5,
+        "temporal_presence_score": 0.92,
+        "temporal_year": 2023,
+        "temporal_sampling_method": "centroid_nearest_pixel",
+        "temporal_source_uri": "https://storage.googleapis.com/open-buildings-temporal-data/v1/geotiffs/3be7c_2023_06_30/tile_dWbk5h9MBWQ.tif",
+        "temporal_effective_resolution_m": 4.0,
+        "gobs_enrichment_status": "not_requested_file_available"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0653470533871,
+              19.0529022574638
+            ],
+            [
+              73.0655749533838,
+              19.0529185574528
+            ],
+            [
+              73.065569053388,
+              19.0529938574531
+            ],
+            [
+              73.0653411533913,
+              19.0529775574641
+            ],
+            [
+              73.0653470533871,
+              19.0529022574638
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "candidate_id": "KHAR_9414D9853BB9AA6B",
+        "aoi_id": "kharghar-v1",
+        "source_dataset": "Google Open Buildings",
+        "source_version": "v3",
+        "source_tile_token": "3bf",
+        "source_record_key": "gobv3:3bf:sha256:9414d9853bb9aa6b25a7046679d252d77209baf5232a852ccc4a0c697c4c3bee",
+        "source_record_key_method": "sha256(tile|plus_code|normalized_source_wkt)",
+        "source_plus_code": "7JFM33FQ+67WX",
+        "source_confidence": 0.6581,
+        "source_centroid_lat": 19.07312219,
+        "source_centroid_lon": 73.08821762,
+        "source_footprint_area_m2": 20.6143,
+        "geometry_valid": true,
+        "temporal_height_m": 1.5,
+        "temporal_presence_score": 0.4,
+        "temporal_year": 2023,
+        "temporal_sampling_method": "centroid_nearest_pixel",
+        "temporal_source_uri": "https://storage.googleapis.com/open-buildings-temporal-data/v1/geotiffs/3be7c_2023_06_30/tile_dWbk5h9MBWQ.tif",
+        "temporal_effective_resolution_m": 4.0,
+        "gobs_enrichment_status": "not_requested_file_available"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0882436945651,
+              19.0731062494526
+            ],
+            [
+              73.0882405862765,
+              19.0731419781365
+            ],
+            [
+              73.0881915475141,
+              19.073138121441
+            ],
+            [
+              73.0881946558129,
+              19.0731023927591
+            ],
+            [
+              73.0882436945651,
+              19.0731062494526
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "candidate_id": "KHAR_A0028F0D87A95439",
+        "aoi_id": "kharghar-v1",
+        "source_dataset": "Google Open Buildings",
+        "source_version": "v3",
+        "source_tile_token": "3bf",
+        "source_record_key": "gobv3:3bf:sha256:a0028f0d87a95439f0f259c977aa901738573f9c9f463938e21d1213cc0e9f64",
+        "source_record_key_method": "sha256(tile|plus_code|normalized_source_wkt)",
+        "source_plus_code": "7JFM23X8+M5Q2",
+        "source_confidence": 0.9133,
+        "source_centroid_lat": 19.04920116,
+        "source_centroid_lon": 73.06546913,
+        "source_footprint_area_m2": 379.3402,
+        "geometry_valid": true,
+        "temporal_height_m": 15.5,
+        "temporal_presence_score": 0.78,
+        "temporal_year": 2023,
+        "temporal_sampling_method": "centroid_nearest_pixel",
+        "temporal_source_uri": "https://storage.googleapis.com/open-buildings-temporal-data/v1/geotiffs/3be7c_2023_06_30/tile_dWbk5h9MBWQ.tif",
+        "temporal_effective_resolution_m": 4.0,
+        "gobs_enrichment_status": "not_requested_file_available"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0655647920004,
+              19.0492879455441
+            ],
+            [
+              73.0653927133249,
+              19.0493097924854
+            ],
+            [
+              73.0653812848295,
+              19.0492283925148
+            ],
+            [
+              73.0654121099898,
+              19.0492244789932
+            ],
+            [
+              73.0654038367184,
+              19.0491655522926
+            ],
+            [
+              73.065373011569,
+              19.0491694658135
+            ],
+            [
+              73.065365212886,
+              19.0491139192882
+            ],
+            [
+              73.0655372913578,
+              19.0490920723547
+            ],
+            [
+              73.0655647920004,
+              19.0492879455441
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "candidate_id": "KHAR_D8374EE1153BD8EC",
+        "aoi_id": "kharghar-v1",
+        "source_dataset": "Google Open Buildings",
+        "source_version": "v3",
+        "source_tile_token": "3bf",
+        "source_record_key": "gobv3:3bf:sha256:d8374ee1153bd8ec71d1a033b4a06c974391a5d3f781590f0226922bbd6ba132",
+        "source_record_key_method": "sha256(tile|plus_code|normalized_source_wkt)",
+        "source_plus_code": "7JFM3389+JCH4",
+        "source_confidence": 0.8323,
+        "source_centroid_lat": 19.06655305,
+        "source_centroid_lon": 73.06860978,
+        "source_footprint_area_m2": 91.9374,
+        "geometry_valid": true,
+        "temporal_height_m": 11.0,
+        "temporal_presence_score": 0.42,
+        "temporal_year": 2023,
+        "temporal_sampling_method": "centroid_nearest_pixel",
+        "temporal_source_uri": "https://storage.googleapis.com/open-buildings-temporal-data/v1/geotiffs/3be7c_2023_06_30/tile_dWbk5h9MBWQ.tif",
+        "temporal_effective_resolution_m": 4.0,
+        "gobs_enrichment_status": "not_requested_file_available"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0686805202274,
+              19.0665267147708
+            ],
+            [
+              73.068601194063,
+              19.0666147887903
+            ],
+            [
+              73.06854280208,
+              19.0665672412936
+            ],
+            [
+              73.0686022082597,
+              19.0665012840115
+            ],
+            [
+              73.068629526136,
+              19.0665235284439
+            ],
+            [
+              73.068649446125,
+              19.0665014117293
+            ],
+            [
+              73.0686805202274,
+              19.0665267147708
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "candidate_id": "KHAR_DDE1120977FD1E46",
+        "aoi_id": "kharghar-v1",
+        "source_dataset": "Google Open Buildings",
+        "source_version": "v3",
+        "source_tile_token": "3bf",
+        "source_record_key": "gobv3:3bf:sha256:dde1120977fd1e46d50f19d0b76afd59a58678113b833fcf678c30f15b17ff4e",
+        "source_record_key_method": "sha256(tile|plus_code|normalized_source_wkt)",
+        "source_plus_code": "7JFM23PF+JC6H",
+        "source_confidence": 0.7445,
+        "source_centroid_lat": 19.03653988,
+        "source_centroid_lon": 73.07353114,
+        "source_footprint_area_m2": 62.6626,
+        "geometry_valid": true,
+        "temporal_height_m": 3.0,
+        "temporal_presence_score": 0.4,
+        "temporal_year": 2023,
+        "temporal_sampling_method": "centroid_nearest_pixel",
+        "temporal_source_uri": "https://storage.googleapis.com/open-buildings-temporal-data/v1/geotiffs/3be7c_2023_06_30/tile_dWbk5h9MBWQ.tif",
+        "temporal_effective_resolution_m": 4.0,
+        "gobs_enrichment_status": "not_requested_file_available"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0735659520704,
+              19.0365010563281
+            ],
+            [
+              73.0735640520747,
+              19.0365801563282
+            ],
+            [
+              73.0734963520759,
+              19.0365787563314
+            ],
+            [
+              73.0734982520716,
+              19.0364995563313
+            ],
+            [
+              73.0735659520704,
+              19.0365010563281
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "candidate_id": "KHAR_F4BAD6AB630280D9",
+        "aoi_id": "kharghar-v1",
+        "source_dataset": "Google Open Buildings",
+        "source_version": "v3",
+        "source_tile_token": "3bf",
+        "source_record_key": "gobv3:3bf:sha256:f4bad6ab630280d97f8e43802ed11a35ab6b20c6ac8ac7e8158932a3c8dd6101",
+        "source_record_key_method": "sha256(tile|plus_code|normalized_source_wkt)",
+        "source_plus_code": "7JFM23XJ+Q5R8",
+        "source_confidence": 0.8873,
+        "source_centroid_lat": 19.049482,
+        "source_centroid_lon": 73.08039169,
+        "source_footprint_area_m2": 84.8917,
+        "geometry_valid": true,
+        "temporal_height_m": 9.5,
+        "temporal_presence_score": 0.88,
+        "temporal_year": 2023,
+        "temporal_sampling_method": "centroid_nearest_pixel",
+        "temporal_source_uri": "https://storage.googleapis.com/open-buildings-temporal-data/v1/geotiffs/3be7c_2023_06_30/tile_dWbk5h9MBWQ.tif",
+        "temporal_effective_resolution_m": 4.0,
+        "gobs_enrichment_status": "not_requested_file_available"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0804295161119,
+              19.0494350866044
+            ],
+            [
+              73.0804346188859,
+              19.0495247596626
+            ],
+            [
+              73.0803538541715,
+              19.0495289155139
+            ],
+            [
+              73.0803487514413,
+              19.0494392424573
+            ],
+            [
+              73.0804295161119,
+              19.0494350866044
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "candidate_id": "KHAR_F79A9D3BE98D53AB",
+        "aoi_id": "kharghar-v1",
+        "source_dataset": "Google Open Buildings",
+        "source_version": "v3",
+        "source_tile_token": "3bf",
+        "source_record_key": "gobv3:3bf:sha256:f79a9d3be98d53ab4ffec02a7a766dbc5f3653fca7aceab473c9156b2eaef8fa",
+        "source_record_key_method": "sha256(tile|plus_code|normalized_source_wkt)",
+        "source_plus_code": "7JFM23R8+622H",
+        "source_confidence": 0.873,
+        "source_centroid_lat": 19.0405136,
+        "source_centroid_lon": 73.06502947,
+        "source_footprint_area_m2": 159.196,
+        "geometry_valid": true,
+        "temporal_height_m": 5.5,
+        "temporal_presence_score": 0.48,
+        "temporal_year": 2023,
+        "temporal_sampling_method": "centroid_nearest_pixel",
+        "temporal_source_uri": "https://storage.googleapis.com/open-buildings-temporal-data/v1/geotiffs/3be7c_2023_06_30/tile_dWbk5h9MBWQ.tif",
+        "temporal_effective_resolution_m": 4.0,
+        "gobs_enrichment_status": "not_requested_file_available"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0651209013245,
+              19.0405421202305
+            ],
+            [
+              73.0649483235347,
+              19.0405627694908
+            ],
+            [
+              73.0649380442033,
+              19.0404850749576
+            ],
+            [
+              73.0651106219122,
+              19.0404644256999
+            ],
+            [
+              73.0651209013245,
+              19.0405421202305
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

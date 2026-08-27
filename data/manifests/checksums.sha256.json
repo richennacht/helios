@@ -1,0 +1,7 @@
+{
+  "data/sample/source_layers/candidate_buildings.geojson": "8e96181369f8efa182d40ff6d15190c2f2015e39bda84e3046a0409197828a30",
+  "data/sample/source_layers/kharghar_aoi.geojson": "39d42ed00592928a83c0b26c588c5e2f00fcb2c28cccf4a6702a5b4a87e90e8e",
+  "data/sample/source_layers/sample_kharghar_power.geojson": "760aa288dded78d65ccfcfc8c9c45c2e13142c350845fb5439efb15d33754892",
+  "data/sample/source_layers/sample_kharghar_roads.geojson": "96fd9149a26c69b81869a12058905f061da6f5e44dca7f8f149dfba4beef10b7",
+  "data/sample/source_layers/kharghar_terrain.tif": "fa5206c4dbad3ad93519397740ffaf4821c71a85d0a8cab91a10140a22098517"
+}

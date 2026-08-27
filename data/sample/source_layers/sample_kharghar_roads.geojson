@@ -1,0 +1,1144 @@
+{
+  "type": "FeatureCollection",
+  "name": "kharghar_roads",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kopra Road",
+        "highway": "tertiary",
+        "source_id": "osm-surrogate:roads:sha256:00033e8b1842477b7584d2929338bcd56eb80adc42773d2136732cdf2134f7f8",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0775393,
+            19.036783
+          ],
+          [
+            73.0780166,
+            19.036405
+          ],
+          [
+            73.0780829,
+            19.0363501
+          ],
+          [
+            73.0790828,
+            19.0355063
+          ],
+          [
+            73.0791327,
+            19.0354102
+          ],
+          [
+            73.0790074,
+            19.0354472
+          ],
+          [
+            73.0785477,
+            19.0358307
+          ],
+          [
+            73.0782041,
+            19.0361172
+          ],
+          [
+            73.0779931,
+            19.0362932
+          ],
+          [
+            73.0775293,
+            19.036669
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "service",
+        "source_id": "osm-surrogate:roads:sha256:000f2b00b13ac7f630adda7df0618fd50050efad5c3646395603f2edda368b55",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0643888,
+            19.0369924
+          ],
+          [
+            73.06435,
+            19.0369349
+          ],
+          [
+            73.0641432,
+            19.0366216
+          ],
+          [
+            73.0643316,
+            19.0364967
+          ],
+          [
+            73.0643544,
+            19.0364944
+          ],
+          [
+            73.064381,
+            19.0365038
+          ],
+          [
+            73.0645758,
+            19.0368059
+          ],
+          [
+            73.06463,
+            19.03689
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Taloja Underpass",
+        "highway": "tertiary",
+        "source_id": "osm-surrogate:roads:sha256:001198a942099bc7a7d3fc3c97195141d1cac8f68d3e5aca358e8b72d31562e9",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0884626,
+            19.0760628
+          ],
+          [
+            73.0886812,
+            19.0752438
+          ],
+          [
+            73.0887555,
+            19.0750718
+          ],
+          [
+            73.0888474,
+            19.0749469
+          ],
+          [
+            73.0889523,
+            19.0748845
+          ],
+          [
+            73.0890879,
+            19.074851
+          ],
+          [
+            73.0892295,
+            19.0748426
+          ],
+          [
+            73.08939,
+            19.0748693
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "service",
+        "source_id": "osm-surrogate:roads:sha256:001be7439e49d98040e1512e541e5cdafd11dd99383234a2add74460ce2a4c0e",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0578316,
+            19.0395611
+          ],
+          [
+            73.0576651,
+            19.0396243
+          ],
+          [
+            73.0575497,
+            19.0396682
+          ],
+          [
+            73.0571718,
+            19.0398117
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "residential",
+        "source_id": "osm-surrogate:roads:sha256:0031089880b6be3d98382950019d8201ffb0dc396760077192be3e264f02f082",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.078753,
+            19.0520045
+          ],
+          [
+            73.0787132,
+            19.0514751
+          ],
+          [
+            73.0786905,
+            19.0511321
+          ],
+          [
+            73.0786639,
+            19.0508842
+          ],
+          [
+            73.0786589,
+            19.0508403
+          ],
+          [
+            73.0786568,
+            19.0508222
+          ],
+          [
+            73.078632,
+            19.0507752
+          ],
+          [
+            73.0783721,
+            19.0505015
+          ],
+          [
+            73.0780372,
+            19.0501488
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "service",
+        "source_id": "osm-surrogate:roads:sha256:0051340ba941a63247a3d5f3843ccc9099d0afdba0df9502dd9d6fb6d295835f",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0743633,
+            19.0438759
+          ],
+          [
+            73.0744142,
+            19.043831
+          ],
+          [
+            73.074317,
+            19.0435895
+          ],
+          [
+            73.0738795,
+            19.0425023
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "cycleway",
+        "source_id": "osm-surrogate:roads:sha256:00599c111b22ad013d83da251d7f4e22e611221c00fac0739d75fcefde1904e7",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0452427,
+            19.0342839
+          ],
+          [
+            73.0452058,
+            19.0338686
+          ],
+          [
+            73.0450552,
+            19.0338627
+          ],
+          [
+            73.0449172,
+            19.0338574
+          ],
+          [
+            73.0450189,
+            19.0343913
+          ],
+          [
+            73.0450459,
+            19.0344391
+          ],
+          [
+            73.0451924,
+            19.034445
+          ],
+          [
+            73.0452427,
+            19.0342839
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "residential",
+        "source_id": "osm-surrogate:roads:sha256:006087054f60abf88bf0005857e3f30ba66aceea55c00020c3c9dca5ff8315b0",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0667945,
+            19.0490882
+          ],
+          [
+            73.0667493,
+            19.0487348
+          ],
+          [
+            73.0666225,
+            19.0477432
+          ],
+          [
+            73.0666088,
+            19.0476361
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "service",
+        "source_id": "osm-surrogate:roads:sha256:006aeba301aa0d636a4c4d243cad5566fd5f679f71876382b94c094119652fb5",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0689172,
+            19.0336039
+          ],
+          [
+            73.0689676,
+            19.0335377
+          ],
+          [
+            73.069311,
+            19.0330873
+          ],
+          [
+            73.0693274,
+            19.0330658
+          ],
+          [
+            73.069372,
+            19.0330003
+          ],
+          [
+            73.0695614,
+            19.0331261
+          ],
+          [
+            73.069591,
+            19.0332618
+          ],
+          [
+            73.0694139,
+            19.0335027
+          ],
+          [
+            73.0697919,
+            19.0337813
+          ],
+          [
+            73.0698082,
+            19.0338158
+          ],
+          [
+            73.0698022,
+            19.0338689
+          ],
+          [
+            73.0696848,
+            19.0340212
+          ],
+          [
+            73.0696292,
+            19.0340947
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "cycleway",
+        "source_id": "osm-surrogate:roads:sha256:00b3c4dfec882e2e3a9af68308f23e116ae598ccbea9c540a6a4834b4377ab8c",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0603521,
+            19.0442204
+          ],
+          [
+            73.0604576,
+            19.0442073
+          ],
+          [
+            73.0605923,
+            19.044245
+          ],
+          [
+            73.0606352,
+            19.044307
+          ],
+          [
+            73.0606658,
+            19.0444146
+          ],
+          [
+            73.0607352,
+            19.0445301
+          ],
+          [
+            73.060808,
+            19.0444258
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "cycleway",
+        "source_id": "osm-surrogate:roads:sha256:00c1db9ff449655dca27dd5dadf45ba539d289353c232f035bc10f8a0d2d9f36",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0558187,
+            19.0825185
+          ],
+          [
+            73.055405,
+            19.0824207
+          ],
+          [
+            73.0548491,
+            19.0823841
+          ],
+          [
+            73.0544354,
+            19.0823474
+          ],
+          [
+            73.054151,
+            19.0821886
+          ],
+          [
+            73.05397,
+            19.0824207
+          ],
+          [
+            73.053608,
+            19.0825796
+          ],
+          [
+            73.0534399,
+            19.082433
+          ],
+          [
+            73.0533882,
+            19.0820175
+          ],
+          [
+            73.0532072,
+            19.0817488
+          ],
+          [
+            73.0532201,
+            19.0811134
+          ],
+          [
+            73.0532201,
+            19.0807835
+          ],
+          [
+            73.0530521,
+            19.0805392
+          ],
+          [
+            73.0531296,
+            19.0801238
+          ],
+          [
+            73.0531814,
+            19.0798061
+          ],
+          [
+            73.0531684,
+            19.0795128
+          ],
+          [
+            73.0531814,
+            19.0791585
+          ],
+          [
+            73.0534141,
+            19.0788897
+          ],
+          [
+            73.0537243,
+            19.0787065
+          ],
+          [
+            73.0539829,
+            19.0788286
+          ],
+          [
+            73.0541251,
+            19.0786331
+          ],
+          [
+            73.0545,
+            19.0784254
+          ],
+          [
+            73.05433,
+            19.0779562
+          ],
+          [
+            73.0542306,
+            19.0774683
+          ],
+          [
+            73.0540958,
+            19.0770954
+          ],
+          [
+            73.0539996,
+            19.0770044
+          ],
+          [
+            73.0540092,
+            19.0767315
+          ],
+          [
+            73.0541728,
+            19.0766406
+          ],
+          [
+            73.054284,
+            19.0764837
+          ],
+          [
+            73.0544808,
+            19.0761039
+          ],
+          [
+            73.0548119,
+            19.075807
+          ],
+          [
+            73.0549043,
+            19.0752034
+          ],
+          [
+            73.0550487,
+            19.0748213
+          ],
+          [
+            73.0553182,
+            19.0743938
+          ],
+          [
+            73.0556069,
+            19.073848
+          ],
+          [
+            73.0556166,
+            19.0737056
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "residential",
+        "source_id": "osm-surrogate:roads:sha256:00d64f9e1f6d3ceffc888a3b231b6e35dc16f16a26cccbcc5d5cc21b408889a4",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0682494,
+            19.0392385
+          ],
+          [
+            73.0682343,
+            19.039213
+          ],
+          [
+            73.0682272,
+            19.039202
+          ],
+          [
+            73.0682225,
+            19.0391948
+          ],
+          [
+            73.0682131,
+            19.0391863
+          ],
+          [
+            73.0682056,
+            19.0391799
+          ],
+          [
+            73.0681948,
+            19.0391734
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "construction",
+        "source_id": "osm-surrogate:roads:sha256:00df8fb902c865bf862619af349bc410a5888f2f7f01436973af9a5934fd17b8",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0898853,
+            19.0609452
+          ],
+          [
+            73.0877698,
+            19.0595813
+          ],
+          [
+            73.087144,
+            19.0592017
+          ],
+          [
+            73.0868171,
+            19.0589236
+          ],
+          [
+            73.0856823,
+            19.0573655
+          ],
+          [
+            73.0853647,
+            19.0570477
+          ],
+          [
+            73.0850005,
+            19.0568446
+          ],
+          [
+            73.0844823,
+            19.0567068
+          ],
+          [
+            73.0839135,
+            19.0566364
+          ],
+          [
+            73.0831278,
+            19.056715
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "residential",
+        "source_id": "osm-surrogate:roads:sha256:00e5c0c1031a04576982912da0ef00cf4d50368a091a6fd2a6782299d32bcd4a",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0836105,
+            19.0622595
+          ],
+          [
+            73.0835706,
+            19.0622594
+          ],
+          [
+            73.0833092,
+            19.0622939
+          ],
+          [
+            73.082847,
+            19.0623573
+          ],
+          [
+            73.0827283,
+            19.0624163
+          ],
+          [
+            73.0825184,
+            19.062476
+          ],
+          [
+            73.0824052,
+            19.0625327
+          ],
+          [
+            73.0823291,
+            19.0626341
+          ],
+          [
+            73.0822602,
+            19.0627335
+          ],
+          [
+            73.0824788,
+            19.0630355
+          ],
+          [
+            73.0825842,
+            19.0632309
+          ],
+          [
+            73.0826584,
+            19.0633995
+          ],
+          [
+            73.0826942,
+            19.0634809
+          ],
+          [
+            73.0828095,
+            19.0636871
+          ],
+          [
+            73.0828576,
+            19.064324
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "service",
+        "source_id": "osm-surrogate:roads:sha256:00e5c0c9150b67537de4042cff2f15549ddb52986db63717968193f6420b70c8",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0712094,
+            19.0385889
+          ],
+          [
+            73.0712934,
+            19.0385832
+          ],
+          [
+            73.0713937,
+            19.0385763
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Raghunath Road",
+        "highway": "secondary",
+        "source_id": "osm-surrogate:roads:sha256:00ee0d56ebe6fccb9522409dbf1a55ea7bad8babd9409a31919457337f5f6bf1",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0730008,
+            19.0471218
+          ],
+          [
+            73.0730036,
+            19.0470564
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "residential",
+        "source_id": "osm-surrogate:roads:sha256:00f11866c4acd070126e65a5ffdb3ec9c1e41a294e3564af09bf0eb65513e268",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0577622,
+            19.0352714
+          ],
+          [
+            73.0577299,
+            19.0349709
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "steps",
+        "source_id": "osm-surrogate:roads:sha256:00f18050d59a1453fceb5e907c1d258970946ed7203c2f7810f6bcd15af3bdb7",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.076629,
+            19.0403562
+          ],
+          [
+            73.0766989,
+            19.0404293
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "residential",
+        "source_id": "osm-surrogate:roads:sha256:00ffba64dc32bb418a92f78fc5ffa42808a7161bff3923a1c36978224b0d50dc",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0638323,
+            19.0486472
+          ],
+          [
+            73.0628585,
+            19.0487823
+          ],
+          [
+            73.0627443,
+            19.0487602
+          ],
+          [
+            73.0626524,
+            19.0486828
+          ],
+          [
+            73.0625292,
+            19.048176
+          ],
+          [
+            73.0625415,
+            19.0480129
+          ],
+          [
+            73.0625701,
+            19.0479236
+          ],
+          [
+            73.0626334,
+            19.0478922
+          ],
+          [
+            73.0636322,
+            19.0477858
+          ],
+          [
+            73.0637227,
+            19.0477777
+          ],
+          [
+            73.0637678,
+            19.0479197
+          ],
+          [
+            73.0638188,
+            19.0483088
+          ],
+          [
+            73.0638323,
+            19.0486472
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "service",
+        "source_id": "osm-surrogate:roads:sha256:0107e07e10cf77b53bbd731b7b7dfb6096ed7e264e8f5525b6603b84e5e8bdb5",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0707014,
+            19.0341049
+          ],
+          [
+            73.0707387,
+            19.0340631
+          ],
+          [
+            73.0709052,
+            19.033831
+          ],
+          [
+            73.0708972,
+            19.0337981
+          ],
+          [
+            73.0707684,
+            19.033722
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "residential",
+        "source_id": "osm-surrogate:roads:sha256:01080109fa6a30d1258900f0f8eab7d2308beb213c529ca5b425bd2658f9483e",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0860491,
+            19.0712087
+          ],
+          [
+            73.0864053,
+            19.0712492
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "service",
+        "source_id": "osm-surrogate:roads:sha256:01118d774b62b7cf0b22d13d7f7146b559753279db82ffcbf932e9bc438e4c43",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0732465,
+            19.0491932
+          ],
+          [
+            73.0731891,
+            19.0489237
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "residential",
+        "source_id": "osm-surrogate:roads:sha256:0145671961818d7115c3fc00bce0c3430688666dde905ab433289155480b1463",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0637155,
+            19.056846
+          ],
+          [
+            73.0634835,
+            19.0568194
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "residential",
+        "source_id": "osm-surrogate:roads:sha256:01570efa0d826eeaeda787affe35a7357bddb7cd4cba35b17753529e835e63fa",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0770008,
+            19.0343525
+          ],
+          [
+            73.0769432,
+            19.0342996
+          ],
+          [
+            73.076939,
+            19.0342957
+          ],
+          [
+            73.0769176,
+            19.0342741
+          ],
+          [
+            73.0768811,
+            19.0342392
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "highway": "steps",
+        "source_id": "osm-surrogate:roads:sha256:015f1131863f2e903e3300698470e673a42016494e8c99cfc6c9742c27970b3c",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0774503,
+            19.0377506
+          ],
+          [
+            73.0772957,
+            19.0378395
+          ]
+        ]
+      }
+    }
+  ]
+}

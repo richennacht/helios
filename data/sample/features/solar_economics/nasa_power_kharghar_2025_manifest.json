@@ -1,0 +1,35 @@
+{
+  "source_id": "nasa-power-kharghar-2025-hourly-v1",
+  "provider": "NASA POWER",
+  "title": "Kharghar hourly solar and meteorological research input",
+  "latitude": 19.0464,
+  "longitude": 73.069,
+  "period": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2025-12-31T23:00:00Z"
+  },
+  "records": 8760,
+  "parameters": [
+    "ALLSKY_SFC_SW_DWN",
+    "ALLSKY_SFC_SW_DIFF",
+    "T2M",
+    "WS2M",
+    "RH2M",
+    "PRECTOTCORR",
+    "PS"
+  ],
+  "units": {
+    "ALLSKY_SFC_SW_DWN": "W/m2",
+    "ALLSKY_SFC_SW_DIFF": "W/m2",
+    "T2M": "C",
+    "WS2M": "m/s",
+    "RH2M": "%",
+    "PRECTOTCORR": "mm/hour",
+    "PS": "kPa"
+  },
+  "request_url": "https://power.larc.nasa.gov/api/temporal/hourly/point?parameters=ALLSKY_SFC_SW_DWN%2CALLSKY_SFC_SW_DIFF%2CT2M%2CWS2M%2CRH2M%2CPRECTOTCORR%2CPS&community=RE&longitude=73.0690&latitude=19.0464&start=20250101&end=20251231&format=JSON&time-standard=UTC",
+  "retrieved_at": "2026-08-27",
+  "sha256": "e191f05f0f1db1378aadbb4d102d072064eac4005b65157a7497d109cdb112c9",
+  "license_url": "https://power.larc.nasa.gov/docs/services/api/temporal/hourly/",
+  "limitation": "Reanalysis/grid-cell data for screening, not on-site pyranometer observations."
+}

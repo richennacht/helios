@@ -1,11 +1,78 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
+  "title": "Helios Field and Orthophoto Validation Form",
+  "description": "Blind human review capture form for rooftop solar screening validation",
   "fields": [
-    {"name": "candidate_id", "type": "string", "required": true},
-    {"name": "reviewer", "type": "string", "required": true},
-    {"name": "decision", "type": "enum", "values": ["inspect", "uncertain", "reject"], "required": true},
-    {"name": "reason_codes", "type": "string_array", "required": true},
-    {"name": "reviewed_at", "type": "datetime", "required": true},
-    {"name": "notes", "type": "string", "required": false}
+    {
+      "name": "candidate_id",
+      "label": "Candidate ID",
+      "type": "string",
+      "required": true,
+      "description": "Unique stable identifier for the candidate building"
+    },
+    {
+      "name": "reviewer",
+      "label": "Reviewer Identifier",
+      "type": "string",
+      "required": true,
+      "description": "Identifier of the reviewing surveyor or analyst"
+    },
+    {
+      "name": "started_at",
+      "label": "Review Started At",
+      "type": "datetime",
+      "required": true,
+      "description": "Timestamp when candidate evaluation commenced"
+    },
+    {
+      "name": "reviewed_at",
+      "label": "Review Completed At",
+      "type": "datetime",
+      "required": true,
+      "description": "Timestamp when candidate decision was finalized"
+    },
+    {
+      "name": "decision",
+      "label": "Screening Decision",
+      "type": "enum",
+      "values": [
+        "inspect",
+        "uncertain",
+        "reject"
+      ],
+      "required": true,
+      "description": "Primary screening determination"
+    },
+    {
+      "name": "reason_codes",
+      "label": "Reason Codes",
+      "type": "string_array",
+      "required": true,
+      "allowed_values": [
+        "strong-roof",
+        "area-too-small",
+        "complex-geometry",
+        "low-shading",
+        "shading",
+        "cluttered-roof",
+        "good-access",
+        "poor-access",
+        "good-grid",
+        "verify-height",
+        "low-image-resolution",
+        "boundary-ambiguity",
+        "economics-good",
+        "rent-missing",
+        "yield-good"
+      ],
+      "description": "Standardized reason codes explaining the screening decision"
+    },
+    {
+      "name": "notes",
+      "label": "Field and Reviewer Notes",
+      "type": "string",
+      "required": false,
+      "description": "Optional qualitative observations or field survey notes"
+    }
   ]
 }

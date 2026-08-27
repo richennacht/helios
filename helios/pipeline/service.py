@@ -18,6 +18,9 @@ class AnalysisService:
         self.repository = repository or InMemoryRunRepository()
 
     def create(self, request: AnalysisRequest) -> AnalysisRun:
+        candidate_ids = [candidate.candidate_id for candidate in request.candidates]
+        if len(candidate_ids) != len(set(candidate_ids)):
+            raise ValueError("Duplicate candidate_id found in analysis request")
         results = self._rank(request.candidates, request.scenario, request.weights)
         run = AnalysisRun(
             run_id=str(uuid4()),

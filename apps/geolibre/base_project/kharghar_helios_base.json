@@ -1,0 +1,53 @@
+{
+  "version": "1.1",
+  "project_name": "Helios Kharghar Base GIS",
+  "crs": "EPSG:4326",
+  "fixture_mode": true,
+  "layers": [
+    {
+      "id": "aoi_boundary",
+      "name": "Kharghar AOI v1",
+      "type": "vector",
+      "source": "../../../data/sample/source_layers/kharghar_aoi.geojson",
+      "read_only": true,
+      "attribution": "Helios frozen AOI; metadata in data/manifests/kharghar-v1.json",
+      "style": {"stroke": "#e74c3c", "stroke-width": 2, "fill": "none"}
+    },
+    {
+      "id": "roads",
+      "name": "Kharghar Road Context",
+      "type": "vector",
+      "source": "../../../data/sample/source_layers/sample_kharghar_roads.geojson",
+      "read_only": true,
+      "attribution": "OpenStreetMap contributors, ODbL 1.0; snapshot 2026-08-22",
+      "style": {"stroke": "#34495e", "stroke-width": 1.5}
+    },
+    {
+      "id": "buildings",
+      "name": "Google Open Buildings v3 Candidates",
+      "type": "vector",
+      "source": "../../../data/sample/source_layers/candidate_buildings.geojson",
+      "read_only": true,
+      "attribution": "Google Research Open Buildings v3, CC BY 4.0; tile 3bf",
+      "style": {"fill": "#3498db", "fill-opacity": 0.6, "stroke": "#1b4f72"}
+    },
+    {
+      "id": "power",
+      "name": "Mapped Power Infrastructure Proxy",
+      "type": "vector",
+      "source": "../../../data/sample/source_layers/sample_kharghar_power.geojson",
+      "read_only": true,
+      "attribution": "OpenStreetMap contributors, ODbL 1.0; not grid hosting capacity",
+      "style": {"circle-color": "#f1c40f", "circle-radius": 4, "circle-stroke": "#000000"}
+    },
+    {
+      "id": "terrain",
+      "name": "Copernicus DEM GLO-30 Terrain",
+      "type": "raster",
+      "source": "../../../data/sample/source_layers/kharghar_terrain.tif",
+      "read_only": true,
+      "attribution": "Copernicus DEM GLO-30; 30 m terrain context, not roof height",
+      "style": {"opacity": 0.55, "color-ramp": "terrain"}
+    }
+  ]
+}

@@ -1,0 +1,563 @@
+{
+  "$defs": {
+    "ConfidenceRow": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_id": {
+          "minLength": 1,
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "overall_confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Overall Confidence",
+          "type": "number"
+        },
+        "criteria": {
+          "$ref": "#/$defs/CriterionConfidence"
+        },
+        "confidence_version": {
+          "minLength": 1,
+          "title": "Confidence Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "overall_confidence",
+        "criteria",
+        "confidence_version"
+      ],
+      "title": "ConfidenceRow",
+      "type": "object"
+    },
+    "CriterionConfidence": {
+      "additionalProperties": false,
+      "description": "Evidence confidence, used to size uncertainty - never as a reward.",
+      "properties": {
+        "generation": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Generation",
+          "type": "number"
+        },
+        "physical": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Physical",
+          "type": "number"
+        },
+        "grid": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Grid",
+          "type": "number"
+        },
+        "economics": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Economics",
+          "type": "number"
+        }
+      },
+      "required": [
+        "generation",
+        "physical",
+        "grid",
+        "economics"
+      ],
+      "title": "CriterionConfidence",
+      "type": "object"
+    },
+    "P2CandidateRow": {
+      "additionalProperties": false,
+      "description": "Normalized spatial/physical features owned by Person 2.",
+      "properties": {
+        "candidate_id": {
+          "minLength": 1,
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "geometry": {
+          "additionalProperties": true,
+          "title": "Geometry",
+          "type": "object"
+        },
+        "usable_area_m2": {
+          "minimum": 0,
+          "title": "Usable Area M2",
+          "type": "number"
+        },
+        "shading_factor": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Shading Factor",
+          "type": "number"
+        },
+        "grid_distance_m": {
+          "minimum": 0,
+          "title": "Grid Distance M",
+          "type": "number"
+        },
+        "physical_score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Physical Score",
+          "type": "number"
+        },
+        "grid_score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Grid Score",
+          "type": "number"
+        },
+        "feature_version": {
+          "minLength": 1,
+          "title": "Feature Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "geometry",
+        "usable_area_m2",
+        "shading_factor",
+        "grid_distance_m",
+        "physical_score",
+        "grid_score",
+        "feature_version"
+      ],
+      "title": "P2CandidateRow",
+      "type": "object"
+    },
+    "P3CandidateRow": {
+      "additionalProperties": false,
+      "description": "Normalized generation/economic features owned by Person 3.",
+      "properties": {
+        "candidate_id": {
+          "minLength": 1,
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "annual_yield_kwh": {
+          "minimum": 0,
+          "title": "Annual Yield Kwh",
+          "type": "number"
+        },
+        "estimated_cost_inr": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Estimated Cost Inr"
+        },
+        "estimated_rent_inr_month": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Estimated Rent Inr Month"
+        },
+        "generation_score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Generation Score",
+          "type": "number"
+        },
+        "economics_score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Economics Score",
+          "type": "number"
+        },
+        "assumption_version": {
+          "minLength": 1,
+          "title": "Assumption Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "annual_yield_kwh",
+        "generation_score",
+        "economics_score",
+        "assumption_version"
+      ],
+      "title": "P3CandidateRow",
+      "type": "object"
+    },
+    "RankingMode": {
+      "enum": [
+        "nominal_mcda",
+        "robust_acceptability"
+      ],
+      "title": "RankingMode",
+      "type": "string"
+    },
+    "RankingScenario": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "default": "balanced",
+          "title": "Name",
+          "type": "string"
+        },
+        "minimum_usable_area_m2": {
+          "default": 40,
+          "minimum": 0,
+          "title": "Minimum Usable Area M2",
+          "type": "number"
+        },
+        "maximum_grid_distance_m": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 2000,
+          "title": "Maximum Grid Distance M"
+        },
+        "minimum_shading_factor": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum Shading Factor"
+        },
+        "budget_inr": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Budget Inr"
+        },
+        "require_cost_when_budgeted": {
+          "default": true,
+          "title": "Require Cost When Budgeted",
+          "type": "boolean"
+        },
+        "top_k": {
+          "default": 3,
+          "minimum": 1,
+          "title": "Top K",
+          "type": "integer"
+        }
+      },
+      "title": "RankingScenario",
+      "type": "object"
+    },
+    "RobustnessConfig": {
+      "additionalProperties": false,
+      "description": "Versioned assumptions for confidence-calibrated rank acceptability.",
+      "properties": {
+        "method_version": {
+          "const": "ccra-v1",
+          "default": "ccra-v1",
+          "title": "Method Version",
+          "type": "string"
+        },
+        "iterations": {
+          "default": 2000,
+          "maximum": 100000,
+          "minimum": 100,
+          "title": "Iterations",
+          "type": "integer"
+        },
+        "random_seed": {
+          "default": 41,
+          "title": "Random Seed",
+          "type": "integer"
+        },
+        "feature_perturbation_at_zero_confidence": {
+          "default": 0.2,
+          "maximum": 0.5,
+          "minimum": 0,
+          "title": "Feature Perturbation At Zero Confidence",
+          "type": "number"
+        },
+        "weight_relative_tolerance": {
+          "default": 0.1,
+          "maximum": 0.5,
+          "minimum": 0,
+          "title": "Weight Relative Tolerance",
+          "type": "number"
+        },
+        "stable_top_k_probability": {
+          "default": 0.8,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Stable Top K Probability",
+          "type": "number"
+        },
+        "review_top_k_probability": {
+          "default": 0.4,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Review Top K Probability",
+          "type": "number"
+        },
+        "maximum_stable_rank_span": {
+          "default": 2,
+          "minimum": 0,
+          "title": "Maximum Stable Rank Span",
+          "type": "integer"
+        }
+      },
+      "title": "RobustnessConfig",
+      "type": "object"
+    },
+    "ValidationDecision": {
+      "enum": [
+        "inspect",
+        "uncertain",
+        "reject"
+      ],
+      "title": "ValidationDecision",
+      "type": "string"
+    },
+    "ValidationLabel": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_id": {
+          "minLength": 1,
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "decision": {
+          "$ref": "#/$defs/ValidationDecision"
+        },
+        "reviewer_id": {
+          "minLength": 1,
+          "title": "Reviewer Id",
+          "type": "string"
+        },
+        "reason_codes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reason Codes",
+          "type": "array"
+        },
+        "blinded": {
+          "title": "Blinded",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "decision",
+        "reviewer_id",
+        "blinded"
+      ],
+      "title": "ValidationLabel",
+      "type": "object"
+    },
+    "ValidationSet": {
+      "additionalProperties": false,
+      "properties": {
+        "label_set_version": {
+          "minLength": 1,
+          "title": "Label Set Version",
+          "type": "string"
+        },
+        "labels": {
+          "items": {
+            "$ref": "#/$defs/ValidationLabel"
+          },
+          "title": "Labels",
+          "type": "array"
+        },
+        "evaluation_k": {
+          "default": 3,
+          "minimum": 1,
+          "title": "Evaluation K",
+          "type": "integer"
+        },
+        "manual_candidate_order": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Manual Candidate Order",
+          "type": "array"
+        },
+        "manual_shortlist_minutes": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Manual Shortlist Minutes"
+        },
+        "helios_shortlist_minutes": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Helios Shortlist Minutes"
+        }
+      },
+      "required": [
+        "label_set_version",
+        "labels"
+      ],
+      "title": "ValidationSet",
+      "type": "object"
+    },
+    "WeightProfile": {
+      "additionalProperties": false,
+      "description": "Stakeholder preferences for benefits; confidence is not a benefit.",
+      "properties": {
+        "generation": {
+          "default": 0.35,
+          "minimum": 0,
+          "title": "Generation",
+          "type": "number"
+        },
+        "physical": {
+          "default": 0.3,
+          "minimum": 0,
+          "title": "Physical",
+          "type": "number"
+        },
+        "grid": {
+          "default": 0.2,
+          "minimum": 0,
+          "title": "Grid",
+          "type": "number"
+        },
+        "economics": {
+          "default": 0.15,
+          "minimum": 0,
+          "title": "Economics",
+          "type": "number"
+        }
+      },
+      "title": "WeightProfile",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Complete inbound contract that Person 5 can call without domain logic.",
+  "properties": {
+    "contract_version": {
+      "const": "person4.v1",
+      "default": "person4.v1",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "feature_dictionary_version": {
+      "const": "person4.features-v1",
+      "title": "Feature Dictionary Version",
+      "type": "string"
+    },
+    "request_id": {
+      "minLength": 1,
+      "title": "Request Id",
+      "type": "string"
+    },
+    "assumption_version": {
+      "minLength": 1,
+      "title": "Assumption Version",
+      "type": "string"
+    },
+    "scenario": {
+      "$ref": "#/$defs/RankingScenario"
+    },
+    "weights": {
+      "$ref": "#/$defs/WeightProfile"
+    },
+    "ranking_mode": {
+      "$ref": "#/$defs/RankingMode",
+      "default": "robust_acceptability"
+    },
+    "robustness": {
+      "$ref": "#/$defs/RobustnessConfig"
+    },
+    "p2_table": {
+      "items": {
+        "$ref": "#/$defs/P2CandidateRow"
+      },
+      "minItems": 1,
+      "title": "P2 Table",
+      "type": "array"
+    },
+    "p3_table": {
+      "items": {
+        "$ref": "#/$defs/P3CandidateRow"
+      },
+      "minItems": 1,
+      "title": "P3 Table",
+      "type": "array"
+    },
+    "confidence_table": {
+      "items": {
+        "$ref": "#/$defs/ConfidenceRow"
+      },
+      "minItems": 1,
+      "title": "Confidence Table",
+      "type": "array"
+    },
+    "validation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ValidationSet"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "feature_dictionary_version",
+    "request_id",
+    "assumption_version",
+    "p2_table",
+    "p3_table",
+    "confidence_table"
+  ],
+  "title": "P5RankingRequest",
+  "type": "object"
+}

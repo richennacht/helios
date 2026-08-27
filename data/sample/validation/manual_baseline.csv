@@ -1,0 +1,5 @@
+selection_order,candidate_id,scouted_at,elapsed_minutes,decision,notes,protocol_version
+1,roof-b,2026-08-22T10:08:00Z,8.0,uncertain,Promising rooftop visual footprint but requires height verification and shading audit,manual-scout-v1
+2,roof-e,2026-08-22T10:17:00Z,17.0,reject,Large visible building selected by analyst; ground truth revealed severe shading and unverified rent,manual-scout-v1
+3,roof-a,2026-08-22T10:24:00Z,24.0,inspect,Large commercial flat roof with clear municipal road frontage,manual-scout-v1
+4,roof-c,2026-08-22T10:28:00Z,28.0,inspect,Good solar orientation; selected just prior to 28-minute time budget expiration,manual-scout-v1

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Helios — Candidate Scorecard</title>
+<style>
+  :root{color-scheme:dark;--bg:#061410;--panel:#0c211a;--line:#245444;--muted:#9ac0ad;--text:#edf8f1;--accent:#8ef4b1;--warn:#ffd37a}
+  *{box-sizing:border-box} body{margin:0;font:14px system-ui,sans-serif;background:radial-gradient(circle at 20% 0,#154c37,var(--bg) 50%);color:var(--text)}
+  main{max-width:1120px;margin:auto;padding:28px 20px 50px} h1{margin:0;font-size:26px} p{color:var(--muted);line-height:1.5} .bar{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}.badge{border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--accent)}select{background:#102d23;color:var(--text);padding:9px;border:1px solid var(--line);border-radius:7px}.notice{margin:18px 0;padding:12px 14px;border-left:3px solid var(--warn);background:#1c2115;color:#ffe4a9}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:12px}.card,.section{background:rgba(12,33,26,.92);border:1px solid var(--line);border-radius:11px;padding:15px}.label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.value{font-size:25px;font-weight:700;margin:7px 0}.small{font-size:12px;color:var(--muted)}h2{font-size:17px;margin:26px 0 10px}.breakdown{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.breakdown div{padding:11px;background:#102b21;border-radius:8px}.unavailable{color:#ffd37a}.formula{font-family:ui-monospace,monospace;background:#071a13;padding:12px;border-radius:8px;overflow:auto}.bar-row{display:grid;grid-template-columns:130px 1fr 48px;gap:9px;align-items:center;margin:9px 0}.track{height:8px;background:#17392c;border-radius:10px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#49c979,#b7ff8e)}@media(max-width:580px){.breakdown{grid-template-columns:repeat(2,1fr)}.bar-row{grid-template-columns:95px 1fr 40px}}
+</style>
+<main>
+ <div class="bar"><div><h1>Helios candidate scorecard</h1><p>Explainable shortlist view for the current Person 2 → Person 3 → Person 4 demo handoff.</p></div><span class="badge">Prototype / fixture-backed</span></div>
+ <div class="bar"><label>Candidate <select id="candidate"></select></label><span id="recommendation" class="badge"></span></div>
+ <div class="notice">This panel does not present fixture or derived values as measurements. Orientation, roof slope, road access and source-backed LCOE remain unavailable until their source layers and assumptions are supplied.</div>
+ <section class="grid" id="metrics"></section>
+ <h2>Explainable overall suitability</h2><section class="section"><div id="overall" class="value"></div><div class="formula" id="formula"></div><div id="bars"></div></section>
+ <h2>Coverage and provenance</h2><section class="grid" id="coverage"></section>
+</main>
+<script>
+const DATA={
+ 'roof-a':{area:180,shade:.90,grid:260,physical:.90,gridScore:.86,yield:27000,cost:920000,rent:11000,generation:.92,economics:.80,confidence:.92},
+ 'roof-b':{area:145,shade:.84,grid:410,physical:.82,gridScore:.78,yield:24500,cost:840000,rent:9000,generation:.84,economics:.86,confidence:.82},
+ 'roof-c':{area:155,shade:.78,grid:530,physical:.80,gridScore:.72,yield:25100,cost:890000,rent:10000,generation:.87,economics:.81,confidence:.46},
+ 'roof-d':{area:36,shade:.92,grid:220,physical:.88,gridScore:.90,yield:15500,cost:610000,rent:6500,generation:.71,economics:.88,confidence:.90},
+ 'roof-e':{area:210,shade:.72,grid:880,physical:.66,gridScore:.58,yield:27800,cost:1180000,rent:null,generation:.95,economics:.54,confidence:.55}
+};
+const w={generation:.35,physical:.30,gridScore:.20,economics:.15}; const rate=8;
+const labels={generation:'generation',physical:'physical',gridScore:'grid',economics:'economics'};
+const money=n=>n==null?'Not provided':'₹'+Math.round(n).toLocaleString('en-IN');
+function render(){const id=document.querySelector('#candidate').value,d=DATA[id];const annualSavings=d.yield*rate,overall=Object.keys(w).reduce((sum,k)=>sum+d[k]*w[k],0),payback=d.cost/annualSavings;
+ document.querySelector('#recommendation').textContent=overall>=.8&&d.confidence>=.8?'Recommended for inspection':'Review before shortlist';
+ const cards=[['Solar suitability',Math.round(d.generation*100)+'/100','Person 3 generation score; irradiance/yield inputs are fixture-backed.'],['Grid proximity',d.grid+' m','Nearest-grid distance from Person 2 fixture.'],['Annual energy',d.yield.toLocaleString('en-IN')+' kWh','Person 3 annual yield.'],['CAPEX',money(d.cost),'Person 3 estimate in INR.'],['Annual savings',money(annualSavings),'Scenario: ₹8/kWh; not a tariff quote.'],['Gross payback',payback.toFixed(1)+' years','CAPEX ÷ annual energy value; excludes O&M, finance and rent.'],['Economic score',Math.round(d.economics*100)+'/100','Person 3 normalized economics score.'],['Confidence',Math.round(d.confidence*100)+'%','Person 4 criterion confidence.']];
+ document.querySelector('#metrics').innerHTML=cards.map(x=>`<article class="card"><div class="label">${x[0]}</div><div class="value">${x[1]}</div><div class="small">${x[2]}</div></article>`).join('');
+ document.querySelector('#overall').textContent=(overall*100).toFixed(1)+'/100 overall suitability';
+ document.querySelector('#formula').textContent=`0.35 × solar ${d.generation.toFixed(2)} + 0.30 × roof ${d.physical.toFixed(2)} + 0.20 × grid ${d.gridScore.toFixed(2)} + 0.15 × economics ${d.economics.toFixed(2)} = ${overall.toFixed(3)}`;
+ document.querySelector('#bars').innerHTML=Object.entries(w).map(([k,weight])=>`<div class="bar-row"><span>${labels[k]} (${Math.round(weight*100)}%)</span><div class="track"><div class="fill" style="width:${d[k]*100}%"></div></div><b>${Math.round(d[k]*100)}</b></div>`).join('');
+ const cov=[['Roof area & shading',`${d.area} m²; ${Math.round(d.shade*100)}% shading factor`,'Person 2 fixture'],['Grid / infrastructure',`${d.grid} m to grid`,'Road/access score unavailable'],['Solar geometry','Orientation and slope unavailable','No geometry-derived substitute used'],['LCOE','Unavailable','Needs lifetime, O&M, finance, tariff and rent treatment'],['Rent provenance',d.rent==null?'Not provided':money(d.rent)+'/month','No source/currency/date in frozen fixture']];
+ document.querySelector('#coverage').innerHTML=cov.map(x=>`<article class="card"><div class="label">${x[0]}</div><div class="value ${x[1].includes('unavailable')||x[1].includes('Unavailable')?'unavailable':''}">${x[1]}</div><div class="small">${x[2]}</div></article>`).join(''); }
+const select=document.querySelector('#candidate');Object.keys(DATA).forEach(id=>select.add(new Option(id,id)));select.value='roof-a';select.addEventListener('change',render);render();
+</script>
+</html>

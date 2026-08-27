@@ -1,0 +1,28 @@
+{
+  "assumption_version": "solar-economics-2026-08-v2",
+  "p3_table": [
+    {
+      "candidate_id": "roof-a",
+      "annual_yield_kwh": 25000,
+      "estimated_cost_inr": 1000000,
+      "estimated_rent_inr_month": null,
+      "generation_score": 1,
+      "economics_score": 1,
+      "assumption_version": "solar-economics-2026-08-v2"
+    }
+  ],
+  "p3_evidence": [
+    {
+      "candidate_id": "roof-a",
+      "source_id": "nasa-power-kharghar",
+      "source_checksum": "sha256:fixture",
+      "source_date": "2026-08-27",
+      "resource_period": "2025 calendar year",
+      "currency": "INR",
+      "economics_source_id": "registered-cost-v1",
+      "economics_source_date": "2026-08-27",
+      "generation_confidence": 0.8,
+      "economics_confidence": 0.7
+    }
+  ]
+}

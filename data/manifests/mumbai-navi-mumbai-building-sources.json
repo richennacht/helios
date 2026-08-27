@@ -1,0 +1,134 @@
+{
+  "aoi_id": "mumbai-navi-mumbai-acquisition-v1",
+  "name": "Mumbai and Navi Mumbai building acquisition envelope",
+  "bbox_wgs84": [72.75, 18.85, 73.25, 19.35],
+  "boundary_status": "acquisition envelope; municipal boundary clipping still required",
+  "generated_on": "2026-08-27",
+  "catalogue": {
+    "format": "SQLite with RTree spatial index",
+    "artifact": "data/processed/buildings/mumbai-navi-mumbai-buildings.sqlite",
+    "observation_count": 3155562,
+    "materialization": "generated locally and ignored by Git",
+    "query_script": "scripts/ingestion/build_building_catalog.py"
+  },
+  "fusion_policy": {
+    "geometry": "retain every source record; deduplicate on query using polygon overlap and centroid distance",
+    "current_height": "arithmetic mean of independent, positive, current-height observations; one value passes through; no value remains null",
+    "temporal_height": "keep 2016-2023 values by year; do not flatten eight years into the current-height mean",
+    "lineage": "fused products retain their upstream lineage and are not counted twice as independent evidence",
+    "synthetic_fallback": false
+  },
+  "sources": [
+    {
+      "source_id": "google-open-buildings-v3",
+      "kind": "footprint_vector",
+      "status": "full_source_tile_acquired_and_envelope_clipped",
+      "feature_count": 1627685,
+      "version": "v3",
+      "license": "CC BY 4.0",
+      "upstream": "https://sites.research.google/gr/open-buildings/"
+    },
+    {
+      "source_id": "microsoft-global-ml-buildings-2026-08-13",
+      "kind": "footprint_vector_with_sparse_height",
+      "status": "four_intersecting_partitions_acquired_and_envelope_clipped",
+      "feature_count": 466651,
+      "version": "2026-08-13",
+      "license": "CDLA Permissive 2.0",
+      "upstream": "https://github.com/microsoft/GlobalMLBuildingFootprints"
+    },
+    {
+      "source_id": "overture-buildings-2026-07-22",
+      "kind": "footprint_vector_with_sparse_height_and_floors",
+      "status": "bounded_cloud_query_acquired",
+      "feature_count": 1061226,
+      "height_observation_count": 20640,
+      "floor_observation_count": 7317,
+      "version": "2026-07-22.0",
+      "license": "see per-feature source lineage",
+      "upstream": "https://docs.overturemaps.org/"
+    },
+    {
+      "source_id": "google-open-buildings-temporal-2016",
+      "kind": "annual_presence_count_height_raster",
+      "status": "official_manifest_acquired_remote_cog_ready",
+      "year": 2016,
+      "license": "CC BY 4.0 or ODbL 1.0"
+    },
+    {
+      "source_id": "google-open-buildings-temporal-2017",
+      "kind": "annual_presence_count_height_raster",
+      "status": "official_manifest_acquired_remote_cog_ready",
+      "year": 2017,
+      "license": "CC BY 4.0 or ODbL 1.0"
+    },
+    {
+      "source_id": "google-open-buildings-temporal-2018",
+      "kind": "annual_presence_count_height_raster",
+      "status": "official_manifest_acquired_remote_cog_ready",
+      "year": 2018,
+      "license": "CC BY 4.0 or ODbL 1.0"
+    },
+    {
+      "source_id": "google-open-buildings-temporal-2019",
+      "kind": "annual_presence_count_height_raster",
+      "status": "official_manifest_acquired_remote_cog_ready",
+      "year": 2019,
+      "license": "CC BY 4.0 or ODbL 1.0"
+    },
+    {
+      "source_id": "google-open-buildings-temporal-2020",
+      "kind": "annual_presence_count_height_raster",
+      "status": "official_manifest_acquired_remote_cog_ready",
+      "year": 2020,
+      "license": "CC BY 4.0 or ODbL 1.0"
+    },
+    {
+      "source_id": "google-open-buildings-temporal-2021",
+      "kind": "annual_presence_count_height_raster",
+      "status": "official_manifest_acquired_remote_cog_ready",
+      "year": 2021,
+      "license": "CC BY 4.0 or ODbL 1.0"
+    },
+    {
+      "source_id": "google-open-buildings-temporal-2022",
+      "kind": "annual_presence_count_height_raster",
+      "status": "official_manifest_acquired_remote_cog_ready",
+      "year": 2022,
+      "license": "CC BY 4.0 or ODbL 1.0"
+    },
+    {
+      "source_id": "google-open-buildings-temporal-2023",
+      "kind": "annual_presence_count_height_raster",
+      "status": "official_manifest_acquired_remote_cog_ready",
+      "year": 2023,
+      "license": "CC BY 4.0 or ODbL 1.0"
+    },
+    {
+      "source_id": "wsf3d-v02-building-height",
+      "kind": "90m_mean_building_height_raster",
+      "status": "partial_southeast_envelope_tile_acquired; not yet full metro coverage",
+      "coverage_wgs84": [72.99950004444443, 17.999499955555553, 74.00050004444444, 19.000499955555554],
+      "license": "CC BY 4.0",
+      "upstream": "https://download.geoservice.dlr.de/WSF3D/files/"
+    },
+    {
+      "source_id": "wsf3d-v02-building-area",
+      "kind": "90m_total_building_area_raster",
+      "status": "partial_southeast_envelope_tile_acquired; not yet full metro coverage",
+      "license": "CC BY 4.0"
+    },
+    {
+      "source_id": "wsf3d-v02-building-fraction",
+      "kind": "90m_building_fraction_raster",
+      "status": "partial_southeast_envelope_tile_acquired; not yet full metro coverage",
+      "license": "CC BY 4.0"
+    },
+    {
+      "source_id": "wsf3d-v02-building-volume",
+      "kind": "90m_total_building_volume_raster",
+      "status": "partial_southeast_envelope_tile_acquired; not yet full metro coverage",
+      "license": "CC BY 4.0"
+    }
+  ]
+}

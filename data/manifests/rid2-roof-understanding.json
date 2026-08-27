@@ -1,0 +1,18 @@
+{
+  "source_id": "rid2-zenodo-14062580-v1",
+  "title": "RID2 - Roof Information Dataset for Identifying Roof Segments and Roof Superstructures",
+  "provider": "Technical University of Munich",
+  "citation_url": "https://doi.org/10.5281/zenodo.14062580",
+  "license_name": "Creative Commons Attribution 4.0 International",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "retrieved_at": "2026-08-27T00:00:00Z",
+  "version": "1.0; Zenodo record 14062580",
+  "temporal_type": "snapshot",
+  "valid_from": null,
+  "valid_to": null,
+  "spatial_resolution_m": 0.08,
+  "archive_name": "roof_information_dataset_2.zip",
+  "archive_size_bytes": 6957075811,
+  "archive_md5": "9683e12c911358528416849c0074e17d",
+  "notes": "4764 non-overlapping RGB tiles from 50 Netherlands regions, with roof segment and roof superstructure masks; 1819 overlapping roof-centered test images from four regions. Source masks encode background as value 5. Geographic domain transfer to India must be evaluated before promotion."
+}

@@ -1,0 +1,533 @@
+{
+  "$defs": {
+    "CandidateExplanation": {
+      "properties": {
+        "candidate_id": {
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "positive_reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Positive Reasons",
+          "type": "array"
+        },
+        "caution_reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Caution Reasons",
+          "type": "array"
+        },
+        "trace": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "title": "Trace",
+          "type": "object"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "positive_reasons",
+        "caution_reasons",
+        "trace"
+      ],
+      "title": "CandidateExplanation",
+      "type": "object"
+    },
+    "CandidateStability": {
+      "properties": {
+        "candidate_id": {
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "probability_rank_1": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Probability Rank 1",
+          "type": "number"
+        },
+        "probability_top_k": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Probability Top K",
+          "type": "number"
+        },
+        "expected_rank": {
+          "minimum": 1,
+          "title": "Expected Rank",
+          "type": "number"
+        },
+        "rank_p05": {
+          "minimum": 1,
+          "title": "Rank P05",
+          "type": "integer"
+        },
+        "rank_p50": {
+          "minimum": 1,
+          "title": "Rank P50",
+          "type": "integer"
+        },
+        "rank_p95": {
+          "minimum": 1,
+          "title": "Rank P95",
+          "type": "integer"
+        },
+        "expected_score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Expected Score",
+          "type": "number"
+        },
+        "score_std": {
+          "minimum": 0,
+          "title": "Score Std",
+          "type": "number"
+        },
+        "rank_acceptability": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Rank Acceptability",
+          "type": "object"
+        },
+        "decision_status": {
+          "$ref": "#/$defs/DecisionStatus"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "probability_rank_1",
+        "probability_top_k",
+        "expected_rank",
+        "rank_p05",
+        "rank_p50",
+        "rank_p95",
+        "expected_score",
+        "score_std",
+        "rank_acceptability",
+        "decision_status"
+      ],
+      "title": "CandidateStability",
+      "type": "object"
+    },
+    "DecisionStatus": {
+      "enum": [
+        "stable",
+        "review_required",
+        "unstable",
+        "excluded"
+      ],
+      "title": "DecisionStatus",
+      "type": "string"
+    },
+    "EvaluationReport": {
+      "properties": {
+        "status": {
+          "enum": [
+            "not_provided",
+            "insufficient_labels",
+            "completed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "label_set_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label Set Version"
+        },
+        "helios": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MetricSet"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "manual_baseline": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MetricSet"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "baselines": {
+          "items": {
+            "$ref": "#/$defs/MetricSet"
+          },
+          "title": "Baselines",
+          "type": "array"
+        },
+        "deltas": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Deltas",
+          "type": "object"
+        },
+        "deltas_by_baseline": {
+          "additionalProperties": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object"
+          },
+          "title": "Deltas By Baseline",
+          "type": "object"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "title": "EvaluationReport",
+      "type": "object"
+    },
+    "ExclusionReason": {
+      "enum": [
+        "usable_area_below_minimum",
+        "invalid_exchange_geometry",
+        "shading_factor_below_minimum",
+        "grid_distance_above_screening_limit",
+        "estimated_cost_above_budget",
+        "estimated_cost_missing_for_budget_filter"
+      ],
+      "title": "ExclusionReason",
+      "type": "string"
+    },
+    "MetricSet": {
+      "properties": {
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "evaluated_k": {
+          "title": "Evaluated K",
+          "type": "integer"
+        },
+        "labelled_candidates": {
+          "title": "Labelled Candidates",
+          "type": "integer"
+        },
+        "precision_at_k": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Precision At K"
+        },
+        "recall_at_k": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Recall At K"
+        },
+        "ndcg_at_k": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ndcg At K"
+        },
+        "shortlist_minutes": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Shortlist Minutes"
+        }
+      },
+      "required": [
+        "method",
+        "evaluated_k",
+        "labelled_candidates"
+      ],
+      "title": "MetricSet",
+      "type": "object"
+    },
+    "RankedCandidate": {
+      "properties": {
+        "candidate_id": {
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "geometry": {
+          "additionalProperties": true,
+          "title": "Geometry",
+          "type": "object"
+        },
+        "eligible": {
+          "title": "Eligible",
+          "type": "boolean"
+        },
+        "exclusion_reasons": {
+          "items": {
+            "$ref": "#/$defs/ExclusionReason"
+          },
+          "title": "Exclusion Reasons",
+          "type": "array"
+        },
+        "rank": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Rank"
+        },
+        "nominal_rank": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Nominal Rank"
+        },
+        "robust_rank": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Robust Rank"
+        },
+        "nominal_score": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Nominal Score"
+        },
+        "component_contributions": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Component Contributions",
+          "type": "object"
+        },
+        "overall_confidence": {
+          "title": "Overall Confidence",
+          "type": "number"
+        },
+        "pareto_optimal": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Pareto Optimal"
+        },
+        "decision_status": {
+          "$ref": "#/$defs/DecisionStatus"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "geometry",
+        "eligible",
+        "exclusion_reasons",
+        "rank",
+        "nominal_rank",
+        "robust_rank",
+        "nominal_score",
+        "component_contributions",
+        "overall_confidence",
+        "pareto_optimal",
+        "decision_status"
+      ],
+      "title": "RankedCandidate",
+      "type": "object"
+    },
+    "RankingMode": {
+      "enum": [
+        "nominal_mcda",
+        "robust_acceptability"
+      ],
+      "title": "RankingMode",
+      "type": "string"
+    },
+    "StabilityReport": {
+      "properties": {
+        "method_version": {
+          "title": "Method Version",
+          "type": "string"
+        },
+        "iterations": {
+          "title": "Iterations",
+          "type": "integer"
+        },
+        "random_seed": {
+          "title": "Random Seed",
+          "type": "integer"
+        },
+        "top_k": {
+          "title": "Top K",
+          "type": "integer"
+        },
+        "mean_nominal_top_k_retention": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Mean Nominal Top K Retention",
+          "type": "number"
+        },
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/CandidateStability"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "assumptions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "method_version",
+        "iterations",
+        "random_seed",
+        "top_k",
+        "mean_nominal_top_k_retention",
+        "candidates",
+        "assumptions"
+      ],
+      "title": "StabilityReport",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "contract_version": {
+      "const": "person4.v1",
+      "default": "person4.v1",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "request_id": {
+      "title": "Request Id",
+      "type": "string"
+    },
+    "assumption_version": {
+      "title": "Assumption Version",
+      "type": "string"
+    },
+    "input_versions": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Input Versions",
+      "type": "object"
+    },
+    "ranking_mode": {
+      "$ref": "#/$defs/RankingMode"
+    },
+    "ranked_candidates": {
+      "items": {
+        "$ref": "#/$defs/RankedCandidate"
+      },
+      "title": "Ranked Candidates",
+      "type": "array"
+    },
+    "explanations": {
+      "items": {
+        "$ref": "#/$defs/CandidateExplanation"
+      },
+      "title": "Explanations",
+      "type": "array"
+    },
+    "stability_report": {
+      "$ref": "#/$defs/StabilityReport"
+    },
+    "evaluation_report": {
+      "$ref": "#/$defs/EvaluationReport"
+    }
+  },
+  "required": [
+    "request_id",
+    "assumption_version",
+    "input_versions",
+    "ranking_mode",
+    "ranked_candidates",
+    "explanations",
+    "stability_report",
+    "evaluation_report"
+  ],
+  "title": "RankingBundle",
+  "type": "object"
+}

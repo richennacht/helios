@@ -1,0 +1,810 @@
+{
+  "type": "FeatureCollection",
+  "name": "kharghar_power",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "line",
+        "source_id": "osm-surrogate:power:sha256:0c57cb249c7fdcd8bbb30fd3eda228cc0be78abf383078445fda0abb2048399e",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0607599,
+            19.0403406
+          ],
+          [
+            73.0611158,
+            19.0402928
+          ],
+          [
+            73.0612873,
+            19.0402694
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "transformer",
+        "source_id": "osm-surrogate:power:sha256:0e387ed1f2bc7c3459268f64394bdcb1809540c369e0a95eef51c9df79fd02e5",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0787552,
+          19.0587831
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "substation",
+        "source_id": "osm-surrogate:power:sha256:11dda391934fe99875d08870bc380e3d3da1fa9d56f05f698ff1777db9871d58",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0789253,
+              19.0590404
+            ],
+            [
+              73.0787897,
+              19.0590549
+            ],
+            [
+              73.0787812,
+              19.0589695
+            ],
+            [
+              73.0786561,
+              19.0589799
+            ],
+            [
+              73.0786242,
+              19.0589423
+            ],
+            [
+              73.0785791,
+              19.0585646
+            ],
+            [
+              73.0788517,
+              19.0585311
+            ],
+            [
+              73.0789096,
+              19.058954
+            ],
+            [
+              73.0789357,
+              19.0589532
+            ],
+            [
+              73.0789381,
+              19.0590206
+            ],
+            [
+              73.0789253,
+              19.0590404
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "line",
+        "source_id": "osm-surrogate:power:sha256:13d6012663ca3a610ca0576292da0314b50ff18cf1f8c90c09e212787bd531cb",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0626518,
+            19.0411149
+          ],
+          [
+            73.0625906,
+            19.0407455
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "line",
+        "source_id": "osm-surrogate:power:sha256:14b08a1af24b8549efb2a514f032a9e67d38b428abccda15696e3ecaede182fd",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0618328,
+            19.0379565
+          ],
+          [
+            73.0615566,
+            19.0371406
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "transformer",
+        "source_id": "osm-surrogate:power:sha256:17a7e313f52a56f94bfbde7a7e5f0f120634df21b95b530acd6899270a7073f5",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0613916,
+          19.0397655
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "line",
+        "source_id": "osm-surrogate:power:sha256:1e061ebca7f0c4a060c84b81eeeeb0dca605cffaffc0fe44292fdd599a529daf",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0612305,
+            19.0420852
+          ],
+          [
+            73.0612007,
+            19.0418472
+          ],
+          [
+            73.0611309,
+            19.041299
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "line",
+        "source_id": "osm-surrogate:power:sha256:2122e30b8f380937e803bbacedf24c7d2ce8aa3bb2a89232ea6539c4416fe209",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0611279,
+            19.0391314
+          ],
+          [
+            73.0609551,
+            19.0391515
+          ],
+          [
+            73.0605991,
+            19.0391942
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "substation",
+        "source_id": "osm-surrogate:power:sha256:255a32529419ee6cbf71176cf02f5f7394048167fc02d8c88afb0148d3e18e4d",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0673714,
+              19.0653975
+            ],
+            [
+              73.0676795,
+              19.0664575
+            ],
+            [
+              73.0678767,
+              19.0663817
+            ],
+            [
+              73.0683019,
+              19.0658721
+            ],
+            [
+              73.06808,
+              19.0651907
+            ],
+            [
+              73.0673714,
+              19.0653975
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "line",
+        "source_id": "osm-surrogate:power:sha256:2853951387267ebe350bd02070bbd79699937e27e61e474de25ffee364e0c1da",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0607289,
+            19.0375455
+          ],
+          [
+            73.060753,
+            19.0377162
+          ],
+          [
+            73.060774,
+            19.0378655
+          ],
+          [
+            73.0607976,
+            19.0380329
+          ],
+          [
+            73.0608193,
+            19.0381875
+          ],
+          [
+            73.0608427,
+            19.0383531
+          ],
+          [
+            73.0608652,
+            19.0385131
+          ],
+          [
+            73.0608882,
+            19.0386767
+          ],
+          [
+            73.0609101,
+            19.0388323
+          ],
+          [
+            73.060934,
+            19.0390019
+          ],
+          [
+            73.0609551,
+            19.0391515
+          ],
+          [
+            73.0609772,
+            19.0393086
+          ],
+          [
+            73.061,
+            19.0394704
+          ],
+          [
+            73.0610237,
+            19.0396385
+          ],
+          [
+            73.0610462,
+            19.0397984
+          ],
+          [
+            73.0610693,
+            19.0399626
+          ],
+          [
+            73.0610912,
+            19.0401179
+          ],
+          [
+            73.0611158,
+            19.0402928
+          ],
+          [
+            73.0611369,
+            19.0404425
+          ],
+          [
+            73.0611589,
+            19.0405986
+          ],
+          [
+            73.061184,
+            19.0407766
+          ],
+          [
+            73.0612056,
+            19.0409301
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "line",
+        "source_id": "osm-surrogate:power:sha256:2bd01e25f935a52b27a406283b530fc0428d5a358b6835d879b9cce368c883f5",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0566361,
+            19.0273557
+          ],
+          [
+            73.0558705,
+            19.0248148
+          ],
+          [
+            73.0569393,
+            19.0231437
+          ],
+          [
+            73.0610289,
+            19.0187898
+          ],
+          [
+            73.0611685,
+            19.0177673
+          ],
+          [
+            73.0592271,
+            19.0133737
+          ],
+          [
+            73.0574384,
+            19.0092014
+          ],
+          [
+            73.0563133,
+            19.0074614
+          ],
+          [
+            73.0548302,
+            19.0051287
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "transformer",
+        "source_id": "osm-surrogate:power:sha256:33a08b243ce559657668b28539383eb1edd957b84e98f79239040a265c33d81c",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0613246,
+          19.0392863
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "line",
+        "source_id": "osm-surrogate:power:sha256:3901ebe06eedc04f39072f78a0cc86a2d0535276d54f4e868bd8cb72200f034f",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0603979,
+            19.0377598
+          ],
+          [
+            73.060753,
+            19.0377162
+          ],
+          [
+            73.0609262,
+            19.0376913
+          ],
+          [
+            73.0610268,
+            19.0376737
+          ],
+          [
+            73.0615782,
+            19.0376711
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "line",
+        "source_id": "osm-surrogate:power:sha256:43ea97b8dc25f74e1cc9474d48f51530f1e91867ce02b3c1e4e435d763c240c4",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0610384,
+            19.0384926
+          ],
+          [
+            73.0608652,
+            19.0385131
+          ],
+          [
+            73.0605096,
+            19.038556
+          ],
+          [
+            73.0604284,
+            19.0385642
+          ],
+          [
+            73.0592207,
+            19.0386324
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "line",
+        "source_id": "osm-surrogate:power:sha256:44a2fee8a76239e9b30f9626a5f55028a71aa8b5c29abdeb3db6d282677eaedc",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0604427,
+            19.0380793
+          ],
+          [
+            73.0607976,
+            19.0380329
+          ],
+          [
+            73.0609709,
+            19.0380106
+          ],
+          [
+            73.0610724,
+            19.0379983
+          ],
+          [
+            73.0618328,
+            19.0379565
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "line",
+        "source_id": "osm-surrogate:power:sha256:47937def1d609e3bd8927bcd98fbd4ac1d2390ad688f96ebd8289df812bc249b",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0615782,
+            19.0376711
+          ],
+          [
+            73.061051,
+            19.0378309
+          ],
+          [
+            73.0609478,
+            19.0378456
+          ],
+          [
+            73.060774,
+            19.0378655
+          ],
+          [
+            73.0604188,
+            19.0379091
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "transformer",
+        "source_id": "osm-surrogate:power:sha256:4db8257ccf4b7c11ed284f8cce7b0cab9940a26f95be4a33cba7c530614bf5e8",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0620622,
+          19.0408139
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kharghar Substation",
+        "power": "substation",
+        "source_id": "osm-surrogate:power:sha256:52a3f0144ba71d4a01207c88e83738461e6f2e73650277c5ca4261783d668126",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              73.0600247,
+              19.0370028
+            ],
+            [
+              73.0616604,
+              19.0368256
+            ],
+            [
+              73.0619171,
+              19.0366683
+            ],
+            [
+              73.0628264,
+              19.0379234
+            ],
+            [
+              73.0629498,
+              19.0381262
+            ],
+            [
+              73.0630216,
+              19.0383143
+            ],
+            [
+              73.0632693,
+              19.0402168
+            ],
+            [
+              73.063277,
+              19.0402763
+            ],
+            [
+              73.0631778,
+              19.0403067
+            ],
+            [
+              73.0634229,
+              19.0421278
+            ],
+            [
+              73.0619157,
+              19.0423164
+            ],
+            [
+              73.0607947,
+              19.0424522
+            ],
+            [
+              73.0605842,
+              19.0409622
+            ],
+            [
+              73.0600247,
+              19.0370028
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "line",
+        "source_id": "osm-surrogate:power:sha256:533778ba0b8e78abe63a98be98d2619944e035e68f55e05ab643556ca787a733",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0476928,
+            19.0235903
+          ],
+          [
+            73.0478032,
+            19.0237247
+          ],
+          [
+            73.0488495,
+            19.025263
+          ],
+          [
+            73.0504733,
+            19.0256948
+          ],
+          [
+            73.0507562,
+            19.0258071
+          ],
+          [
+            73.0514042,
+            19.0260643
+          ],
+          [
+            73.0517725,
+            19.0281044
+          ],
+          [
+            73.0523319,
+            19.0290667
+          ],
+          [
+            73.0534384,
+            19.0311033
+          ],
+          [
+            73.0543219,
+            19.03151
+          ],
+          [
+            73.0562187,
+            19.032383
+          ],
+          [
+            73.0563256,
+            19.0335912
+          ],
+          [
+            73.0566673,
+            19.035993
+          ],
+          [
+            73.056687,
+            19.0361311
+          ],
+          [
+            73.0569056,
+            19.0384063
+          ],
+          [
+            73.0569289,
+            19.0386491
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": null,
+        "power": "line",
+        "source_id": "osm-surrogate:power:sha256:5a7969546f483939346c2f444e842dc7c152b9cf34b7a9f81db88e52d0aa4c2a",
+        "source_id_method": "sha256(canonical_geometry_and_preserved_tags)",
+        "source_dataset": "OpenStreetMap",
+        "source_snapshot_date": "2026-08-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            73.0596096,
+            19.0388937
+          ],
+          [
+            73.0600099,
+            19.0387822
+          ],
+          [
+            73.0605324,
+            19.0387191
+          ],
+          [
+            73.0608882,
+            19.0386767
+          ],
+          [
+            73.0610613,
+            19.0386557
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "aoi_id": "kharghar-v1",
+  "name": "Kharghar hackathon demonstration AOI",
+  "source": "Team-defined rectangular demonstration extent",
+  "exchange_crs": "EPSG:4326",
+  "working_crs": "EPSG:32643",
+  "bounding_box_wgs84": {
+    "west": 73.045,
+    "south": 19.01,
+    "east": 73.09,
+    "north": 19.075
+  },
+  "limitations": "Rectangular scouting extent; it is not an administrative boundary or legal parcel boundary."
+}

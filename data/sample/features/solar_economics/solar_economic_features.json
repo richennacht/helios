@@ -1,0 +1,33 @@
+{
+  "assumption_version": "kharghar-v1",
+  "input": {
+    "candidate_id": "KHAR_00269C734CC94E62",
+    "usable_area_m2": 100.0,
+    "shading_factor": 0.8,
+    "spatial_confidence": 0.9,
+    "annual_poa_kwh_m2": 1800.0,
+    "resource_period": "2025 climatology",
+    "solar_source_id": "nasa-power-kharghar",
+    "solar_source_checksum": "fixture-checksum",
+    "solar_confidence": 0.8,
+    "capex_inr_per_kwp": 50000.0,
+    "energy_value_inr_per_kwh": 8.0,
+    "currency": "INR",
+    "economics_source_id": "cost-fixture",
+    "economics_source_date": "2026-08-22"
+  },
+  "expected": {
+    "installable_capacity_kwp": 14.0,
+    "annual_yield_kwh": 16644.096,
+    "yield_per_kwp_kwh": 1188.864,
+    "estimated_cost_inr": 700000.0,
+    "annual_energy_value_inr": 133152.768,
+    "simple_payback_years": 5.2571194014,
+    "solar_confidence": 0.8,
+    "economics_confidence": 1.0
+  },
+  "limitations": [
+    "Screening estimate only; not an EPC, structural, tariff, lease, or grid-connection approval.",
+    "The shading factor is a coarse spatial proxy, not a measured shade study."
+  ]
+}

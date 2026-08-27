@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Helios · Google 3D Tiles AOI test</title>
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+  <style>
+    html,body,#map{height:100%;margin:0}body{font-family:system-ui;background:#0b1220}
+    .card{position:absolute;z-index:3;top:16px;left:16px;width:290px;padding:14px;border:1px solid #475569;border-radius:10px;background:#101827ee;color:#e2e8f0;box-shadow:0 12px 30px #0006}
+    h1{font-size:16px;margin:0 0 6px}p{font-size:12px;color:#94a3b8;line-height:1.4}input,select{width:100%;box-sizing:border-box;margin-top:8px;padding:8px;border:1px solid #64748b;border-radius:6px;background:#0f172a;color:#e2e8f0;font:inherit}button{margin-top:8px;padding:8px 10px;border:1px solid #38bdf8;border-radius:6px;background:#075985;color:#fff;cursor:pointer;font:inherit}.status{margin-top:10px;font-size:11px;color:#cbd5e1;word-break:break-word}
+    #credits{position:absolute;z-index:4;right:8px;bottom:4px;max-width:70%;font-size:10px;color:#fff;text-align:right;text-shadow:0 1px 3px #000;background:#0005;padding:2px 5px;border-radius:3px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Google 3D Tiles AOI test</h1>
+    <p>Compare the Kharghar target with a known-covered control city. The key is used only in this browser session and never saved.</p>
+    <select id="location" aria-label="Test location">
+      <option value="kharghar">Kharghar · target AOI</option>
+      <option value="new-york">New York · coverage control</option>
+    </select>
+    <input id="apiKey" type="password" autocomplete="off" placeholder="Google Maps API key">
+    <button id="load">Load photorealistic tiles</button>
+    <div id="status" class="status">Waiting for a key.</div>
+  </div>
+  <div id="map"></div>
+  <div id="credits" aria-live="polite"></div>
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="https://unpkg.com/deck.gl@9.1.14/dist.min.js"></script>
+  <script>
+    const status = document.getElementById('status');
+    const credits = document.getElementById('credits');
+    const loadButton = document.getElementById('load');
+    const locations = {
+      kharghar: { label: 'Kharghar', center: [73.0697, 19.0468], zoom: 16.4, bearing: -18 },
+      'new-york': { label: 'New York', center: [-74.0060, 40.7128], zoom: 16.2, bearing: 24 }
+    };
+    const map = new maplibregl.Map({ container: 'map', center: [73.0697, 19.0468], zoom: 16.4, pitch: 68, bearing: -18, maxPitch: 85, projection: { type: 'mercator' }, style: 'https://tiles.openfreemap.org/styles/bright', canvasContextAttributes: { antialias: true } });
+    map.addControl(new maplibregl.NavigationControl(), 'bottom-right');
+    let overlay;
+    let watchdog;
+
+    function setStatus(message, kind = 'normal') {
+      status.textContent = message;
+      status.style.color = kind === 'error' ? '#fca5a5' : kind === 'success' ? '#86efac' : '#cbd5e1';
+    }
+
+    loadButton.addEventListener('click', async () => {
+      const key = document.getElementById('apiKey').value.trim();
+      const location = locations[document.getElementById('location').value] || locations.kharghar;
+      if (!key) { setStatus('Paste a Google Maps API key first.', 'error'); return; }
+      loadButton.disabled = true;
+      setStatus('Contacting Google Map Tiles API…');
+      try {
+        if (!window.deck || !deck.Tile3DLayer || !deck.MapboxOverlay) {
+          throw new Error('deck.gl failed to load from its CDN.');
+        }
+
+        if (overlay) map.removeControl(overlay);
+        clearTimeout(watchdog);
+
+        const rootCandidates = [
+          'https://tile.googleapis.com/v1/3dtiles/root.json',
+          'https://tile.googleapis.com/v1/3dtiles/root'
+        ];
+        let rootUrl;
+        let lastFailure;
+        for (const endpoint of rootCandidates) {
+          const candidate = `${endpoint}?key=${encodeURIComponent(key)}`;
+          const probe = await fetch(candidate, { headers: { 'X-GOOG-API-KEY': key } });
+          if (probe.ok) {
+            rootUrl = candidate;
+            break;
+          }
+          let detail = '';
+          try {
+            const payload = await probe.json();
+            detail = payload?.error?.message || '';
+          } catch (_) {}
+          lastFailure = { endpoint: endpoint.split('/').pop(), status: probe.status, detail };
+          if (probe.status !== 404) break;
+          setStatus(`${lastFailure.endpoint} returned HTTP 404. Trying Google's alternate root endpoint…`);
+        }
+        if (!rootUrl) {
+          const suffix = lastFailure?.detail ? `: ${lastFailure.detail}` : '';
+          throw new Error(`Google rejected both 3D root endpoints; last response was HTTP ${lastFailure?.status || 'unknown'}${suffix}`);
+        }
+        setStatus(`Google accepted a root endpoint. Starting the ${location.label} renderer…`);
+
+        const tiles = new deck.Tile3DLayer({
+          id: `google-photorealistic-${Date.now()}`,
+          data: rootUrl,
+          loadOptions: { fetch: { headers: { 'X-GOOG-API-KEY': key } } },
+          pickable: true,
+          operation: 'terrain+draw',
+          onTilesetLoad: tileset3d => {
+            setStatus(`Root tileset parsed. Streaming ${location.label} geometry…`);
+            tileset3d.options.onTraversalComplete = selectedTiles => {
+              const attributions = new Set();
+              selectedTiles.forEach(tile => {
+                const copyright = tile?.content?.gltf?.asset?.copyright;
+                if (copyright) copyright.split(';').forEach(value => attributions.add(value.trim()));
+              });
+              credits.textContent = [...attributions].filter(Boolean).join('; ');
+              return selectedTiles;
+            };
+          },
+          onTileLoad: () => {
+            clearTimeout(watchdog);
+            setStatus(`${location.label} 3D tiles are rendering. Drag to orbit; use the wheel to zoom.`, 'success');
+          },
+          onTileError: (tile, message, url) => {
+            console.error('Google 3D tile failed', { tile, message, url });
+            setStatus(`Google tile failed: ${message || 'request rejected'}. Check Map Tiles API, billing and authorized-site restrictions.`, 'error');
+          }
+        });
+
+        overlay = new deck.MapboxOverlay({ interleaved: false, layers: [tiles] });
+        map.addControl(overlay);
+        map.easeTo({ center: location.center, zoom: location.zoom, pitch: 68, bearing: location.bearing, duration: 700 });
+        watchdog = setTimeout(() => setStatus('No 3D tile finished after 20 seconds. The key reached the renderer, but Google is rejecting or not returning child tiles. Check Map Tiles API enablement, billing and authorized-site restrictions.', 'error'), 20000);
+      } catch (error) {
+        console.error(error);
+        const safeMessage = String(error.message || error).replace(/key=[^&\s]+/gi, 'key=[redacted]');
+        setStatus(`Renderer setup failed: ${safeMessage}`, 'error');
+      } finally {
+        loadButton.disabled = false;
+        document.getElementById('apiKey').value = '';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{
+  "aoi_id": "maharashtra-v1",
+  "name": "Maharashtra regional solar scouting extent",
+  "source": "State boundary should be supplied by an approved administrative-boundary dataset; bbox is used only for acquisition planning",
+  "exchange_crs": "EPSG:4326",
+  "working_crs": "EPSG:32643",
+  "planning_bbox_wgs84": {
+    "west": 72.6,
+    "south": 15.5,
+    "east": 80.9,
+    "north": 22.1
+  },
+  "datasets": {
+    "building_geometry": {
+      "source_id": "google-open-buildings-v3-maharashtra",
+      "provider": "Google Research - Open Buildings",
+      "citation_url": "https://sites.research.google/gr/open-buildings/",
+      "license": "CC BY 4.0",
+      "status": "planned_regional_download",
+      "strategy": "download intersecting S2 level-4 shards, filter by approved Maharashtra boundary, preserve source tile and record keys"
+    },
+    "building_height": {
+      "source_id": "google-open-buildings-temporal-v1-maharashtra",
+      "provider": "Google Research - Open Buildings",
+      "citation_url": "https://sites.research.google/gr/open-buildings/temporal/",
+      "status": "planned_regional_sampling",
+      "strategy": "sample official Temporal v1 height/presence rasters at candidate centroids and preserve missingness"
+    },
+    "terrain": {
+      "source_id": "copernicus-dem-glo30-maharashtra",
+      "provider": "Copernicus Programme, European Union",
+      "citation_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "status": "planned_regional_mosaic",
+      "strategy": "download intersecting GLO-30 COG tiles, mosaic/clip to the approved boundary, checksum every input and derivative"
+    },
+    "solar_resource": {
+      "source_id": "global-solar-atlas-maharashtra",
+      "provider": "World Bank ESMAP / Solargis",
+      "citation_url": "https://globalsolaratlas.info/download/india",
+      "status": "planned_restricted_export",
+      "strategy": "export only the Maharashtra boundary/tiles permitted by the account terms; record export date, resolution and license"
+    }
+  },
+  "limitations": [
+    "The planning bbox is not an administrative boundary and must not be used for scoring until an approved Maharashtra boundary is supplied.",
+    "Statewide Open Buildings and Copernicus downloads are large; acquisition must be staged and checksummed, not committed to Git.",
+    "Global Solar Atlas export access and terms must be verified before redistribution or automated serving."
+  ]
+}

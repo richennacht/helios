@@ -1,0 +1,7 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/google-3d-test", "destination": "/google-3d-test/index.html" }
+  ]
+}

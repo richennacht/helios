@@ -1,0 +1,6 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [{ "source": "/", "destination": "/apps/geolibre/experimental/kharghar-3d/index.html" }],
+  "headers": [{ "source": "/apps/geolibre/experimental/kharghar-3d/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=300" }] }]
+}

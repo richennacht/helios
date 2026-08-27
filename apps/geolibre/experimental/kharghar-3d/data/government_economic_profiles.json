@@ -1,0 +1,52 @@
+{
+  "schema_version": "helios.government-economic-profile.v1",
+  "currency": "INR",
+  "retrieved_on": "2026-08-27",
+  "profiles": [
+    {
+      "profile_id": "in-maharashtra-mnre-cea-2025-v1",
+      "country_code": "IN",
+      "state_code": "MH",
+      "state_name": "Maharashtra",
+      "coverage_bbox": [72.5, 15.6, 80.9, 22.1],
+      "coverage_note": "Coarse Maharashtra screening envelope. AOIs near a state border require an authoritative boundary check before investment use.",
+      "default_consumer_category": "LT-II Non-Residential / Commercial",
+      "capex": {
+        "label": "Grid-connected rooftop solar benchmark",
+        "source_agency": "Ministry of New and Renewable Energy (MNRE), Government of India",
+        "source_document": "Benchmark costs for Grid Connected Rooftop Solar Power Plants for the Year 2019-20",
+        "source_date": "2019-07-16",
+        "source_period": "FY 2019-20",
+        "source_url": "https://cdnbbsr.s3waas.gov.in/s3716e1b8c6cd17b771da77391355749f3/uploads/2022/12/2022122153.pdf",
+        "geographic_scope": "States other than MNRE special-category states",
+        "unit": "INR_per_Wp",
+        "confidence": 0.55,
+        "bands": [
+          {"min_kw_exclusive": 1, "max_kw_inclusive": 10, "value": 54},
+          {"min_kw_exclusive": 10, "max_kw_inclusive": 100, "value": 48},
+          {"min_kw_exclusive": 100, "max_kw_inclusive": 500, "value": 45}
+        ],
+        "inclusions": "Total system cost, installation, commissioning, transportation, insurance, five-year AMC/CMC, applicable fees and taxes.",
+        "caveat": "This is the latest grid-connected rooftop benchmark published on the MNRE benchmark-cost page, but it is historical and is not a vendor quote."
+      },
+      "energy_value": {
+        "label": "LT-II commercial energy charge plus wheeling charge",
+        "source_agency": "Central Electricity Authority (CEA), Government of India; compiled from MERC tariff orders",
+        "source_document": "Electricity Tariff & Duty and Average Rates of Electricity Supply in India",
+        "source_date": "2025-03-31",
+        "tariff_effective_from": "2024-04-01",
+        "source_url": "https://cea.nic.in/wp-content/uploads/fs___a/2026/03/Book_2025.pdf",
+        "consumer_category": "LT-II Non-Residential / Commercial",
+        "unit": "INR_per_kWh",
+        "confidence": 0.9,
+        "bands": [
+          {"min_kw_exclusive": 0, "max_kw_inclusive": 20, "value": 9.69},
+          {"min_kw_exclusive": 20, "max_kw_inclusive": 50, "value": 14.18},
+          {"min_kw_exclusive": 50, "max_kw_inclusive": null, "value": 16.55}
+        ],
+        "caveat": "PV capacity is used only as a screening proxy for the tariff load band. Confirm the actual sanctioned load, consumer category, demand charges, taxes and net-metering treatment with the DISCOM."
+      }
+    }
+  ]
+}
+
