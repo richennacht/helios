@@ -105,7 +105,10 @@
       Registered but not used in the current height score: Google Open Buildings Temporal (2016-2023) and DLR WSF3D area/fraction/volume morphology fields.<br>
       Context only, not merged into the height score: OpenStreetMap/OpenFreeMap, Sentinel-2 cloudless imagery, and Esri imagery.
       </div>
+      <label for="analysisApiUrl">Analysis API</label>
+      <input id="analysisApiUrl" type="url" value="http://127.0.0.1:8000/analysis-runs/multimodal" aria-label="Analysis API URL">
       <button id="runAnalysis">Run selected-region analysis</button>
+      <div id="analysisDataStatus" class="status">Data status: waiting for a selected region and API response.</div>
       <div class="legend">Click a result below to locate that building in 3D.</div>
       <div id="rankingList" class="legend">Select a region to enable rankings.</div>
     </section>
@@ -684,7 +687,7 @@
         }));
       } catch (error) { status.textContent = `Scenario cannot run: ${error.message}`; list.textContent = ''; }
     }
-    function runAnalysis() {
+    function renderLocalAnalysis() {
       if (!selectedAnalysis || !selectedAnalysis.features.length) {
         document.getElementById('rankingList').textContent = 'No buildings are fully inside the selected region.';
         return;
@@ -703,8 +706,39 @@
       map.setPaintProperty('usable-roofs-3d', 'fill-extrusion-color', scoreGradient);
       const ranking = rows.slice(0, 10).map((row, index) => `<button class="ranking-row" data-ranking-index="${index}">${index + 1}. ${row.feature.properties.osm_way_id || 'building'} · ${row.value.toFixed(1)} ${factor.unit} · ${Math.round(row.score * 100)}%</button>`).join('');
       const citations = (factor.sources || []).map(source => `<a href="${source[1]}" target="_blank" rel="noreferrer">${source[0]}</a>`).join('<br>');
+      document.getElementById('analysisDataStatus').textContent = 'Data status: local visual fallback only; this factor view is not the registered decision ranking.';
       document.getElementById('rankingList').innerHTML = `<strong>${factor.label}</strong>${factor.parameters ? `<br><small><b>Parameters:</b> ${factor.parameters}</small>` : ''}${factor.note ? `<br><small>${factor.note}</small>` : ''}${citations ? `<br><small><b>Evidence:</b><br>${citations}</small>` : ''}<br>${ranking || 'No candidates.'}`;
       document.querySelectorAll('.ranking-row').forEach(button => button.addEventListener('click', () => focusRankingBuilding(rows[Number(button.dataset.rankingIndex)]?.feature, button)));
+    }
+    function renderLiveRanking(bundle) {
+      const explanationById = Object.fromEntries((bundle.explanations || []).map(row => [row.candidate_id, row]));
+      const rows = (bundle.ranked_candidates || []).slice().sort((a, b) => (a.rank || 999) - (b.rank || 999));
+      document.getElementById('analysisDataStatus').textContent = `Data status: registered API output • assumption ${bundle.assumption_version} • inputs ${Object.entries(bundle.input_versions || {}).map(([key, value]) => `${key}: ${value}`).join(', ') || 'not supplied'}`;
+      document.getElementById('rankingList').innerHTML = rows.map(row => {
+        const explanation = explanationById[row.candidate_id] || {};
+        const reasons = (explanation.positive_reasons || []).join('; ') || 'No positive reason recorded.';
+        const cautions = (explanation.caution_reasons || []).join('; ') || 'No cautions recorded.';
+        const score = row.nominal_score == null ? 'n/a' : `${(row.nominal_score * 100).toFixed(1)}%`;
+        const contributions = Object.entries(row.component_contributions || {}).map(([name, value]) => `${name}: ${(Number(value) * 100).toFixed(1)}`).join(' · ') || 'Contribution trace not supplied.';
+        return `<article class="ranking-row live-result"><strong>#${row.rank || '—'} ${row.candidate_id}</strong> · ${row.decision_status}<br><small>score: ${score} · confidence: ${Math.round((row.overall_confidence || 0) * 100)}% · ${row.eligible ? 'eligible' : 'excluded'}</small><br><small><b>Weighted contribution trace:</b> ${contributions}<br><b>Why:</b> ${reasons}<br><b>Check:</b> ${cautions}</small></article>`;
+      }).join('') || 'The API returned no candidates for this AOI.';
+    }
+    async function runAnalysis() {
+      if (!selectionFeature) {
+        document.getElementById('rankingList').textContent = 'Select a region before running analysis.';
+        return;
+      }
+      const url = document.getElementById('analysisApiUrl').value.trim();
+      if (!url) { renderLocalAnalysis(); return; }
+      document.getElementById('analysisDataStatus').textContent = 'Data status: calling registered analysis API…';
+      try {
+        const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ aoi: selectionFeature.geometry }) });
+        if (!response.ok) throw new Error(`API returned ${response.status}`);
+        renderLiveRanking(await response.json());
+      } catch (error) {
+        document.getElementById('analysisDataStatus').textContent = `Data status: API unavailable (${error.message}). Showing the local factor fallback; it is not the decision ranking.`;
+        renderLocalAnalysis();
+      }
     }
     function focusRankingBuilding(feature, button) {
       if (!feature || !map.getSource('analysis-highlight')) return;
