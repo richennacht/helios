@@ -54,3 +54,5 @@ def test_viewer_exposes_discounted_cashflow_economic_ranking() -> None:
     assert "discountedNetCashflow" in viewer
     assert "profitabilityIndex" in viewer
     assert "degradationPct" in viewer
+    assert "data-economic-index" in viewer
+    assert "focusRankingBuilding(row.feature, button)" in viewer
