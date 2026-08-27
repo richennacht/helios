@@ -46,3 +46,11 @@ def test_mnre_and_cea_capacity_bands_are_explicit_and_ordered() -> None:
         minimums = [band["min_kw_exclusive"] for band in dataset["bands"]]
         assert minimums == sorted(minimums)
 
+
+def test_viewer_exposes_discounted_cashflow_economic_ranking() -> None:
+    viewer = PROFILE_PATH.parent.parent.joinpath("index.html").read_text(encoding="utf-8")
+
+    assert "Run economic ranking analysis" in viewer
+    assert "discountedNetCashflow" in viewer
+    assert "profitabilityIndex" in viewer
+    assert "degradationPct" in viewer
