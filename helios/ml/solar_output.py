@@ -181,3 +181,33 @@ def train_and_evaluate(
         test_rows=len(x_test),
         models=results,
     )
+
+
+def estimate_annual_pv_yield_with_geometry(
+    *,
+    horizontal_area_m2: float,
+    pitch_deg: float,
+    azimuth_deg: float,
+    irradiance_kwh_m2_year: float = 1701.2009,
+    module_density_kwp_m2: float = 0.20,
+    performance_ratio: float = 0.80,
+    usable_fraction: float = 0.70,
+) -> dict[str, float]:
+    """Run a labelled screening simulation using explicit roof-plane inputs."""
+    pitch = max(0.0, min(float(pitch_deg), 45.0))
+    azimuth = float(azimuth_deg) % 360
+    surface_area = horizontal_area_m2 / max(cos(pitch * pi / 180), 1e-6)
+    usable_area = surface_area * usable_fraction
+    azimuth_delta = abs(((azimuth - 180 + 180) % 360) - 180)
+    orientation_factor = 1.0 - 0.30 * (azimuth_delta / 180)
+    capacity_kwp = usable_area * module_density_kwp_m2
+    annual_yield = capacity_kwp * irradiance_kwh_m2_year * performance_ratio * orientation_factor
+    return {
+        "horizontal_area_m2": round(horizontal_area_m2, 2),
+        "surface_area_m2": round(surface_area, 2),
+        "usable_area_m2": round(usable_area, 2),
+        "estimated_capacity_kwp": round(capacity_kwp, 2),
+        "annual_yield_kwh": round(annual_yield, 2),
+        "orientation_factor": round(orientation_factor, 4),
+        "area_gain_pct": round((surface_area / max(horizontal_area_m2, 1e-6) - 1) * 100, 2),
+    }

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from apps.api.routes import health, runs
+from apps.api.routes import geometry, health, runs
 
 app = FastAPI(
     title="Helios API",
@@ -17,6 +17,7 @@ app.add_middleware(
 )
 app.include_router(health.router)
 app.include_router(runs.router)
+app.include_router(geometry.router)
 
 
 @app.get("/", tags=["meta"])
