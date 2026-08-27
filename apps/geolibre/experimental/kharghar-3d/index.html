@@ -49,8 +49,6 @@
     .maplibregl-popup-content { color: #0f172a; font-size: 12px; }
     details { margin-top: 10px; padding: 8px; border: 1px solid #334155; border-radius: 6px; background: #0f172a; }
     summary { color: #e2e8f0; font-size: 12px; font-weight: 600; cursor: pointer; }
-    .dataset-row { display: grid; grid-template-columns: 18px 1fr; gap: 6px; margin-top: 7px; color: #cbd5e1; font-size: 11px; line-height: 1.35; }
-    .dataset-row input { width: auto; margin: 2px 0 0; }
     .dataset-meta, .method-copy { color: #94a3b8; font-size: 10px; line-height: 1.45; }
     .method-copy code { color: #bae6fd; white-space: normal; }
     .method-copy a, .dataset-meta a { color: #7dd3fc; }
@@ -124,12 +122,6 @@
       <div id="economicsStatus" class="status">Select a region, then run the scenario.</div>
       <div id="economicsList" class="legend"></div>
     </section>
-    <details open>
-      <summary>Height datasets &amp; fusion</summary>
-      <div class="method-copy">Toggle evidence used only for this 3D visualization. Independent positive height observations are combined with an arithmetic mean; one observation is used unchanged; no observation leaves height unavailable.</div>
-      <div id="heightDatasetControls"></div>
-      <div id="heightDatasetStatus" class="dataset-meta"></div>
-    </details>
     <details>
       <summary>Irradiance calculation &amp; evidence</summary>
       <div id="irradianceMethod" class="method-copy"></div>
@@ -276,8 +268,8 @@
     };
     // Adding/removing a visualization source is intentionally declarative.
     const HEIGHT_DATASETS = [
-      { id: 'wsf3d-v02-height', match: ['WSF3D', 'wsf3d'], label: 'DLR WSF3D v02 height', enabled: true, role: 'height', detail: '90 m area-average raster sampled at footprint centroid' },
-      { id: 'overture-buildings-2026-07-22', match: ['overture'], label: 'Overture Buildings height', enabled: true, role: 'height', detail: 'published vector height where present' }
+      { id: 'wsf3d-v02-height', match: ['WSF3D', 'wsf3d'], label: 'DLR WSF3D v02 height', role: 'height', detail: '90 m area-average raster sampled at footprint centroid' },
+      { id: 'overture-buildings-2026-07-22', match: ['overture'], label: 'Overture Buildings height', role: 'height', detail: 'published vector height where present' }
     ];
     const BUILDING_DATASETS = [
       ['Google Open Buildings v3', 'footprint', 'active'],
@@ -311,8 +303,8 @@
     }
     function fusedHeightFeature(feature) {
       const observations = parseProperty(feature.properties.height_observations).filter(observation => Number(observation.height_m) > 0);
-      const enabled = observations.filter(observation => heightDatasetForObservation(observation)?.enabled);
-      const independent = [...new Map(enabled.map(observation => [observation.independence_group || observation.source_id, observation])).values()];
+      const registered = observations.filter(observation => heightDatasetForObservation(observation));
+      const independent = [...new Map(registered.map(observation => [observation.independence_group || observation.source_id, observation])).values()];
       const height = independent.length ? independent.reduce((sum, observation) => sum + Number(observation.height_m), 0) / independent.length : null;
       const mode = independent.length > 1 ? `average of ${independent.length} independent datasets` : independent.length === 1 ? 'single dataset' : 'unavailable';
       return { ...feature, properties: { ...feature.properties, height_m: height, height_quality: mode, height_dataset_mode: mode, height_observation_sources: independent.map(o => o.source_id), active_height_observations: independent } };
@@ -726,21 +718,8 @@
       new maplibregl.Popup().setLngLat(center).setHTML(buildingPopup(p)).addTo(map);
     }
     function renderDataPanels() {
-      const controls = document.getElementById('heightDatasetControls');
-      controls.innerHTML = HEIGHT_DATASETS.map(dataset => `<label class="dataset-row"><input type="checkbox" data-height-dataset="${dataset.id}" ${dataset.enabled ? 'checked' : ''}><span><strong>${dataset.label}</strong><br><span class="dataset-meta">${dataset.detail}</span></span></label>`).join('');
-      controls.querySelectorAll('[data-height-dataset]').forEach(input => input.addEventListener('change', () => {
-        const dataset = HEIGHT_DATASETS.find(item => item.id === input.dataset.heightDataset);
-        dataset.enabled = input.checked;
-        apply3DSelection(selectionFeature);
-        renderHeightDatasetStatus();
-      }));
-      renderHeightDatasetStatus();
       document.getElementById('irradianceMethod').innerHTML = `<strong>Observed resource</strong><br>NASA POWER point (${SOLAR_RESOURCE.latitude}, ${SOLAR_RESOURCE.longitude}), ${SOLAR_RESOURCE.year}, ${SOLAR_RESOURCE.days} daily LST records.<br><code>Annual GHI = Σ daily ALLSKY_SFC_SW_DWN = ${SOLAR_RESOURCE.annualGhiKwhM2.toFixed(1)} kWh/m²</code><br>Diffuse component: ${SOLAR_RESOURCE.annualDiffuseKwhM2.toFixed(1)} kWh/m². Weather context: ${SOLAR_RESOURCE.meanTempC.toFixed(1)}°C, ${SOLAR_RESOURCE.meanWindMs.toFixed(2)} m/s wind, ${SOLAR_RESOURCE.meanRhPct.toFixed(1)}% RH, ${SOLAR_RESOURCE.annualPrecipMm.toFixed(1)} mm precipitation, ${SOLAR_RESOURCE.meanPressureKpa.toFixed(2)} kPa pressure.<br><br><strong>PV screening equation</strong><br><code>E = Aᵤ × 0.20 kWp/m² × GHI × 0.80 PR</code><br>Roof-specific POA, azimuth, tilt, near-field shading, temperature loss, module, and inverter parameters are not yet available per footprint, so this is explicitly a screening estimate.<br><br><strong>Primary methods</strong><br><a href="${SOLAR_RESOURCE.apiUrl}" target="_blank" rel="noreferrer">Open exact NASA POWER request</a><br><a href="https://power.larc.nasa.gov/docs/services/api/" target="_blank" rel="noreferrer">NASA POWER API documentation</a><br><a href="https://www.nrel.gov/docs/fy14osti/60272.pdf" target="_blank" rel="noreferrer">NREL PVWatts technical reference</a><br><a href="https://energy.sandia.gov/wp-content/gallery/uploads/SAND-2004_PV-Performance-Array-Model.pdf" target="_blank" rel="noreferrer">Sandia PV Array Performance Model</a><br><a href="https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.temperature.sapm_cell.html" target="_blank" rel="noreferrer">pvlib equations and parameters</a>`;
       document.getElementById('buildingDatasetCatalogue').innerHTML = BUILDING_DATASETS.map(dataset => `<div style="margin-top:6px"><strong>${dataset[0]}</strong><br>${dataset[1]} · ${dataset[2]}</div>`).join('');
-    }
-    function renderHeightDatasetStatus() {
-      const enabled = HEIGHT_DATASETS.filter(dataset => dataset.enabled);
-      document.getElementById('heightDatasetStatus').innerHTML = `<br><strong>${enabled.length} of ${HEIGHT_DATASETS.length} height sources enabled</strong><br>${enabled.map(dataset => dataset.label).join('<br>') || 'No height source enabled; extrusions are flat.'}<br><br>To add another source in code, add one entry to <code>HEIGHT_DATASETS</code> and provide matching observations in <code>height_observations</code>.`;
     }
     function pointInRing(point, ring) {
       for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
