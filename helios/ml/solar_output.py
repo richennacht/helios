@@ -181,3 +181,63 @@ def train_and_evaluate(
         test_rows=len(x_test),
         models=results,
     )
+
+
+def estimate_annual_pv_yield_with_geometry(
+    horizontal_area_m2: float,
+    pitch_deg: float = 0.0,
+    azimuth_deg: float = 180.0,
+    irradiance_kwh_m2_year: float = 1850.0,
+    module_efficiency: float = 0.19,
+    performance_ratio: float = 0.80,
+    usable_fraction: float = 0.70,
+    latitude_deg: float = 19.04,
+) -> dict[str, float]:
+    """Calculate annual solar yield accounting for true 3D roof plane geometry and tilt orientation.
+
+    Args:
+        horizontal_area_m2: 2D footprint area in square meters.
+        pitch_deg: Rooftop pitch/slope angle theta in degrees (0 to 45 deg).
+        azimuth_deg: Compass bearing phi in degrees (0 = North, 90 = East, 180 = South, 270 = West).
+        irradiance_kwh_m2_year: Global horizontal annual irradiance (Kharghar baseline ~1800-1900 kWh/m2/yr).
+        module_efficiency: PV panel conversion efficiency (standard monocrystalline ~19%).
+        performance_ratio: System derate / performance ratio (~0.80).
+        usable_fraction: Usable rooftop fraction (~0.70).
+        latitude_deg: Location latitude (Kharghar ~19.04 deg N).
+
+    Returns:
+        Dictionary containing 3D surface area, yield kWh, capacity kWp, and tilt factor.
+    """
+    pitch_clamped = max(0.0, min(float(pitch_deg), 45.0))
+    pitch_rad = pitch_clamped * pi / 180.0
+    cos_theta = max(1e-4, cos(pitch_rad))
+
+    surface_area_m2 = horizontal_area_m2 / cos_theta
+    usable_area_m2 = surface_area_m2 * usable_fraction
+
+    # Solar tilt radiation factor based on Kharghar optimal tilt (~15-20° South)
+    optimal_tilt = max(10.0, min(25.0, latitude_deg))
+    tilt_deviation = abs(pitch_clamped - optimal_tilt)
+    azimuth_deviation = abs(((azimuth_deg - 180.0 + 180.0) % 360.0) - 180.0)
+
+    # Orientation factor: south facing (180°) is 1.0, east/west (~90°/270°) is ~0.85, north (0°) is ~0.70
+    azimuth_factor = 1.0 - 0.30 * (azimuth_deviation / 180.0) ** 1.5
+    # Tilt factor: optimal tilt gives ~5% boost over flat, excessive tilt reduces slightly
+    tilt_gain = 0.05 * cos(tilt_deviation * pi / 90.0)
+    tilt_multiplier = max(0.65, min(1.10, (1.0 + tilt_gain) * azimuth_factor))
+
+    # Standard PV generation formula: Area * GHI * Eff * PR * TiltMultiplier
+    annual_yield_kwh = usable_area_m2 * irradiance_kwh_m2_year * module_efficiency * performance_ratio * tilt_multiplier
+    estimated_capacity_kwp = usable_area_m2 * 0.15  # ~150 Wp per m2
+
+    return {
+        "horizontal_area_m2": round(horizontal_area_m2, 2),
+        "surface_area_m2": round(surface_area_m2, 2),
+        "usable_area_m2": round(usable_area_m2, 2),
+        "pitch_deg": round(pitch_clamped, 2),
+        "azimuth_deg": round(azimuth_deg, 2),
+        "tilt_multiplier": round(tilt_multiplier, 4),
+        "annual_yield_kwh": round(annual_yield_kwh, 2),
+        "estimated_capacity_kwp": round(estimated_capacity_kwp, 2),
+        "area_gain_pct": round(((surface_area_m2 / (horizontal_area_m2 or 1e-4)) - 1.0) * 100.0, 2),
+    }

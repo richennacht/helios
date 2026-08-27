@@ -65,6 +65,22 @@ class ScoreInputs(BaseModel):
     confidence: float = Field(ge=0, le=1)
 
 
+class RoofType(StrEnum):
+    FLAT = "flat"
+    GABLE = "gable"
+    HIP = "hip"
+    SINGLE_SLANT = "single-slant"
+
+
+class RoofGeometryPrediction(BaseModel):
+    pitch_deg: float = Field(ge=0, le=90)
+    azimuth_deg: float = Field(ge=0, le=360)
+    surface_area_sqm: float = Field(ge=0)
+    roof_type: RoofType | str
+    horizontal_area_sqm: float = Field(ge=0)
+    confidence: float = Field(ge=0, le=1)
+
+
 class CandidateMetrics(BaseModel):
     annual_yield_kwh: float = Field(ge=0)
     usable_area_m2: float = Field(ge=0)
@@ -73,6 +89,11 @@ class CandidateMetrics(BaseModel):
     estimated_cost_inr: float | None = Field(default=None, ge=0)
     estimated_rent_inr_month: float | None = Field(default=None, ge=0)
     provenance_ids: list[str] = Field(default_factory=list)
+    pitch_deg: float | None = Field(default=None, ge=0, le=90)
+    azimuth_deg: float | None = Field(default=None, ge=0, le=360)
+    surface_area_m2: float | None = Field(default=None, ge=0)
+    roof_type: str | None = None
+    tilt_multiplier: float | None = Field(default=None, ge=0)
 
 
 class CandidateInput(BaseModel):

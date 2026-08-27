@@ -1,14 +1,15 @@
 from fastapi import FastAPI
 
-from apps.api.routes import health, runs
+from apps.api.routes import geometry, health, runs
 
 app = FastAPI(
     title="Helios API",
     version="0.1.0",
-    description="Explainable regional solar-site scouting and ranking.",
+    description="Explainable regional solar-site scouting, roof geometry, and ranking.",
 )
 app.include_router(health.router)
 app.include_router(runs.router)
+app.include_router(geometry.router)
 
 
 @app.get("/", tags=["meta"])
