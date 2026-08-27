@@ -94,6 +94,7 @@
     <div class="tools" role="tablist" aria-label="Candidate analysis sections">
       <button id="rankingTab" role="tab" aria-selected="true">Ranking</button>
       <button id="economicsTab" role="tab" aria-selected="false">Economic feasibility</button>
+      <button id="layoutTab" role="tab" aria-selected="false">Panel layout</button>
     </div>
     <section id="rankingTabPanel" role="tabpanel">
       <label for="factorSelect">Rank buildings by</label>
@@ -125,6 +126,13 @@
       <div id="economicsStatus" class="status">Select a region, then run the scenario.</div>
       <div id="economicsList" class="legend"></div>
     </section>
+    <section id="layoutTabPanel" role="tabpanel" hidden>
+      <p class="legend"><strong>Screening layout only.</strong> Uses the current selected building footprints, a 1.0 m edge setback, 0.8 m maintenance aisles, and 15% reserved space. No obstacle or roof-specific shade layer is currently available, so solar-access compliance is not claimed.</p>
+      <button id="runPanelLayout">Generate panel layout</button>
+      <button id="clearPanelLayout">Clear panels</button>
+      <div id="panelLayoutStatus" class="status">Select a region to generate a screening layout.</div>
+      <div id="panelLayoutSummary" class="legend"></div>
+    </section>
     <details>
       <summary>Irradiance calculation &amp; evidence</summary>
       <div id="irradianceMethod" class="method-copy"></div>
@@ -151,6 +159,7 @@
   </div>
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
   <script src="https://unpkg.com/deck.gl@9.1.14/dist.min.js"></script>
+  <script src="./pv_optimizer.js"></script>
   <script>
     // MapLibre remains the viewer. deck.gl is only the bridge that renders a
     // Cesium ion 3D Tiles asset in the synchronized MapLibre camera.
@@ -629,10 +638,60 @@
     }
     function setAnalysisTab(tab) {
       const economics = tab === 'economics';
-      document.getElementById('rankingTabPanel').hidden = economics;
+      const layout = tab === 'layout';
+      document.getElementById('rankingTabPanel').hidden = economics || layout;
       document.getElementById('economicsTabPanel').hidden = !economics;
-      document.getElementById('rankingTab').setAttribute('aria-selected', String(!economics));
+      document.getElementById('layoutTabPanel').hidden = !layout;
+      document.getElementById('rankingTab').setAttribute('aria-selected', String(!economics && !layout));
       document.getElementById('economicsTab').setAttribute('aria-selected', String(economics));
+      document.getElementById('layoutTab').setAttribute('aria-selected', String(layout));
+    }
+    function clearPanelLayout() {
+      const source = map.getSource('screening-pv-panels');
+      if (source) source.setData({ type: 'FeatureCollection', features: [] });
+      document.getElementById('panelLayoutStatus').textContent = 'Panel layout cleared.';
+      document.getElementById('panelLayoutSummary').textContent = '';
+    }
+    function ensurePanelLayoutLayer() {
+      if (!map.getSource('screening-pv-panels')) {
+        map.addSource('screening-pv-panels', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+        map.addLayer({
+          id: 'screening-pv-panels', source: 'screening-pv-panels', type: 'fill-extrusion',
+          paint: {
+            'fill-extrusion-color': '#2563eb',
+            'fill-extrusion-height': ['get', 'panel_elev_top'],
+            'fill-extrusion-base': ['get', 'panel_elev_base'],
+            'fill-extrusion-opacity': 0.94
+          }
+        });
+      }
+    }
+    function runPanelLayout() {
+      const status = document.getElementById('panelLayoutStatus');
+      const summary = document.getElementById('panelLayoutSummary');
+      if (!selectedAnalysis?.features.length) {
+        status.textContent = 'No selected-region buildings are available. Draw an AOI first.';
+        summary.textContent = '';
+        return;
+      }
+      try {
+        const capex = Number(document.getElementById('capexPerKwp').value);
+        const tariff = Number(document.getElementById('energyValuePerKwh').value);
+        const result = HeliosPVOptimizer.optimizeAoiLayout(selectedAnalysis.features, {
+          annualGhiKwhM2: SOLAR_RESOURCE.annualGhiKwhM2,
+          capexPerKwpInr: capex > 0 ? capex : null,
+          tariffPerKwhInr: tariff > 0 ? tariff : null
+        });
+        ensurePanelLayoutLayer();
+        map.getSource('screening-pv-panels').setData(result.panelFeatureCollection);
+        status.dataset.state = 'ready';
+        status.textContent = `${result.totalPanels.toLocaleString('en-IN')} modules placed across ${result.buildingResults.length} selected buildings.`;
+        summary.innerHTML = `${result.totalCapacityKwp.toFixed(1)} kWp screening capacity · ${Math.round(result.totalYieldKwh).toLocaleString('en-IN')} kWh/year using registered regional GHI.<br>Solar access remains unverified because no roof-specific shade raster is present; obstacles are not represented in the current candidate data.`;
+      } catch (error) {
+        status.dataset.state = 'error';
+        status.textContent = `Panel layout could not run: ${error.message}`;
+        summary.textContent = '';
+      }
     }
     function runEconomics() {
       const status = document.getElementById('economicsStatus');
@@ -863,7 +922,10 @@
     document.getElementById('factorSelect').addEventListener('change', runAnalysis);
     document.getElementById('rankingTab').addEventListener('click', () => setAnalysisTab('ranking'));
     document.getElementById('economicsTab').addEventListener('click', () => setAnalysisTab('economics'));
+    document.getElementById('layoutTab').addEventListener('click', () => setAnalysisTab('layout'));
     document.getElementById('runEconomics').addEventListener('click', runEconomics);
+    document.getElementById('runPanelLayout').addEventListener('click', runPanelLayout);
+    document.getElementById('clearPanelLayout').addEventListener('click', clearPanelLayout);
     document.getElementById('rankingList').addEventListener('click', event => { const button = event.target.closest('.ranking-row'); if (button) button.focus(); });
     const analysisPanel = document.getElementById('analysisPanel');
     const hideAnalysis = document.getElementById('hideAnalysis');
