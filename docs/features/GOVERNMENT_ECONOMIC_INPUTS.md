@@ -28,6 +28,10 @@ band match; otherwise the applicable government band is selected per building. R
 are ranked by profitability index, with NPV as the tie-breaker, so large roofs do not rank
 first merely because their total project value is larger.
 
+Each ranked result is also a map action. Selecting it switches to the existing 3D viewer,
+highlights the corresponding footprint, flies the camera to the building and opens its
+height/provenance popup.
+
 Add another profile only after recording its official source document, source date,
 currency, geographic coverage, capacity bands, confidence and caveats in
 `government_economic_profiles.json`.
