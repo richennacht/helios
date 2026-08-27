@@ -19,7 +19,15 @@ The first profile covers Maharashtra:
 Unsupported AOIs remain unavailable rather than silently receiving Maharashtra values.
 Candidates outside a source's published capacity bands are excluded and counted rather
 than extrapolated or allowed to stop the other candidates from calculating.
+
+The economic analysis runs a discounted annual cash-flow simulation for every supported
+building. Total CAPEX, annual generation, annual value and absolute O&M differ by building.
+The O&M rate, degradation rate, project life and WACC are shared portfolio assumptions.
+The tariff rate is shared only where the registered consumer category and capacity/load
+band match; otherwise the applicable government band is selected per building. Results
+are ranked by profitability index, with NPV as the tie-breaker, so large roofs do not rank
+first merely because their total project value is larger.
+
 Add another profile only after recording its official source document, source date,
 currency, geographic coverage, capacity bands, confidence and caveats in
 `government_economic_profiles.json`.
-
