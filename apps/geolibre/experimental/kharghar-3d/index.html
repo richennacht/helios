@@ -94,6 +94,13 @@
     <p>Choose a factor to compare buildings in the selected region. Irradiance is measured gridded NASA POWER data; it is regional horizontal resource, not a roof-specific POA estimate.</p>
     <label for="factorSelect">Rank buildings by</label>
     <select id="factorSelect"><option value="height">Building height</option><option value="usable_area">Usable rooftop area</option><option value="irradiance">Irradiance</option><option value="yield">Annual solar yield</option></select>
+    <div class="legend" id="heightRankingSources">
+      <strong>Height ranking data sources (static)</strong><br>
+      Merged candidate footprints: Google Open Buildings v3; Microsoft Global ML Building Footprints (2026-08-13); Overture Maps Buildings (2026-07-22).<br>
+      Height values used in the fused layer: Overture published building height where present; DLR WSF3D v02 90 m area-average raster sampled at the footprint centroid.<br>
+      Registered but not used in the current height score: Google Open Buildings Temporal (2016-2023) and DLR WSF3D area/fraction/volume morphology fields.<br>
+      Context only, not merged into the height score: OpenStreetMap/OpenFreeMap, Sentinel-2 cloudless imagery, and Esri imagery.
+    </div>
     <button id="runAnalysis">Run selected-region analysis</button>
     <div class="legend">Click a result below to locate that building in 3D.</div>
     <div id="rankingList" class="legend">Select a region to enable rankings.</div>
