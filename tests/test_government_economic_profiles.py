@@ -53,6 +53,10 @@ def test_viewer_exposes_discounted_cashflow_economic_ranking() -> None:
     assert "Run economic ranking analysis" in viewer
     assert "discountedNetCashflow" in viewer
     assert "profitabilityIndex" in viewer
+    assert "feasibilityIndex" in viewer
+    assert "0.45 * profitabilityScore + 0.35 * npvScore + 0.20 * paybackScore" in viewer
     assert "degradationPct" in viewer
     assert "data-economic-index" in viewer
     assert "focusRankingBuilding(row.feature, button)" in viewer
+    assert "NREL techno-economic analysis" in viewer
+    assert "IEA PVPS" in viewer

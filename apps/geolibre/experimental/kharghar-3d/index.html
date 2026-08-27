@@ -112,6 +112,10 @@
       <div id="analysisDataStatus" class="status">Data status: waiting for a selected region and API response.</div>
       <div class="legend">Click a result below to locate that building in 3D.</div>
       <div id="rankingList" class="legend">Select a region to enable rankings.</div>
+      <details>
+        <summary>Ranking methodology &amp; research</summary>
+        <div class="method-copy"><strong>Height:</strong> fused Overture vector heights and DLR WSF3D observations. <strong>Usable area:</strong> footprint area × 70% screening allowance. <strong>Irradiance:</strong> NASA POWER 2025 horizontal resource. <strong>Yield:</strong> usable area × 0.20 kWp/m² × GHI × 0.80 performance ratio.<br><br><a href="https://power.larc.nasa.gov/docs/services/api/" target="_blank" rel="noreferrer">NASA POWER methodology</a><br><a href="https://www.nrel.gov/docs/fy14osti/60272.pdf" target="_blank" rel="noreferrer">NREL PVWatts technical reference</a><br><a href="https://www.osti.gov/servlets/purl/919131" target="_blank" rel="noreferrer">Sandia Photovoltaic Array Performance Model (SAND2004-3535)</a><br><br>These are screening equations. Roof-specific tilt, azimuth, obstacles and near-field shading remain unavailable unless supplied by a verified analysis response.</div>
+      </details>
     </section>
     <section id="economicsTabPanel" role="tabpanel" hidden>
       <p class="legend"><strong>Screening scenario only.</strong> CAPEX and energy value are selected automatically from registered government evidence for the AOI. They are not a tariff quote, financing offer, or final economics score.</p>
@@ -125,6 +129,10 @@
       <button id="runEconomics" disabled>Run economic ranking analysis</button>
       <div id="economicsStatus" class="status">Select a region, then run the scenario.</div>
       <div id="economicsList" class="legend"></div>
+      <details open>
+        <summary>Economic index definition &amp; research</summary>
+        <div class="method-copy"><code>Index = 100 × (0.45 × normalized profitability ratio + 0.35 × normalized NPV + 0.20 × normalized inverse payback)</code><br>Normalization is relative to buildings in the selected AOI; a tied metric receives a neutral 0.5. The underlying outputs—CAPEX, tariff value, NPV, LCOE and payback—remain visible. Government CAPEX and tariff bands are loaded from the registered MNRE and CEA/MERC profile.<br><br><a href="https://www.nrel.gov/docs/fy23osti/84352.pdf" target="_blank" rel="noreferrer">NREL techno-economic analysis: lifecycle cost and NPV</a><br><a href="https://iea-pvps.org/key-topics/uncertainties-yield-assessments/" target="_blank" rel="noreferrer">IEA PVPS: yield uncertainty, CAPEX, OPEX, discount rate, LCOE and NPV</a><br><a href="https://atb.nrel.gov/electricity/2024/residential_pv" target="_blank" rel="noreferrer">NREL Annual Technology Baseline: rooftop PV CAPEX and O&amp;M methodology</a></div>
+      </details>
     </section>
     <section id="layoutTabPanel" role="tabpanel" hidden>
       <p class="legend"><strong>Screening layout only.</strong> Uses the current selected building footprints, a 1.0 m edge setback, 0.8 m maintenance aisles, and 15% reserved space. No obstacle or roof-specific shade layer is currently available, so solar-access compliance is not claimed.</p>
@@ -733,11 +741,28 @@
           const profitabilityIndex = capex > 0 ? discountedNetCashflow / capex : 0;
           const lcoe = discountedGeneration > 0 ? (capex + discountedOpex) / discountedGeneration : null;
           return [{ id: feature.properties.osm_way_id || feature.properties.building_id || 'building', feature, capacityKwp, capexPerKwp, energyValue, annualEnergyKwh, capex, annualOpex, annualValue, grossPayback, netPayback, lcoe, npv, profitabilityIndex }];
-        }).sort((a, b) => b.profitabilityIndex - a.profitabilityIndex || b.npv - a.npv);
+        });
         if (!rows.length) throw new Error('No candidate falls inside the registered government capacity bands.');
+        const normalized = (value, values, higherIsBetter = true) => {
+          const minimum = Math.min(...values), maximum = Math.max(...values);
+          if (maximum === minimum) return 0.5;
+          const score = (value - minimum) / (maximum - minimum);
+          return higherIsBetter ? score : 1 - score;
+        };
+        const profitabilityValues = rows.map(row => row.profitabilityIndex);
+        const npvValues = rows.map(row => row.npv);
+        const finitePaybacks = rows.map(row => row.netPayback).filter(Number.isFinite);
+        const paybackValues = finitePaybacks.length ? finitePaybacks : [life + 1];
+        rows.forEach(row => {
+          const profitabilityScore = normalized(row.profitabilityIndex, profitabilityValues);
+          const npvScore = normalized(row.npv, npvValues);
+          const paybackScore = Number.isFinite(row.netPayback) ? normalized(row.netPayback, paybackValues, false) : 0;
+          row.feasibilityIndex = 100 * (0.45 * profitabilityScore + 0.35 * npvScore + 0.20 * paybackScore);
+        });
+        rows.sort((a, b) => b.feasibilityIndex - a.feasibilityIndex || b.npv - a.npv);
         const exclusion = unsupportedCapacities.length ? ` ${unsupportedCapacities.length} candidate(s) outside the published capacity bands were excluded.` : '';
-        status.textContent = `Ranked by profitability index from a ${life}-year discounted cash-flow simulation, then NPV. Government capacity bands are applied per building; ${(opexRate * 100).toFixed(1)}% O&M, ${(degradationRate * 100).toFixed(1)}% degradation and ${(rate * 100).toFixed(1)}% WACC are shared assumptions.${exclusion} Rent, tax and debt are excluded.`;
-        list.innerHTML = rows.slice(0, 10).map((row, index) => `<button type="button" class="ranking-row" data-economic-index="${index}"><strong>#${index + 1} ${row.id}</strong> · profitability index ${row.profitabilityIndex.toFixed(2)}<br><small>${row.capacityKwp.toFixed(1)} kWp · ${Math.round(row.annualEnergyKwh).toLocaleString('en-IN')} kWh first year · CAPEX ₹${Math.round(row.capex).toLocaleString('en-IN')} · first-year value ₹${Math.round(row.annualValue).toLocaleString('en-IN')}<br>NPV ${row.npv >= 0 ? '' : '−'}₹${Math.abs(Math.round(row.npv)).toLocaleString('en-IN')} · LCOE ₹${row.lcoe.toFixed(2)}/kWh · net payback ${row.netPayback == null ? 'beyond project life' : row.netPayback.toFixed(1) + ' years'} · gross payback ${row.grossPayback.toFixed(1)} years<br><b>Open this building in 3D →</b></small></button>`).join('');
+        status.textContent = `Ranked by the defined relative AOI feasibility index: 45% profitability ratio, 35% NPV and 20% inverse net payback. Government capacity bands are applied per building; ${(opexRate * 100).toFixed(1)}% O&M, ${(degradationRate * 100).toFixed(1)}% degradation and ${(rate * 100).toFixed(1)}% WACC are shared assumptions.${exclusion} Rent, tax and debt are excluded.`;
+        list.innerHTML = rows.slice(0, 10).map((row, index) => `<button type="button" class="ranking-row" data-economic-index="${index}"><strong>#${index + 1} ${row.id}</strong> · feasibility ${row.feasibilityIndex.toFixed(1)}/100<br><small>Profitability ratio ${row.profitabilityIndex.toFixed(2)} · ${row.capacityKwp.toFixed(1)} kWp · ${Math.round(row.annualEnergyKwh).toLocaleString('en-IN')} kWh first year · CAPEX ₹${Math.round(row.capex).toLocaleString('en-IN')} · first-year value ₹${Math.round(row.annualValue).toLocaleString('en-IN')}<br>NPV ${row.npv >= 0 ? '' : '−'}₹${Math.abs(Math.round(row.npv)).toLocaleString('en-IN')} · LCOE ₹${row.lcoe.toFixed(2)}/kWh · net payback ${row.netPayback == null ? 'beyond project life' : row.netPayback.toFixed(1) + ' years'} · gross payback ${row.grossPayback.toFixed(1)} years<br><b>Open this building in 3D →</b></small></button>`).join('');
         list.querySelectorAll('[data-economic-index]').forEach(button => button.addEventListener('click', () => {
           const row = rows[Number(button.dataset.economicIndex)];
           if (!row?.feature) return;
